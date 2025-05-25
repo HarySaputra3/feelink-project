@@ -18,7 +18,7 @@ const LoginPage = () => {
       showToast(res.data.message || "Login successful!", "success");
       setTimeout(() => navigate("/dashboard"), 800); // short delay for toast
     } catch (err) {
-      console.error("[LOGIN ERROR]", err);
+      console.error("[LOGIN ERROR]", err.response?.data);
       showToast(err.response?.data?.message || "Login failed", "error");
     }
   };

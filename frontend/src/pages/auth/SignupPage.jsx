@@ -13,8 +13,8 @@ const SignupPage = () => {
       const res = await API.post("/register", { email, password });
       showToast(res.data.message || "Registered successfully!", "success");
     } catch (err) {
-      console.error("[REGISTER ERROR]", err);
-      showToast(err.response?.data?.message || "Register failed", "error");
+      console.error("[REGISTER ERROR]", err.response?.data);
+      showToast(err.response?.data.message || "Register failed", "error");
     }
   };
 
