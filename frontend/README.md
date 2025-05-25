@@ -8,8 +8,16 @@
 ### Installation
 
 ```
+# Navigate to the frontend folder
+cd frontend
+
 # Install dependencies
 npm install
+```
+
+### Run locally
+```
+npm run dev
 ```
 
 ### Built with
