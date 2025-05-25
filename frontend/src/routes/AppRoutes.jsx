@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import SidebarLayout from '../components/Layout/SidebarLayout'
+import ProtectedRoute from './ProtectedRoute';
 
 import LandingPage from '../pages/LandingPage'
 import LoginPage from '../pages/auth/LoginPage'
@@ -17,7 +18,11 @@ export default function AppRoutes() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
 
-      <Route element={<SidebarLayout />}>
+      <Route element={
+        <ProtectedRoute>
+          <SidebarLayout />
+        </ProtectedRoute>
+      }>
         <Route path="dashboard" element={<DashboardPage />} />
         <Route path="entry" element={<EntryPage />} />
         <Route path="history" element={<HistoryPage />} />
