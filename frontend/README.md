@@ -11,3 +11,8 @@
 # Install dependencies
 npm install
 ```
+
+### Built with
+- Vite
+- React
+- Tailwind CSS
