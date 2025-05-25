@@ -1,0 +1,41 @@
+# --- Backend ---
+backend/node_modules/
+backend/.env
+backend/coverage/
+backend/*.log
+
+# --- Frontend ---
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/*.local
+frontend/*.log
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/lerna-debug.log*
+frontend/logs/
+
+# --- Model ---
+model/__pycache__/
+model/*.py[cod]
+model/*.ipynb_checkpoints/
+model/*.pkl
+model/.env
+model/*.log
+
+# --- Editor/OS Files ---
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# --- Global Node Modules ---
+node_modules/
+*.log
