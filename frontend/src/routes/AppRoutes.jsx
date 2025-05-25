@@ -1,0 +1,30 @@
+import { Routes, Route, Navigate } from 'react-router-dom'
+import SidebarLayout from '../components/Layout/SidebarLayout'
+
+import LandingPage from '../pages/LandingPage'
+import LoginPage from '../pages/auth/LoginPage'
+import SignupPage from '../pages/auth/SignupPage'
+
+import DashboardPage from '../pages/app/DashboardPage'
+import EntryPage from '../pages/app/EntryPage'
+import HistoryPage from '../pages/app/HistoryPage'
+import SettingsPage from '../pages/app/SettingsPage'
+
+export default function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
+
+      <Route element={<SidebarLayout />}>
+        <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="entry" element={<EntryPage />} />
+        <Route path="history" element={<HistoryPage />} />
+        <Route path="settings" element={<SettingsPage />} />
+      </Route>
+
+      <Route path="*" element={<h1>404 Not Found</h1>} />
+    </Routes>
+  )
+}
