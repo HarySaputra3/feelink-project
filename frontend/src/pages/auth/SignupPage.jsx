@@ -50,7 +50,7 @@ const handleSignup = async () => {
 
   return (
     <main className="text-primary bg-neutral-50 h-screen grid place-content-center">
-      <div className="flex flex-col items-center md:justify-center gap-4 bg-secondary rounded-lg w-screen h-screen md:h-full px-6 py-6 md:max-w-[600px] md:pt-12 md:pb-24 md:px-24 shadow-lg">
+      <div className="flex flex-col items-center md:justify-center gap-4 bg-secondary rounded-xl w-screen h-screen md:h-full px-6 py-6 md:max-w-[600px] md:pt-12 md:pb-24 md:px-24 shadow-lg">
         <Link to="/">
           <img
             src={Logo}
@@ -68,28 +68,28 @@ const handleSignup = async () => {
           </p>
         </div>
         <input
-          className="border rounded-lg px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
+          className="border rounded px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
           type="text"
           placeholder="Your Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <input
-          className="border rounded-lg px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
+          className="border rounded px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
-          className="border rounded-lg px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
+          className="border rounded px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <input
-          className="border rounded-lg px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
+          className="border rounded px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
           type="password"
           placeholder="Confirm Password"
           value={confirmPassword}
@@ -97,7 +97,7 @@ const handleSignup = async () => {
         />
         <button
           onClick={handleSignup}
-          className="rounded-lg px-3 py-2 text-secondary bg-primary cursor-pointer w-full"
+          className="rounded px-3 py-2 text-secondary bg-primary cursor-pointer w-full"
         >
           Register
         </button>
