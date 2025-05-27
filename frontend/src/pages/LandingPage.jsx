@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../assets/feelink.svg'
 import Showcase from '../assets/dummy_showcase.mp4'
+import { AlignJustify, X } from 'lucide-react'
 
 const LandingPage = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -18,6 +19,7 @@ const LandingPage = () => {
 
   return (
     <div className={`bg-secondary text-primary min-h-screen flex flex-col relative ${menuOpen ? 'overflow-hidden' : ''}`}>
+      
       {/* Overlay when menu is open */}
       {menuOpen && (
         <div
@@ -43,33 +45,20 @@ const LandingPage = () => {
           <a href="#about" className="hover:underline">ABOUT US</a>
           <Link
             to="/login"
-            className="bg-primary text-secondary px-4 py-2 rounded hover:bg-primary/80 transition-colors duration-300"
+            className="bg-primary text-secondary px-4 py-2 rounded transition-colors duration-300"
           >
             Login
           </Link>
         </nav>
 
-        {/* Hamburger Icon */}
-        <button
-          className="md:hidden focus:outline-none"
-          onClick={() => setMenuOpen((v) => !v)}
-          aria-label="Toggle menu"
-        >
-          <svg
-            className="w-6 h-6 text-primary"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
+      {/* Hamburger / Close Icon */}
+      <button
+        className="md:hidden focus:outline-none"
+        onClick={() => setMenuOpen((v) => !v)}
+        aria-label="Toggle menu"
+      >
+        {menuOpen ? <X size={24} /> : <AlignJustify size={24} />}
+      </button>
       </header>
 
       {/* Mobile Menu */}
@@ -80,21 +69,21 @@ const LandingPage = () => {
         >
           <Link
             to="/"
-            className="block py-2 rounded hover:bg-primary/10 transition-colors duration-300 ease-in-out text-center mx-auto text-xl"
+            className="block py-2 rounded hover:bg-secondary-darker transition-colors duration-300 ease-in-out text-center mx-auto text-xl"
             onClick={() => setMenuOpen(false)}
           >
             HOME
           </Link>
           <a
             href="#how"
-            className="block py-2 rounded hover:bg-primary/10 transition-colors duration-300 ease-in-out text-center mx-auto text-xl"
+            className="block py-2 rounded hover:bg-secondary-darker transition-colors duration-300 ease-in-out text-center mx-auto text-xl"
             onClick={() => setMenuOpen(false)}
           >
             HOW IT WORKS
           </a>
           <a
             href="#about"
-            className="block py-2 rounded hover:bg-primary/10 transition-colors duration-300 ease-in-out text-center mx-auto text-xl"
+            className="block py-2 rounded hover:bg-secondary-darker transition-colors duration-300 ease-in-out text-center mx-auto text-xl"
             onClick={() => setMenuOpen(false)}
           >
             ABOUT US
@@ -177,10 +166,10 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="flex flex-col space-y-2 text-sm">
-            <a href="" className="hover:underline cursor-pointer">HOME</a>
+            <Link to="" className="hover:underline cursor-pointer">HOME</Link>
             <a href="#how" className="hover:underline cursor-pointer">HOW IT WORKS</a>
             <a href="#about" className="hover:underline cursor-pointer">ABOUT US</a>
-            <a href="" className="hover:underline cursor-pointer">TERMS OF SERVICE</a>
+            <Link to="" className="hover:underline cursor-pointer">TERMS OF SERVICE</Link>
           </div>
         </div>
       </footer>
