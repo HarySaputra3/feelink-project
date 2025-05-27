@@ -15,8 +15,16 @@ export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/login" element={
+        <ProtectedRoute redirectIfAuth={true}>
+          <LoginPage />
+        </ProtectedRoute>
+      } />
+      <Route path="/signup" element={
+        <ProtectedRoute redirectIfAuth={true}>
+          <SignupPage />
+        </ProtectedRoute>
+      } />
 
       <Route element={
         <ProtectedRoute>

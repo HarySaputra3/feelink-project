@@ -11,13 +11,30 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    // Basic validation
+    if (!email.trim()) {
+      showToast("Please enter your email.", "error");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      showToast("Please enter a valid email address.", "error");
+      return;
+    }
+    if (!password) {
+      showToast("Please enter your password.", "error");
+      return;
+    }
+
     try {
       const res = await API.post("/login", { email, password });
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
+        showToast(res.data.message || "Login successfully", "success");
+        setTimeout(() => navigate("/dashboard"));
+      } else {
+        showToast("No token received from server.", "error");
       }
-      showToast(res.data.message || "Login successful!", "success");
-      setTimeout(() => navigate("/dashboard"), 800);
     } catch (err) {
       console.error("[LOGIN ERROR]", err.response?.data);
       showToast(err.response?.data?.message || "Login failed", "error");
