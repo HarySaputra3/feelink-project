@@ -16,24 +16,29 @@ module.exports = [
       auth: false,
       tags: ["api", "auth"],
       description: "Register user",
+      notes: "Mendaftarkan pengguna baru",
       validate: {
         payload: Joi.object({
           email: Joi.string().email().required(),
           password: Joi.string().min(6).required(),
+          name: Joi.string().required(),
+          profilePicture: Joi.string().uri().optional(),
         }),
       },
     },
     handler: async (request, h) => {
-      const { email, password } = request.payload;
+      const { email, password, name, profilePicture } = request.payload;
       const existing = await prisma.user.findUnique({ where: { email } });
       if (existing) throw Boom.conflict("Email already registered");
 
       const hashed = await bcrypt.hash(password, 10);
       const user = await prisma.user.create({
-        data: { email, password: hashed },
+        data: { email, password: hashed, name, profilePicture },
       });
 
-      return h.response({ id: user.id, email: user.email }).code(201);
+      return h
+        .response({ id: user.id, email: user.email, name: user.name })
+        .code(201);
     },
   },
 
@@ -44,6 +49,7 @@ module.exports = [
       auth: false,
       tags: ["api", "auth"],
       description: "Login",
+      notes: "Login dan dapatkan token JWT",
       validate: {
         payload: Joi.object({
           email: Joi.string().email().required(),
@@ -55,14 +61,10 @@ module.exports = [
       const { email, password } = request.payload;
       const user = await prisma.user.findUnique({ where: { email } });
 
-      if (!user) {
-        throw Boom.unauthorized("Email not found");
-      }
+      if (!user) throw Boom.unauthorized("Email not found");
 
       const isValid = await bcrypt.compare(password, user.password);
-      if (!isValid) {
-        throw Boom.unauthorized("Incorrect password");
-      }
+      if (!isValid) throw Boom.unauthorized("Incorrect password");
 
       const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
         expiresIn: "4h",
@@ -71,10 +73,11 @@ module.exports = [
       return h
         .response({
           message: "Login successful",
-          token,
           user: {
             id: user.id,
             email: user.email,
+            name: user.name,
+            profilePicture: user.profilePicture,
           },
         })
         .header("Authorization", `Bearer ${token}`)

@@ -11,6 +11,7 @@ module.exports = [
       auth: "default",
       tags: ["api", "report"],
       description: "Report mood bulanan",
+      notes: "Melihat rekap emosi bulanan berdasarkan entri yang dikirim",
       validate: {
         params: Joi.object({
           month: Joi.number().min(1).max(12).required(),

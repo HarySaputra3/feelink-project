@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Mood" ALTER COLUMN "name" DROP NOT NULL;
