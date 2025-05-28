@@ -8,15 +8,17 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  password String
-  moods    Mood[]
+  id             Int     @id @default(autoincrement())
+  email          String  @unique
+  password       String
+  name           String
+  profilePicture String
+  moods          Mood[]
 }
 
 model Mood {
   id        Int      @id @default(autoincrement())
-  name      String
+  name      String?
   story     String
   emotions  Json
   createdAt DateTime @default(now())
