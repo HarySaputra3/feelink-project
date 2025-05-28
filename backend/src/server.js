@@ -18,7 +18,7 @@ const init = async () => {
     routes: { 
       cors: {
       origin: ["*"],
-      additionalExposedHeaders: ["Authorization" || "authorization"],
+      additionalExposedHeaders: ["Authorization"],
     }},
   });
 
