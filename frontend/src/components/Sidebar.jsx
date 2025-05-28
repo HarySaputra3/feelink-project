@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useToast } from "../context/ToastContext";
+import { useToast } from "../contexts/ToastContext";
 
 const Sidebar = () => {
   const navigate = useNavigate();

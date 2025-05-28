@@ -1,44 +1,23 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import API from "../../utils/api";
-import { useToast } from "../../context/ToastContext";
+import { useToast } from "../../contexts/ToastContext";
 import Logo from "../../assets/feelink.svg";
+import useAuth from "../../hooks/useAuth";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { showToast } = useToast();
   const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const handleLogin = async () => {
-    // Basic validation
-    if (!email.trim()) {
-      showToast("Please enter your email.", "error");
-      return;
-    }
+  const handleLogin = () => {
+    if (!email.trim()) return showToast("Please enter your email.", "error");
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      showToast("Please enter a valid email address.", "error");
-      return;
-    }
-    if (!password) {
-      showToast("Please enter your password.", "error");
-      return;
-    }
+    if (!emailRegex.test(email)) return showToast("Invalid email address.", "error");
+    if (!password) return showToast("Please enter your password.", "error");
 
-    try {
-      const res = await API.post("/login", { email, password });
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
-        showToast(res.data.message || "Login successfully", "success");
-        setTimeout(() => navigate("/dashboard"));
-      } else {
-        showToast("No token received from server.", "error");
-      }
-    } catch (err) {
-      console.error("[LOGIN ERROR]", err.response?.data);
-      showToast(err.response?.data?.message || "Login failed", "error");
-    }
+    login(email, password);
   };
 
   return (
