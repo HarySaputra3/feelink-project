@@ -12,9 +12,9 @@ const useAuth = () => {
     setIsLoading(true);
     try {
       const res = await API.post("/login", { email, password });
-      const authHeader = res.headers["authorization"] || res.headers["Authorization"];
-      if (authHeader && authHeader.startsWith("Bearer ")) {
-        const token = authHeader.substring(7);
+      const token = res.data.token;
+
+      if (token) {
         localStorage.setItem("token", token);
         showToast(res.data.message || "Login successful", "success");
         setTimeout(() => navigate("/dashboard"), 500);

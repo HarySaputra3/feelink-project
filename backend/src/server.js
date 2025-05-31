@@ -17,9 +17,9 @@ const init = async () => {
     host: "localhost",
     routes: { 
       cors: {
-      origin: ["*"],
-      additionalExposedHeaders: ["Authorization"],
-    }},
+        origin: ["*"],
+      }
+    },
   });
 
   server.auth.scheme("jwt", () => ({ authenticate: validate }));

@@ -73,6 +73,7 @@ module.exports = [
       return h
         .response({
           message: "Login successful",
+          token,
           user: {
             id: user.id,
             email: user.email,
