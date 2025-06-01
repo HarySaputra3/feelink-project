@@ -4,6 +4,7 @@ const { validate } = require("./utils/auth");
 const authRoutes = require("./routes/auth");
 const moodRoutes = require("./routes/mood");
 const reportRoutes = require("./routes/report");
+const passwordRoutes = require("./routes/password");
 
 // Swagger
 const Inert = require("@hapi/inert");
@@ -15,10 +16,11 @@ const init = async () => {
   const server = Hapi.server({
     port: 3000,
     host: "localhost",
-    routes: { 
+    routes: {
       cors: {
         origin: ["*"],
-      }
+        additionalExposedHeaders: ["Authorization"],
+      },
     },
   });
 
@@ -41,7 +43,12 @@ const init = async () => {
     },
   ]);
 
-  server.route([...authRoutes, ...moodRoutes, ...reportRoutes]);
+  server.route([
+    ...authRoutes,
+    ...moodRoutes,
+    ...reportRoutes,
+    ...passwordRoutes,
+  ]);
 
   await server.start();
   console.log(`🚀 Server running at: ${server.info.uri}`);
