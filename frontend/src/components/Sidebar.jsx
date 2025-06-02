@@ -9,7 +9,7 @@ import {
 
 const Sidebar = () => {
   return (
-    <nav className="w-64 bg-secondary text-primary font-medium border-r">
+    <nav className="w-64 bg-secondary text-primary font-medium border-r min-h-screen">
       <div id="logo" className="flex items-center gap-2 px-6 py-6 border-b">
         <img
           src={Logo}
