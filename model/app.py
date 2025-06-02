@@ -15,7 +15,7 @@ model_path = "./saved_model"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = TFAutoModelForSequenceClassification.from_pretrained(model_path)
 
-labels = ['anger', 'fear', 'joy', 'love', 'sadness', 'surprise']
+labels = ['Marah', 'Takut', 'Gembira', 'Cinta', 'Sedih', 'Kaget']
 
 
 @app.route("/analyze", methods=["POST"])
