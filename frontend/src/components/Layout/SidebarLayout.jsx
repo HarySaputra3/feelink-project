@@ -6,6 +6,7 @@ import {
   ArrowRightFromLine,
   AlignJustify
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function SidebarLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
@@ -31,52 +32,86 @@ export default function SidebarLayout() {
   }, [location.pathname, isMobile]);
 
   return (
-    <div className="flex min-h-screen relative">
-
+    <motion.div className="flex min-h-screen relative" layout>
+      
       {/* Overlay for mobile sidebar */}
-      {isMobile && sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black/40 z-40"
-          onClick={toggleSidebar}
-        />
-      )}
+      <AnimatePresence>
+        {isMobile && sidebarOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black/50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            onClick={toggleSidebar}
+            layout
+          />
+        )}
+      </AnimatePresence>
 
       {/* Sidebar */}
-      <div
-        id="sidebar"
-        className={
-          isMobile
-            ? `fixed top-0 left-0 z-50 ${sidebarOpen ? "" : "hidden"}`
-            : "absolute"
-        }
-      >
-        {sidebarOpen && <Sidebar />}
-      </div>
-      {sidebarOpen && !isMobile && (
-        <div className="min-w-64" />
-      )}
+      <AnimatePresence>
+        {sidebarOpen && (
+          <motion.div
+            id="sidebar"
+            key="sidebar"
+            className={
+              isMobile
+                ? `fixed top-0 left-0 `
+                : "absolute"
+            }
+            initial={{ x: -300, opacity: 1 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -300, opacity: 1 }}
+            transition={{ type: "ease", duration: 0.15 }}
+            layout
+          >
+            <Sidebar />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      <AnimatePresence>
+        {sidebarOpen && !isMobile && (
+          <motion.div
+            id="sidebar-placeholder"
+            key="sidebar-placeholder"
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: 256, opacity: 1 }} // 256px = w-64
+            exit={{ width: 0, opacity: 0 }}
+            transition={{ type: "ease", duration: 0.15 }}
+            className="shrink-0"
+          />
+        )}
+      </AnimatePresence>
 
       {/* Toggle buttons */}
-      <div id="toggle-sidebar-mobile">
+      <motion.div 
+        id="toggle-sidebar-mobile"
+        key="toggle-sidebar-mobile"
+      >
         <button
-          className="cursor-pointer fixed top-2 right-2 md:hidden z-50"
+          className="cursor-pointer fixed top-2 right-2 md:hidden "
           onClick={toggleSidebar}
         >
           <AlignJustify />
         </button>
-      </div>
-      <div id="toggle-sidebar-dekstop">
+      </motion.div>
+      <motion.div 
+        id="toggle-sidebar-dekstop"
+        key="toggle-sidebar-dekstop"
+      >
         <button
-          className="cursor-pointer fixed top-2 ml-2 hidden md:block z-50"
+          className="cursor-pointer fixed top-2 ml-2 hidden md:block "
           onClick={toggleSidebar}
         >
           {sidebarOpen ? <ArrowLeftToLine /> : <ArrowRightFromLine />}
         </button>
-      </div>
+      </motion.div>
 
       <main className="flex-1 mx-6 my-12 outline">
         <Outlet />
       </main>
-    </div>
+    </motion.div>
   );
 }

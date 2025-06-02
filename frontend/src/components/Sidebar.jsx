@@ -34,7 +34,7 @@ const Sidebar = () => {
           </Link>
         </ul>
       </div>
-      <div className="px-6 py-6 border-t">
+      <div id="user" className="px-6 py-6 border-t">
         <Link to="/profile" className="border-l-2 hover:border-transparent flex flex-row items-center cursor-pointer px-2">
           <User size={20}/>
           <div className="px-2 py-1">
