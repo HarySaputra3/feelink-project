@@ -11,11 +11,12 @@ app = Flask(__name__)
 CORS(app)  # biar bisa diakses dari backend Hapi di port lain
 
 # Load model & tokenizer
-model_path = "./saved_model1"
+model_path = "./saved_model"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = TFAutoModelForSequenceClassification.from_pretrained(model_path)
 
-labels = ['anger', 'fear', 'happy', 'joy', 'love', 'sadness', 'surprise']
+labels = ['anger', 'fear', 'joy', 'love', 'sadness', 'surprise']
+
 
 @app.route("/analyze", methods=["POST"])
 def analyze():
@@ -26,12 +27,14 @@ def analyze():
 
     return jsonify(emotions)
 
+
 def analyze_story(story):
-    #membersihkan teks
+    # membersihkan teks
     text = cleaningText(story)
-    
+
     # Tokenisasi input
-    inputs = tokenizer(text, return_tensors="tf", truncation=True, padding=True)
+    inputs = tokenizer(text, return_tensors="tf",
+                       truncation=True, padding=True)
 
     # Prediksi dari model
     outputs = model(inputs)
@@ -46,6 +49,7 @@ def analyze_story(story):
 
     return emotions
 
+
 def cleaningText(text):
     # Membersihkan tanda tanda sisa medsos
     text = re.sub(r'@[A-Za-z0-9]+', '', text)  # Menghapus Mention
@@ -54,18 +58,23 @@ def cleaningText(text):
     text = re.sub(r"http\S+", '', text)  # menghapus link
 
     # Pembersihan Karakter
-    text = text.translate(str.maketrans(string.punctuation, ' ' * len(string.punctuation))) # Mengganti tanda baca dengan spasi (alih-alih menghapus)
-    text = re.sub(r'\d+', '', text) # Menghapus angka
-    text = text.replace('\n', ' ') # Mengganti garis baru dengan spasi
+    # Mengganti tanda baca dengan spasi (alih-alih menghapus)
+    text = text.translate(str.maketrans(
+        string.punctuation, ' ' * len(string.punctuation)))
+    text = re.sub(r'\d+', '', text)  # Menghapus angka
+    text = text.replace('\n', ' ')  # Mengganti garis baru dengan spasi
 
     # Normalisasi
-    text = text.strip(' ') # Menghapus karakter spasi dari kiri dan kanan text
+    text = text.strip(' ')  # Menghapus karakter spasi dari kiri dan kanan text
     text = text.lower()  # mengubah semua karakter dalam text menjadi huruf kecil
-    text = re.sub(r'(.)\1+', r'\1\1', text) # Menghapus huruf berlebih di belakang
-    text = replace_word_elongation(text) # Menghapus text elongation (library indoNLP)
-    text = replace_slang(text) # Menghapus slangwords dari kamus IndoNLP
-    #text = remove_stopwords(text)  # menghapus kata yang tidak penting
-    text = re.sub(r'\s+', ' ', text) # Mengganti multiple spasi dengan satu spasi
+    # Menghapus huruf berlebih di belakang
+    text = re.sub(r'(.)\1+', r'\1\1', text)
+    # Menghapus text elongation (library indoNLP)
+    text = replace_word_elongation(text)
+    text = replace_slang(text)  # Menghapus slangwords dari kamus IndoNLP
+    # text = remove_stopwords(text)  # menghapus kata yang tidak penting
+    # Mengganti multiple spasi dengan satu spasi
+    text = re.sub(r'\s+', ' ', text)
     return text
 
 
