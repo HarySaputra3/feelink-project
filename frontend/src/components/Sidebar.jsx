@@ -1,39 +1,47 @@
-import { useNavigate } from "react-router-dom";
-import { useToast } from "../contexts/ToastContext";
+import { Link } from "react-router-dom";
+import Logo from '../assets/feelink.svg'
+import {
+  User,
+  LayoutDashboard,
+  NotebookPen,
+  History,
+} from "lucide-react";
 
 const Sidebar = () => {
-  const navigate = useNavigate();
-  const { showToast } = useToast();
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
-    showToast("Logged out successfully", "success");
-  };
-
   return (
-    <nav className="w-64 bg-gray-100 p-4">
-      <ul className="space-y-2">
-        <li>
-          <a href="/dashboard" className="block px-2 py-1 rounded hover:bg-gray-200">Dashboard</a>
-        </li>
-        <li>
-          <a href="/entry" className="block px-2 py-1 rounded hover:bg-gray-200">Entry</a>
-        </li>
-        <li>
-          <a href="/history" className="block px-2 py-1 rounded hover:bg-gray-200">History</a>
-        </li>
-        <li>
-          <a href="/settings" className="block px-2 py-1 rounded hover:bg-gray-200">Settings</a>
-        </li>
-      </ul>
-      <div className="mt-4">
-        <button
-          onClick={handleLogout}
-          className="block w-full px-2 py-1 text-red-600 hover:bg-red-100 rounded text-left"
-        >
-          Logout
-        </button>
+    <nav className="w-64 bg-secondary text-primary font-medium border-r">
+      <div id="logo" className="flex items-center gap-2 px-6 py-6 border-b">
+        <img
+          src={Logo}
+          alt="Feelink Logo"
+          className="w-10 h-10"
+        />
+        <h1 className="text-3xl">Feelink</h1>
+      </div>
+      <div id="menu" className="px-4 py-6">
+        <ul>
+          <Link to="/dashboard" className="flex flex-row items-center px-4 hover:bg-accent rounded cursor-pointer">
+            <LayoutDashboard size={20}/>
+            <span className="px-2 py-2">Dashboard</span>
+          </Link>
+          <Link to="/entry" className="flex flex-row items-center px-4 hover:bg-accent rounded cursor-pointer">
+            <NotebookPen size={20}/>
+            <span className="px-2 py-2">Entry</span>
+          </Link>
+          <Link to="/history" className="flex flex-row items-center px-4 hover:bg-accent rounded cursor-pointer">
+            <History size={20}/>
+            <span className="px-2 py-2">History</span>
+          </Link>
+        </ul>
+      </div>
+      <div className="px-6 py-6 border-t">
+        <Link to="/profile" className="border-l-2 hover:border-transparent flex flex-row items-center cursor-pointer px-2">
+          <User size={20}/>
+          <div className="px-2 py-1">
+            <span>your name</span>
+            <p className="text-xs text-gray-500">yourname@email.com</p>
+          </div>
+        </Link>
       </div>
     </nav>
   );

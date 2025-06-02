@@ -22,18 +22,17 @@ module.exports = [
           email: Joi.string().email().required(),
           password: Joi.string().min(6).required(),
           name: Joi.string().required(),
-          profilePicture: Joi.string().uri().optional(),
         }),
       },
     },
     handler: async (request, h) => {
-      const { email, password, name, profilePicture } = request.payload;
+      const { email, password, name } = request.payload;
       const existing = await prisma.user.findUnique({ where: { email } });
       if (existing) throw Boom.conflict("Email already registered");
 
       const hashed = await bcrypt.hash(password, 10);
       const user = await prisma.user.create({
-        data: { email, password: hashed, name, profilePicture },
+        data: { email, password: hashed, name },
       });
 
       return h
@@ -78,7 +77,6 @@ module.exports = [
             id: user.id,
             email: user.email,
             name: user.name,
-            profilePicture: user.profilePicture,
           },
         })
         .header("Authorization", `Bearer ${token}`)

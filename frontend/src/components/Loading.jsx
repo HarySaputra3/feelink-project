@@ -1,11 +1,13 @@
 import Logo from '../assets/feelink.svg';
 
-const Loading = () => (
-  <div className="fixed top-5 left-5 z-50">
-    <div className="w-12 h-12 border-6 border-transparent border-t-transparent rounded-full animate-spin">
-    <img src={Logo} alt="Loading"/>
+const Loading = () => {
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-12 h-12 border-6 border-transparent border-t-transparent rounded-full animate-spin">
+        <img src={Logo} alt="Loading" />
+      </div>
     </div>
-  </div>
-);
+  )
+}
 
 export default Loading;
