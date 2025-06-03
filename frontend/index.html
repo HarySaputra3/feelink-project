@@ -5,9 +5,54 @@
     <link rel="icon" type="image/svg+xml" href="/feelink.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Feelink</title>
+    <style>
+      .spinner {
+        z-index: 50;
+        width: 3rem;
+        height: 3rem;
+        border: 6px solid transparent; /* color or transparent for img spin */
+        border-top-color: transparent;
+        border-radius: 9999px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
+    <div id="global-loading" style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #E5FBFF;
+      z-index: 9999;
+    ">
+      <div class="spinner">
+        <img src="/feelink.svg" alt="Loading" style="width:100%; height:100%" />
+      </div>
+    </div>
+    <script>
+      // Remove the loading indicator once React takes over
+      window.addEventListener('DOMContentLoaded', function() {
+        var root = document.getElementById('root');
+        var loading = document.getElementById('global-loading');
+        if (root && loading) {
+          new MutationObserver(() => {
+            if (root.children.length > 0) {
+              loading.remove();
+            }
+          }).observe(root, { childList: true });
+        }
+      });
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

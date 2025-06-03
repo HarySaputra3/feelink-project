@@ -42,6 +42,15 @@ const LandingPage = () => {
     }),
   }
 
+  // Lazy-load video when in view
+  const videoRef = useRef(null)
+  const videoInView = useInView(videoRef, { once: true })
+  const [showVideo, setShowVideo] = useState(false)
+
+  useEffect(() => {
+    if (videoInView) setShowVideo(true)
+  }, [videoInView])
+
   useEffect(() => {
     document.body.classList.toggle('overflow-hidden', menuOpen)
     return () => document.body.classList.remove('overflow-hidden')
@@ -141,7 +150,7 @@ const LandingPage = () => {
         <div className="flex flex-col md:flex-row items-center justify-center max-w-6xl mx-auto space-y-8 md:space-y-0 md:space-x-12">
           <div className="w-full md:w-1/2">
             <ScrollFadeIn custom={2}>
-              <div className="bg-accent rounded-lg h-48 sm:h-64 w-full"></div>
+              <div className="bg-secondary-darker rounded-lg h-48 sm:h-64 w-full"></div>
             </ScrollFadeIn>
           </div>
           <div className="w-full md:w-1/2 space-y-4 text-center md:text-left">
@@ -174,15 +183,24 @@ const LandingPage = () => {
           </ScrollFadeIn>
         </div>
         <ScrollFadeIn custom={4}>
-          <div className="max-w-[900px] shadow-2xl rounded-lg overflow-hidden">
-            <video
-              src={Showcase}
-              className="w-full h-full object-cover rounded-lg"
-              autoPlay
-              loop
-              muted
-              playsInline
-            />
+          <div
+            className="max-w-[900px] shadow-2xl rounded-lg overflow-hidden"
+            ref={videoRef}
+          >
+            {showVideo ? (
+              <video
+                src={Showcase}
+                className="w-full h-full object-cover rounded-lg"
+                autoPlay
+                loop
+                muted
+                playsInline
+              />
+            ) : (
+              <div className="w-full h-[360px] bg-secondary-darker flex items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-secondary-darker" />
+              </div>
+            )}
           </div>
         </ScrollFadeIn>
       </section>
