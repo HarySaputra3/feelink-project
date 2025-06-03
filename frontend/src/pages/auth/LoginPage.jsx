@@ -40,9 +40,16 @@ const LoginPage = () => {
               </Link>
             </span>
           </div>
-          <div className="flex flex-col gap-4 w-full">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleLogin();
+            }}
+            className="flex flex-col gap-4 w-full"
+          >
             <input
               className="border border-primary rounded px-3 py-2 bg-neutral-50 text-primary placeholder-secondary-darker w-full"
+              autoFocus
               type="email"
               placeholder="Email"
               value={email}
@@ -56,12 +63,12 @@ const LoginPage = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <button
-              onClick={handleLogin}
+              type="submit"
               className="rounded px-3 py-2 text-secondary bg-primary cursor-pointer w-full"
             >
               Login
             </button>
-          </div>
+          </form>
           <Link to="#" className="text-red-500 hover:underline">
             Forgot password?
           </Link>
@@ -75,6 +82,7 @@ const LoginPage = () => {
           <div className="text-center">
             <p>Start your journey now</p>
             <button
+              type="submit"
               onClick={() => navigate("/signup")}
               className="rounded px-3 py-2 text-primary bg-secondary cursor-pointer w-full mt-4"
             >

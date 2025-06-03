@@ -42,7 +42,7 @@ export default function SidebarLayout() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0.1 }}
             onClick={toggleSidebar}
             layout
           />
@@ -57,7 +57,7 @@ export default function SidebarLayout() {
             key="sidebar"
             className={
               isMobile
-                ? `fixed top-0 left-0 `
+                ? `fixed top-0 left-0 h-full w-64`
                 : "absolute"
             }
             initial={{ x: -300, opacity: 1 }}

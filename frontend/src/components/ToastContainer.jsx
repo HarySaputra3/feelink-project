@@ -6,8 +6,8 @@ const ToastContainer = () => {
   const { toasts, removeToast } = useToast();
 
   return (
-    <div className="fixed top-5 w-full z-50 flex flex-col items-end">
-      <div className="flex flex-col gap-2 px-4 w-full md:w-auto">
+    <div className="fixed top-5 right-0 w-auto md:w-fit z-50 flex flex-col items-end max-w-full">
+      <div className="flex flex-col gap-2 px-4 w-auto md:w-auto">
         <AnimatePresence>
           {toasts.map((toast) => (
             <Toast

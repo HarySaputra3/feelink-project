@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/feelink.svg";
 import { useToast } from "../../contexts/ToastContext";
-import { useLoading } from "../../contexts/LoadingContext";
-import useAuth from "../../hooks/useAuth"; // Assuming your hook is here
+import useAuth from "../../hooks/useAuth";
 
 const SignupPage = () => {
   const [name, setName] = useState("");
@@ -11,7 +10,6 @@ const SignupPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { showToast } = useToast();
-  const { setIsLoading } = useLoading();
   const { register } = useAuth();
 
   const handleSignup = async () => {
@@ -40,40 +38,49 @@ const SignupPage = () => {
             <Link to="/login" className="text-accent hover:underline">Login here</Link>
           </p>
         </div>
-        <input
-          className="border rounded px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
-          type="text"
-          placeholder="Your Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          className="border rounded px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          className="border rounded px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          className="border rounded px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <button
-          onClick={handleSignup}
-          className="rounded px-3 py-2 text-secondary bg-primary cursor-pointer w-full"
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSignup();
+          }}
+          className="flex flex-col gap-4 w-full"
         >
-          Register
-        </button>
+          <input
+            className="border rounded px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
+            autoFocus
+            type="text"
+            placeholder="Your Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            className="border rounded px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            className="border rounded px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            className="border rounded px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="rounded px-3 py-2 text-secondary bg-primary cursor-pointer w-full"
+          >
+            Register
+          </button>
+        </form>
       </div>
     </main>
   );
