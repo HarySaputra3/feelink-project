@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Logo from '../assets/feelink.svg'
 import Showcase from '../assets/dummy_showcase.mp4'
 import { AlignJustify, X } from 'lucide-react'
+import Menggila from '../components/_menggila'
 
 const LandingPage = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -40,6 +41,7 @@ const LandingPage = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center space-x-6 text-sm font-semibold">
+          <Menggila />
           <Link to="/" className="hover:underline">HOME</Link>
           <a href="#how" className="hover:underline">HOW IT WORKS</a>
           <a href="#about" className="hover:underline">ABOUT US</a>
@@ -53,7 +55,7 @@ const LandingPage = () => {
 
       {/* Hamburger / Close Icon */}
       <button
-        className="md:hidden focus:outline-none"
+        className="md:hidden focus:outline-none cursor-pointer"
         onClick={() => setMenuOpen((v) => !v)}
         aria-label="Toggle menu"
       >

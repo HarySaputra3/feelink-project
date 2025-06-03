@@ -59,7 +59,7 @@ export default function SidebarLayout() {
             className={
               isMobile
                 ? `fixed top-0 left-0 h-full w-64`
-                : "absolute"
+                : "fixed"
             }
             initial={isFirstRender.current ? false : { x: -300, opacity: 1 }}
             animate={{ x: 0, opacity: 1 }}
@@ -110,9 +110,9 @@ export default function SidebarLayout() {
         </button>
       </motion.div>
 
-      <main className="flex-1 mx-6 my-12 outline">
+      <div className="flex-1 px-6 py-12 bg-secondary-lighter">
         <Outlet />
-      </main>
+      </div>
     </motion.div>
   );
 }

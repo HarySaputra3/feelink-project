@@ -38,7 +38,7 @@ const Sidebar = () => {
         <Link to="/profile" className="border-l-2 hover:border-transparent flex flex-row items-center cursor-pointer px-2">
           <User size={20}/>
           <div className="px-2 py-1">
-            <span>your name</span>
+            <p>your name</p>
             <p className="text-xs text-gray-500">yourname@email.com</p>
           </div>
         </Link>
