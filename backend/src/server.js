@@ -5,6 +5,7 @@ const authRoutes = require("./routes/auth");
 const moodRoutes = require("./routes/mood");
 const reportRoutes = require("./routes/report");
 const passwordRoutes = require("./routes/password");
+const profileRoutes = require("./routes/profile");
 
 // Swagger
 const Inert = require("@hapi/inert");
@@ -48,10 +49,10 @@ const init = async () => {
     ...moodRoutes,
     ...reportRoutes,
     ...passwordRoutes,
+    ...profileRoutes,
   ]);
 
   await server.start();
-  console.log(`🚀 Server running at: ${server.info.uri}`);
   console.log(`📘 Swagger docs at: ${server.info.uri}/documentation`);
 };
 
