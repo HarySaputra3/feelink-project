@@ -3,13 +3,16 @@ import AppRoutes from './routes/AppRoutes'
 import { ToastProvider } from "./contexts/ToastContext";
 import ToastContainer from "./components/ToastContainer";
 import { LoadingProvider } from './contexts/LoadingContext';
+import { ProfileProvider } from './contexts/ProfileContext';
 
 function App() {
   return (
     <LoadingProvider>
       <ToastProvider>
         <BrowserRouter>
-          <AppRoutes />
+          <ProfileProvider>
+            <AppRoutes />
+          </ProfileProvider>
         </BrowserRouter>
         <ToastContainer />
       </ToastProvider>

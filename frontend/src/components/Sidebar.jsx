@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import useProfile from "../hooks/useProfile";
 import Logo from '../assets/feelink.svg'
 import {
   User,
@@ -8,6 +9,8 @@ import {
 } from "lucide-react";
 
 const Sidebar = () => {
+  const { name, email } = useProfile();
+
   return (
     <nav className="w-64 bg-secondary text-primary font-medium border-r min-h-screen flex flex-col">
       <div id="logo" className="flex items-center gap-2 px-6 py-6 border-b">
@@ -38,8 +41,8 @@ const Sidebar = () => {
         <Link to="/profile" className="border-l-2 hover:border-transparent flex flex-row items-center cursor-pointer px-2">
           <User size={20}/>
           <div className="px-2 py-1">
-            <p>your name</p>
-            <p className="text-xs text-gray-500">yourname@email.com</p>
+            <p>{name || "username"}</p>
+            <p className="text-xs text-gray-500">{email || "yourname@email.com" }</p>
           </div>
         </Link>
       </div>

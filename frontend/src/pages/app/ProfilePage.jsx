@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import useProfile from "../../hooks/useProfile";
 import { useToast } from "../../contexts/ToastContext";
 
@@ -13,14 +14,25 @@ const ProfilePage = () => {
 
   const { showToast } = useToast();
 
+  // Local state for form fields
+  const [localName, setLocalName] = useState(name);
+  const [localEmail, setLocalEmail] = useState(email);
+
+  // Sync local state when context changes
+  useEffect(() => {
+    setLocalName(name);
+    setLocalEmail(email);
+  }, [name, email]);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     showToast("Logged out successfully", "success");
   };
 
-  const handleUpdateProfile = (e) => {
+  const handleUpdateProfile = async (e) => {
     e.preventDefault();
-    updateProfileInfo();
+    // Only update context/global state after successful update
+    await updateProfileInfo(localName, localEmail);
   };
 
   const handleChangePassword = (e) => {
@@ -44,8 +56,8 @@ const ProfilePage = () => {
               className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full"
               type="text"
               placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={localName}
+              onChange={(e) => setLocalName(e.target.value)}
             />
           </label>
           <label>
@@ -54,8 +66,8 @@ const ProfilePage = () => {
               className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full"
               type="email"
               placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={localEmail}
+              onChange={(e) => setLocalEmail(e.target.value)}
             />
           </label>
           <button

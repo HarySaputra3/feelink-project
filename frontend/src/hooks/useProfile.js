@@ -1,49 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useToast } from "../contexts/ToastContext";
 import { useLoading } from "../contexts/LoadingContext";
+import { useProfileContext } from "../contexts/ProfileContext";
 import API from "../utils/api";
 
 const useProfile = () => {
+  const { name, setName, email, setEmail, refreshProfile } = useProfileContext();
   const { showToast } = useToast();
   const { setIsLoading } = useLoading();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      setIsLoading(true);
-      try {
-        const res = await API.get("/profile", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-        const data = res.data;
-        setName(data.name || "");
-        setEmail(data.email || "");
-      } catch (err) {
-        console.error("[FETCH PROFILE ERROR]", err.response?.data);
-        showToast("Failed to load profile", "error");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchProfile();
-  }, [setIsLoading, showToast]);
-
-  const updateProfileInfo = async () => {
-    if (!name.trim() || !email.trim()) {
+  const updateProfileInfo = async (newName, newEmail) => {
+    if (!newName.trim() || !newEmail.trim()) {
       return showToast("Name and Email are required", "error");
     }
     setIsLoading(true);
     try {
-      const payload = { name, email };
+      const payload = { name: newName, email: newEmail };
       const res = await API.put("/profile", payload);
       showToast(res.data.message || "Profile updated!", "success");
+      setName(newName);
+      setEmail(newEmail);
+      await refreshProfile();
     } catch (err) {
       showToast(err.response?.data?.message || "Update failed", "error");
     } finally {
@@ -79,6 +59,7 @@ const useProfile = () => {
     confirmPassword, setConfirmPassword,
     updateProfileInfo,
     changePassword,
+    refreshProfile,
   };
 };
 
