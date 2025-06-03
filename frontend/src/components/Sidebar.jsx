@@ -9,7 +9,7 @@ import {
 
 const Sidebar = () => {
   return (
-    <nav className="w-64 bg-secondary text-primary font-medium border-r min-h-screen">
+    <nav className="w-64 bg-secondary text-primary font-medium border-r min-h-screen flex flex-col">
       <div id="logo" className="flex items-center gap-2 px-6 py-6 border-b">
         <img
           src={Logo}
@@ -34,7 +34,7 @@ const Sidebar = () => {
           </Link>
         </ul>
       </div>
-      <div id="user" className="px-6 py-6 border-t">
+      <div id="user" className="px-6 py-6 border-t mt-auto">
         <Link to="/profile" className="border-l-2 hover:border-transparent flex flex-row items-center cursor-pointer px-2">
           <User size={20}/>
           <div className="px-2 py-1">
