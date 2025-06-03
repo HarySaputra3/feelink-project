@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import SidebarLayout from '../components/Layout/SidebarLayout'
 import ProtectedRoute from './ProtectedRoute';
+import { ProfileProvider } from '../contexts/ProfileContext';
 
 import LandingPage from '../pages/LandingPage'
 import LoginPage from '../pages/auth/LoginPage'
@@ -28,7 +29,9 @@ export default function AppRoutes() {
 
       <Route element={
         <ProtectedRoute>
-          <SidebarLayout />
+          <ProfileProvider>
+            <SidebarLayout />
+          </ProfileProvider>
         </ProtectedRoute>
       }>
         <Route path="dashboard" element={<DashboardPage />} />
