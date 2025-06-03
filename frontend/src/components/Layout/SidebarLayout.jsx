@@ -34,7 +34,7 @@ export default function SidebarLayout() {
   }, [location.pathname, isMobile]);
 
   return (
-    <motion.div className="flex min-h-screen relative" layout>
+    <div className="flex min-h-screen relative">
       
       {/* Overlay for mobile sidebar */}
       <AnimatePresence>
@@ -114,6 +114,6 @@ export default function SidebarLayout() {
       <div className="flex-1 px-6 py-12 bg-secondary-lighter">
         <Outlet />
       </div>
-    </motion.div>
+    </div>
   );
 }

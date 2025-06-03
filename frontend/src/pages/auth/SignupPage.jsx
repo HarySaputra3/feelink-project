@@ -35,7 +35,7 @@ const SignupPage = () => {
         <div className="text-center text-pretty">
           <p>
             Already have an account?{" "}
-            <Link to="/login" className="text-accent hover:underline">Login here</Link>
+            <Link to="/login" className="text-accent-darker hover:underline">Login here</Link>
           </p>
         </div>
         <form

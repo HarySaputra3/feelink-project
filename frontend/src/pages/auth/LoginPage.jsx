@@ -11,13 +11,13 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email.trim()) return showToast("Please enter your email.", "error");
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) return showToast("Invalid email address.", "error");
     if (!password) return showToast("Please enter your password.", "error");
 
-    login(email, password);
+    await login(email, password);
   };
 
   return (
@@ -35,7 +35,7 @@ const LoginPage = () => {
           <div className="xl:hidden text-center">
             <span>
               Don't have an account?{" "}
-              <Link to="/signup" className="text-accent hover:underline">
+              <Link to="/signup" className="text-accent-darker hover:underline">
                 Sign Up here
               </Link>
             </span>
@@ -51,6 +51,8 @@ const LoginPage = () => {
               className="border border-primary rounded px-3 py-2 bg-neutral-50 text-primary placeholder-secondary-darker w-full"
               autoFocus
               type="email"
+              name="email"
+              autoComplete="email"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -58,6 +60,8 @@ const LoginPage = () => {
             <input
               className="border border-primary rounded px-3 py-2 bg-neutral-50 text-primary placeholder-secondary-darker w-full"
               type="password"
+              name="password"
+              autoComplete="current-password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
