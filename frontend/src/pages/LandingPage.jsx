@@ -79,7 +79,8 @@ const LandingPage = () => {
           <Link to="/login" className="bg-primary text-secondary px-4 py-2 rounded">Login</Link>
         </nav>
 
-        <button className="md:hidden" onClick={() => setMenuOpen(v => !v)} aria-label="Toggle menu">
+        {/* Toggle Mobile Menu Button */}
+        <button className="md:hidden cursor-pointer" onClick={() => setMenuOpen(v => !v)} aria-label="Toggle menu">
           {menuOpen ? <X size={24} /> : <AlignJustify size={24} />}
         </button>
       </header>
@@ -104,20 +105,34 @@ const LandingPage = () => {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative px-auto h-full pt-12 md:pt-24 pb-24 md:pb-48">
+      <section className="relative flex items-center justify-center min-h-[70vh] pt-12 md:pt-24 pb-24 md:pb-48 px-6">
         <div className="relative space-y-8 max-w-[900px] mx-auto text-center md:text-left px-6">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-snug flex flex-wrap gap-1">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-snug flex flex-wrap gap-x-3 text-pretty text-center md:text-left">
             {hero.split(' ').map((word, i) => (
-              <motion.span key={i} className="inline-block" variants={fadeInUp} initial="hidden" animate="visible" custom={i}>
-                {word}
-              </motion.span>
+              <ScrollFadeIn key={i} custom={i}>
+                <motion.span
+                  className="inline-block"
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { delay: i * 0.05 },
+                    },
+                  }}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  {word}
+                </motion.span>
+              </ScrollFadeIn>
             ))}
           </h1>
-          <motion.div variants={fadeInUp} initial="hidden" animate="visible" custom={hero.split(' ').length + 3}>
+          <ScrollFadeIn custom={hero.split(' ').length}>
             <Link to="/signup" className="inline-block bg-primary text-secondary px-6 py-2 rounded text-sm sm:text-base">
               Sign Up
             </Link>
-          </motion.div>
+          </ScrollFadeIn>
         </div>
       </section>
 
@@ -125,17 +140,17 @@ const LandingPage = () => {
       <section id="description" className="bg-primary text-secondary px-6 py-32">
         <div className="flex flex-col md:flex-row items-center justify-center max-w-6xl mx-auto space-y-8 md:space-y-0 md:space-x-12">
           <div className="w-full md:w-1/2">
-            <ScrollFadeIn custom={0}>
+            <ScrollFadeIn custom={2}>
               <div className="bg-accent rounded-lg h-48 sm:h-64 w-full"></div>
             </ScrollFadeIn>
           </div>
           <div className="w-full md:w-1/2 space-y-4 text-center md:text-left">
-            <ScrollFadeIn custom={1}>
+            <ScrollFadeIn custom={3}>
               <h2 className="text-2xl font-bold">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit
               </h2>
             </ScrollFadeIn>
-            <ScrollFadeIn custom={2}>
+            <ScrollFadeIn custom={4}>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce molestie quis velit nec scelerisque. Morbi non lacinia nulla.
               </p>
@@ -147,18 +162,18 @@ const LandingPage = () => {
       {/* How It Works Section */}
       <section id="how" className="text-center px-6 py-24 my-24 mx-auto space-y-24">
         <div className="max-w-2xl mx-auto space-y-4">
-          <ScrollFadeIn custom={0}>
+          <ScrollFadeIn custom={2}>
             <h2 className="text-2xl md:text-3xl font-bold">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit
             </h2>
           </ScrollFadeIn>
-          <ScrollFadeIn custom={1}>
+          <ScrollFadeIn custom={3}>
             <p className="text-sm md:text-base">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce molestie quis velit nec scelerisque. Morbi non lacinia nulla.
             </p>
           </ScrollFadeIn>
         </div>
-        <ScrollFadeIn custom={2}>
+        <ScrollFadeIn custom={4}>
           <div className="max-w-[900px] shadow-2xl rounded-lg overflow-hidden">
             <video
               src={Showcase}
