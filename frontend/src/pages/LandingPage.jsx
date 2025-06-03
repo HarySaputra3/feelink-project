@@ -1,7 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, Suspense } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../assets/feelink.svg'
-import Showcase from '../assets/dummy_showcase.mp4'
 import { AlignJustify, X } from 'lucide-react'
 import Menggila from '../components/_menggila'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
@@ -33,23 +32,20 @@ const LandingPage = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const hero = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce molestie quis velit nec scelerisque. Morbi non lacinia nulla."
 
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.05 },
-    }),
-  }
-
   // Lazy-load video when in view
   const videoRef = useRef(null)
   const videoInView = useInView(videoRef, { once: true })
   const [showVideo, setShowVideo] = useState(false)
+  const [Showcase, setShowcase] = useState(null)
 
   useEffect(() => {
-    if (videoInView) setShowVideo(true)
-  }, [videoInView])
+    if (videoInView && !Showcase) {
+      import('../assets/dummy_showcase.mp4').then(mod => {
+        setShowcase(mod.default)
+        setShowVideo(true)
+      })
+    }
+  }, [videoInView, Showcase])
 
   useEffect(() => {
     document.body.classList.toggle('overflow-hidden', menuOpen)
@@ -187,7 +183,7 @@ const LandingPage = () => {
             className="max-w-[900px] shadow-2xl rounded-lg overflow-hidden"
             ref={videoRef}
           >
-            {showVideo ? (
+            {showVideo && Showcase ? (
               <video
                 src={Showcase}
                 className="w-full h-full object-cover rounded-lg"
@@ -197,9 +193,7 @@ const LandingPage = () => {
                 playsInline
               />
             ) : (
-              <div className="w-full h-[360px] bg-secondary-darker flex items-center justify-center">
-                <div className="w-16 h-16 rounded-full bg-secondary-darker" />
-              </div>
+              <div className="w-full h-[360px] flex items-center justify-center rounded-lg bg-secondary-darker" />
             )}
           </div>
         </ScrollFadeIn>
