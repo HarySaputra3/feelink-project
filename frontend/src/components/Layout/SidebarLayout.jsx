@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from '../Sidebar';
 import {
@@ -12,11 +12,12 @@ export default function SidebarLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const location = useLocation();
-
   const toggleSidebar = () => setSidebarOpen((prev) => !prev);
+  const isFirstRender = useRef(true);
 
   // Update sidebar state on window resize
   useEffect(() => {
+    isFirstRender.current = false;
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
       if (window.innerWidth < 768) setSidebarOpen(false);
@@ -60,7 +61,7 @@ export default function SidebarLayout() {
                 ? `fixed top-0 left-0 h-full w-64`
                 : "absolute"
             }
-            initial={{ x: -300, opacity: 1 }}
+            initial={isFirstRender.current ? false : { x: -300, opacity: 1 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -300, opacity: 1 }}
             transition={{ type: "ease", duration: 0.15 }}
@@ -76,7 +77,7 @@ export default function SidebarLayout() {
           <motion.div
             id="sidebar-placeholder"
             key="sidebar-placeholder"
-            initial={{ width: 0, opacity: 0 }}
+            initial={isFirstRender.current ? false : { width: 0, opacity: 0 }}
             animate={{ width: 256, opacity: 1 }} // 256px = w-64
             exit={{ width: 0, opacity: 0 }}
             transition={{ type: "ease", duration: 0.15 }}
