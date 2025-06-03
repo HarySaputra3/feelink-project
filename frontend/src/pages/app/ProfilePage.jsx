@@ -37,7 +37,7 @@ const ProfilePage = () => {
         <h1 className="text-4xl">Profile Settings</h1>
       </header>
       <div className="grid grid-rows-1 lg:grid-cols-2 max-w-7xl text-primary">
-        <form onSubmit={handleUpdateProfile} className="flex flex-col gap-4 p-6 md:p-12 w-full">
+        <form onSubmit={handleUpdateProfile} className="flex flex-col gap-4 p-6 md:p-12 w-full border-b-1 lg:border-b-0 lg:border-r-1">
           <label>
             Name
             <input

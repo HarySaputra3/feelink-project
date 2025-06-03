@@ -4,7 +4,8 @@ import Sidebar from '../Sidebar';
 import {
   ArrowLeftToLine,
   ArrowRightFromLine,
-  AlignJustify
+  AlignJustify,
+  X
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -39,7 +40,7 @@ export default function SidebarLayout() {
       <AnimatePresence>
         {isMobile && sidebarOpen && (
           <motion.div
-            className="fixed inset-0 bg-black/50"
+            className="fixed inset-0 bg-gradient-to-br from-black/70 to-black/40 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -92,10 +93,10 @@ export default function SidebarLayout() {
         key="toggle-sidebar-mobile"
       >
         <button
-          className="cursor-pointer fixed top-2 right-2 md:hidden "
+          className="cursor-pointer fixed top-2 right-2 md:hidden text-primary"
           onClick={toggleSidebar}
         >
-          <AlignJustify />
+          {sidebarOpen ? <X /> : <AlignJustify />}
         </button>
       </motion.div>
       <motion.div 
@@ -103,7 +104,7 @@ export default function SidebarLayout() {
         key="toggle-sidebar-dekstop"
       >
         <button
-          className="cursor-pointer fixed top-2 ml-2 hidden md:block "
+          className="cursor-pointer fixed top-2 ml-2 hidden md:block text-primary"
           onClick={toggleSidebar}
         >
           {sidebarOpen ? <ArrowLeftToLine /> : <ArrowRightFromLine />}

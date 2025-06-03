@@ -27,7 +27,7 @@ const SignupPage = () => {
 
   return (
     <main className="text-primary bg-neutral-50 h-screen grid place-content-center">
-      <div className="flex flex-col items-center md:justify-center gap-4 bg-secondary rounded-xl w-screen h-screen md:h-full px-6 py-6 md:max-w-[600px] md:pt-12 md:pb-24 md:px-24 shadow-lg">
+      <div className="flex flex-col items-center md:justify-center gap-4 bg-secondary md:rounded-xl w-screen h-screen md:h-full px-6 py-6 md:max-w-[600px] md:pt-12 md:pb-24 md:px-24 shadow-lg">
         <Link to="/">
           <img src={Logo} alt="Feelink Logo" className="w-24 h-24 my-4" />
         </Link>

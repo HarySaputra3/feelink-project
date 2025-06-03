@@ -25,7 +25,7 @@ const LoginPage = () => {
       <div className="relative flex flex-row xl:w-[1140px]">
 
         {/* Left Panel */}
-        <div className="flex flex-col items-center md:justify-center gap-4 bg-secondary rounded-xl w-screen h-screen md:w-[600px] md:h-[500px] px-6 py-6 md:pt-12 md:pb-24 md:px-24 shadow-lg z-10">
+        <div className="flex flex-col items-center md:justify-center gap-4 bg-secondary md:rounded-xl w-screen h-screen md:w-[600px] md:h-[500px] px-6 py-6 md:pt-12 md:pb-24 md:px-24 shadow-lg z-10">
           <Link to="/">
             <img src={Logo} alt="Feelink Logo" className="w-24 h-24 my-4" />
           </Link>

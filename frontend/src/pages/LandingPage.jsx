@@ -1,118 +1,123 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../assets/feelink.svg'
 import Showcase from '../assets/dummy_showcase.mp4'
 import { AlignJustify, X } from 'lucide-react'
 import Menggila from '../components/_menggila'
+import { motion, AnimatePresence, useInView } from 'framer-motion'
+
+const ScrollFadeIn = ({ children, custom = 0 }) => {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true })
+
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? 'visible' : 'hidden'}
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: { delay: custom * 0.1 },
+        },
+      }}
+    >
+      {children}
+    </motion.div>
+  )
+}
 
 const LandingPage = () => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const hero = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce molestie quis velit nec scelerisque. Morbi non lacinia nulla."
 
-  // Prevent body scroll when menu is open
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.05 },
+    }),
+  }
+
   useEffect(() => {
-    if (menuOpen) {
-      document.body.classList.add('overflow-hidden')
-    } else {
-      document.body.classList.remove('overflow-hidden')
-    }
+    document.body.classList.toggle('overflow-hidden', menuOpen)
     return () => document.body.classList.remove('overflow-hidden')
   }, [menuOpen])
 
   return (
     <div className={`bg-secondary text-primary min-h-screen flex flex-col relative ${menuOpen ? 'overflow-hidden' : ''}`}>
-      
-      {/* Overlay when menu is open */}
-      {menuOpen && (
-        <div
-          className="fixed inset-0 bg-gradient-to-br from-black/70 to-black/40 backdrop-blur-sm z-40 transition-opacity duration-300"
-          onClick={() => setMenuOpen(false)}
-        />
-      )}
+
+      {/* Overlay */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            key="mobile-overlay"
+            className="fixed inset-0 bg-gradient-to-br from-black/70 to-black/40 backdrop-blur-sm z-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.1 }}
+            onClick={() => setMenuOpen(false)}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Header */}
-      <header className="top-0 left-0 right-0 bg-secondary flex items-center justify-between px-6 py-4 max-w-6xl mx-auto w-full z-50">
+      <header className="top-0 left-0 right-0 bg-secondary flex items-center justify-between px-6 py-4 max-w-6xl mx-auto w-full z-30">
         <div className="flex items-center space-x-2">
-          <img
-            src={Logo}
-            alt="Feelink Logo"
-            className="w-10 h-10"
-          />
+          <img src={Logo} alt="Feelink Logo" className="w-10 h-10" />
         </div>
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center space-x-6 text-sm font-semibold">
           <Menggila />
           <Link to="/" className="hover:underline">HOME</Link>
           <a href="#how" className="hover:underline">HOW IT WORKS</a>
           <a href="#about" className="hover:underline">ABOUT US</a>
-          <Link
-            to="/login"
-            className="bg-primary text-secondary px-4 py-2 rounded transition-colors duration-300"
-          >
-            Login
-          </Link>
+          <Link to="/login" className="bg-primary text-secondary px-4 py-2 rounded">Login</Link>
         </nav>
 
-      {/* Hamburger / Close Icon */}
-      <button
-        className="md:hidden focus:outline-none cursor-pointer"
-        onClick={() => setMenuOpen((v) => !v)}
-        aria-label="Toggle menu"
-      >
-        {menuOpen ? <X size={24} /> : <AlignJustify size={24} />}
-      </button>
+        <button className="md:hidden" onClick={() => setMenuOpen(v => !v)} aria-label="Toggle menu">
+          {menuOpen ? <X size={24} /> : <AlignJustify size={24} />}
+        </button>
       </header>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div
-          id="mobile-menu"
-          className="md:hidden fixed top-16 left-0 w-full bg-secondary px-6 pb-12 text-base font-semibold z-50 transition-all duration-300"
-        >
-          <Link
-            to="/"
-            className="block py-2 rounded hover:bg-secondary-darker transition-colors duration-300 ease-in-out text-center mx-auto text-xl"
-            onClick={() => setMenuOpen(false)}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            key="mobile-menu"
+            className="md:hidden fixed top-18 left-0 w-full bg-secondary px-6 pb-12 text-base font-semibold z-20"
+            initial={{ y: -300 }}
+            animate={{ y: 0 }}
+            exit={{ y: -300 }}
+            transition={{ duration: 0.15 }}
           >
-            HOME
-          </Link>
-          <a
-            href="#how"
-            className="block py-2 rounded hover:bg-secondary-darker transition-colors duration-300 ease-in-out text-center mx-auto text-xl"
-            onClick={() => setMenuOpen(false)}
-          >
-            HOW IT WORKS
-          </a>
-          <a
-            href="#about"
-            className="block py-2 rounded hover:bg-secondary-darker transition-colors duration-300 ease-in-out text-center mx-auto text-xl"
-            onClick={() => setMenuOpen(false)}
-          >
-            ABOUT US
-          </a>
-          <Link
-            to="/login"
-            className="block bg-primary text-secondary px-4 py-2 rounded hover:bg-primary/90 transition w-fit mx-auto mt-8"
-            onClick={() => setMenuOpen(false)}
-          >
-            Login
-          </Link>
-        </div>
-      )}
+            <Link to="/" className="block py-2 text-center text-xl" onClick={() => setMenuOpen(false)}>HOME</Link>
+            <a href="#how" className="block py-2 text-center text-xl" onClick={() => setMenuOpen(false)}>HOW IT WORKS</a>
+            <a href="#about" className="block py-2 text-center text-xl" onClick={() => setMenuOpen(false)}>ABOUT US</a>
+            <Link to="/login" className="block bg-primary text-secondary px-4 py-2 rounded w-fit mx-auto mt-8" onClick={() => setMenuOpen(false)}>Login</Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Hero Section */}
       <section className="relative px-auto h-full pt-12 md:pt-24 pb-24 md:pb-48">
-        <div className="relative z-10 space-y-8 max-w-[900px] mx-auto text-center md:text-left px-6">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-snug">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-            molestie quis velit nec scelerisque. Morbi non lacinia nulla.
+        <div className="relative space-y-8 max-w-[900px] mx-auto text-center md:text-left px-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-snug flex flex-wrap gap-1">
+            {hero.split(' ').map((word, i) => (
+              <motion.span key={i} className="inline-block" variants={fadeInUp} initial="hidden" animate="visible" custom={i}>
+                {word}
+              </motion.span>
+            ))}
           </h1>
-          <Link
-            to="/signup"
-            className="inline-block bg-primary text-secondary px-6 py-2 rounded hover:bg-primary/90 transition text-sm sm:text-base"
-          >
-            Sign Up
-          </Link>
+          <motion.div variants={fadeInUp} initial="hidden" animate="visible" custom={hero.split(' ').length + 3}>
+            <Link to="/signup" className="inline-block bg-primary text-secondary px-6 py-2 rounded text-sm sm:text-base">
+              Sign Up
+            </Link>
+          </motion.div>
         </div>
       </section>
 
@@ -120,41 +125,51 @@ const LandingPage = () => {
       <section id="description" className="bg-primary text-secondary px-6 py-32">
         <div className="flex flex-col md:flex-row items-center justify-center max-w-6xl mx-auto space-y-8 md:space-y-0 md:space-x-12">
           <div className="w-full md:w-1/2">
-            <div className="bg-accent rounded-lg h-48 sm:h-64 w-full"></div>
+            <ScrollFadeIn custom={0}>
+              <div className="bg-accent rounded-lg h-48 sm:h-64 w-full"></div>
+            </ScrollFadeIn>
           </div>
           <div className="w-full md:w-1/2 space-y-4 text-center md:text-left">
-            <h2 className="text-2xl font-bold">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit
-            </h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-              molestie quis velit nec scelerisque. Morbi non lacinia nulla.
-            </p>
+            <ScrollFadeIn custom={1}>
+              <h2 className="text-2xl font-bold">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              </h2>
+            </ScrollFadeIn>
+            <ScrollFadeIn custom={2}>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce molestie quis velit nec scelerisque. Morbi non lacinia nulla.
+              </p>
+            </ScrollFadeIn>
           </div>
         </div>
       </section>
 
-      {/* How it works */}
+      {/* How It Works Section */}
       <section id="how" className="text-center px-6 py-24 my-24 mx-auto space-y-24">
-        <div className='max-w-2xl mx-auto space-y-4'>
-          <h2 className="text-2xl md:text-3xl font-bold">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit
-          </h2>
-          <p className="text-sm md:text-base">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce molestie
-            quis velit nec scelerisque. Morbi non lacinia nulla.
-          </p>
+        <div className="max-w-2xl mx-auto space-y-4">
+          <ScrollFadeIn custom={0}>
+            <h2 className="text-2xl md:text-3xl font-bold">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </h2>
+          </ScrollFadeIn>
+          <ScrollFadeIn custom={1}>
+            <p className="text-sm md:text-base">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce molestie quis velit nec scelerisque. Morbi non lacinia nulla.
+            </p>
+          </ScrollFadeIn>
         </div>
-        <div className="max-w-[900px] shadow-2xl rounded-lg overflow-hidden">
-          <video
-            src={Showcase}
-            className="w-full h-full object-cover rounded-lg"
-            autoPlay
-            loop
-            muted
-            playsInline
-          />
-        </div>
+        <ScrollFadeIn custom={2}>
+          <div className="max-w-[900px] shadow-2xl rounded-lg overflow-hidden">
+            <video
+              src={Showcase}
+              className="w-full h-full object-cover rounded-lg"
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+          </div>
+        </ScrollFadeIn>
       </section>
 
       {/* Footer */}
@@ -162,9 +177,9 @@ const LandingPage = () => {
         <div className="max-w-6xl lg:mx-auto flex flex-col-reverse md:flex-row justify-between gap-15">
           <div>
             <img src={Logo} alt="Feelink Logo" className="w-12 h-12 mb-24" />
-            <div className="space-y-2">
-              <p className="text-sm">All rights reserved</p>
-              <p className="text-sm">Follow us on socials</p>
+            <div className="space-y-2 text-sm">
+              <p>All rights reserved</p>
+              <p>Follow us on socials</p>
             </div>
           </div>
           <div className="flex flex-col space-y-2 text-sm">
