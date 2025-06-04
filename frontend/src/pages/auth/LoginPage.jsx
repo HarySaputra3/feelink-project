@@ -49,7 +49,7 @@ const LoginPage = () => {
             className="flex flex-col gap-4 w-full"
           >
             <input
-              className="border border-primary rounded px-3 py-2 bg-neutral-50 text-primary placeholder-secondary-darker w-full"
+              className="border border-primary rounded px-3 py-2 bg-neutral-50 text-primary placeholder-neutral-500 outline-none focus:ring focus:ring-primary w-full"
               autoFocus
               type="email"
               name="email"
@@ -59,7 +59,7 @@ const LoginPage = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
             <input
-              className="border border-primary rounded px-3 py-2 bg-neutral-50 text-primary placeholder-secondary-darker w-full"
+              className="border border-primary rounded px-3 py-2 bg-neutral-50 text-primary placeholder-neutral-500 outline-none focus:ring focus:ring-primary w-full"
               type="password"
               name="password"
               autoComplete="current-password"

@@ -19,7 +19,7 @@ const ScrollFadeIn = ({ children, custom = 0 }) => {
         visible: {
           opacity: 1,
           y: 0,
-          transition: { delay: custom * 0.1 },
+          transition: { delay: custom * 0.05 },
         },
       }}
     >
@@ -115,21 +115,7 @@ const LandingPage = () => {
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-snug flex flex-wrap gap-x-3 text-pretty text-center md:text-left">
             {hero.split(' ').map((word, i) => (
               <ScrollFadeIn key={i} custom={i}>
-                <motion.span
-                  className="inline-block"
-                  variants={{
-                    hidden: { opacity: 0, y: 20 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      transition: { delay: i * 0.05 },
-                    },
-                  }}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  {word}
-                </motion.span>
+                <span className="inline-block">{word}</span>
               </ScrollFadeIn>
             ))}
           </h1>

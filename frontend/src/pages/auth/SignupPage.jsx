@@ -47,7 +47,7 @@ const SignupPage = () => {
           className="flex flex-col gap-4 w-full"
         >
           <input
-            className="border rounded px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
+            className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
             autoFocus
             type="text"
             placeholder="Your Name"
@@ -55,21 +55,21 @@ const SignupPage = () => {
             onChange={(e) => setName(e.target.value)}
           />
           <input
-            className="border rounded px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
+            className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            className="border rounded px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
+            className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <input
-            className="border rounded px-3 py-2 bg-neutral-50 placeholder-secondary-darker w-full"
+            className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
             type="password"
             placeholder="Confirm Password"
             value={confirmPassword}

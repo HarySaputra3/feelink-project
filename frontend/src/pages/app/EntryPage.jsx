@@ -24,7 +24,7 @@ const EntryPage = () => {
               <h2 className="text-lg font-medium">{`Question ${idx + 1}`}</h2>
               <p className="my-2">{q}</p>
               <input
-                className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500"
+                className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
                 type="text"
                 placeholder="Type here"
                 value={answers[idx]}
@@ -40,7 +40,7 @@ const EntryPage = () => {
             } text-secondary`}
             disabled={loading}
           >
-            {loading ? <Loading /> : "Entry your answers"}
+            {loading ? <Loading /> : "Entry your stories today"}
           </button>
         </form>
       </main>

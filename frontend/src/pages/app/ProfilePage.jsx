@@ -56,11 +56,13 @@ const ProfilePage = () => {
         <h1 className="text-4xl">Profile Settings</h1>
       </header>
       <main className="grid grid-rows-1 lg:grid-cols-2 max-w-7xl text-primary overflow-x-auto">
+
+        { /* Profile Form */}
         <form onSubmit={handleUpdateProfile} className="flex flex-col gap-4 py-6 sm:p-6 md:p-12 w-full border-b-1 lg:border-b-0 lg:border-r-1">
           <label>
             <h2 className="text-lg font-medium">Name</h2>
             <input
-              className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full placeholder-neutral-500"
+              className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
               type="text"
               placeholder="Name"
               value={localName}
@@ -71,7 +73,7 @@ const ProfilePage = () => {
           <label>
             <h2 className="text-lg font-medium">Email</h2>
             <input
-              className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full placeholder-neutral-500"
+              className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
               type="email"
               placeholder="Email"
               value={localEmail}
@@ -88,11 +90,13 @@ const ProfilePage = () => {
           </button>
         </form>
         <div className="py-6 sm:p-6 md:p-12">
+
+          { /* Change Password Form */}
           <form onSubmit={handleChangePassword} className="flex flex-col gap-4 w-full">
             <label>
               <h2 className="text-lg font-medium">New Password</h2>
               <input
-                className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full placeholder-neutral-500"
+                className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
                 type="password"
                 placeholder="New Password"
                 value={newPassword}
@@ -103,7 +107,7 @@ const ProfilePage = () => {
             <label>
               <h2 className="text-lg font-medium">Confirm Password</h2>
               <input
-                className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full placeholder-neutral-500"
+                className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
                 type="password"
                 placeholder="Confirm Password"
                 value={confirmPassword}
@@ -119,6 +123,8 @@ const ProfilePage = () => {
               {passwordLoading ? <Loading /> : "Change Password"}
             </button>
           </form>
+
+          { /* Logout Button */}
           <button
             onClick={handleLogout}
             className="px-3 py-2 text-red-600 hover:bg-red-100 rounded cursor-pointer mt-6"

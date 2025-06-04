@@ -2,18 +2,42 @@ import { useState } from "react";
 import useHistory from "../../hooks/useHistory";
 import Loading from "../../components/Loading";
 import Modal from "../../components/Modal";
-import { NotebookText } from "lucide-react";
+import { 
+  NotebookText,
+  Search 
+} from "lucide-react";
 
 const HistoryPage = () => {
   const [page, setPage] = useState(1);
   const pageSize = 5;
   const [modalEntry, setModalEntry] = useState(null);
   const [modalOrigin, setModalOrigin] = useState(null);
+  const [search, setSearch] = useState("");
 
   const { history, loading } = useHistory();
 
-  const pagedHistory = history.slice((page - 1) * pageSize, page * pageSize);
-  const totalPages = Math.ceil((history.length || 1) / pageSize);
+  // Search by story and date
+  const filteredHistory = history.filter((entry) => {
+    const searchLower = search.toLowerCase();
+    return (
+      (entry.story && entry.story.toLowerCase().includes(searchLower)) ||
+      (entry.date &&
+        new Date(entry.date)
+          .toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          })
+          .toLowerCase()
+          .includes(searchLower))
+    );
+  });
+
+  const pagedHistory = filteredHistory.slice(
+    (page - 1) * pageSize,
+    page * pageSize
+  );
+  const totalPages = Math.ceil((filteredHistory.length || 1) / pageSize);
 
   const handleOpenModal = (entry, e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -27,62 +51,97 @@ const HistoryPage = () => {
   return (
     <>
       <header className="text-primary py-6 sm:p-6 md:p-12 border-b-2">
-        <h1 className="text-4xl">This history okay, yu see yu prob prob hsty here</h1>
+        <h1 className="text-4xl">
+          This history okay, yu see yu prob prob hsty here
+        </h1>
       </header>
-      <main className="max-w-7xl text-primary overflow-x-auto">
+      <main className="max-w-7xl text-primary">
         <div className="py-6 sm:p-6 md:p-12 w-full">
-          <table className="min-w-max w-full mb-4">
-            <thead>
-              <tr>
-                <th className="border-b px-4 py-4 text-center">No</th>
-                <th className="border-b px-4 py-4 text-center">Date</th>
-                <th className="border-b px-4 py-4 text-center">Mood Rating</th>
-                <th className="border-b px-4 py-4 text-center">Details</th>
-              </tr>
-            </thead>
-            <tbody>
-              {loading ? (
+
+          {/* Search input */}
+          <div className="mb-4 flex justify-end">
+            <div className="relative w-full max-w-xs">
+              <span className="absolute inset-y-0 left-0 flex items-center p-3 text-neutral-500 bg-primary text-secondary rounded-l">
+                <Search size={18} />
+              </span>
+              <input
+                type="text"
+                className="border-2 rounded pl-12 py-2 w-full bg-neutral-50 placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
+                placeholder="Search by story or date..."
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setPage(1);
+                }}
+              />
+            </div>
+          </div>
+
+          {/* History table */}
+          <div className="overflow-x-auto">
+            <table className="min-w-max w-full">
+              <thead>
                 <tr>
-                  <td colSpan={4} className="text-center py-4">
-                    <Loading />
-                  </td>
+                  <th className="border-b px-4 py-4 text-center">No</th>
+                  <th className="border-b px-4 py-4 text-center">Date</th>
+                  <th className="border-b px-4 py-4 text-center">Mood Rating</th>
+                  <th className="border-b px-4 py-4 text-center">Details</th>
                 </tr>
-              ) : pagedHistory.length === 0 ? (
-                <tr>
-                  <td colSpan={4} className="text-center py-4">No history found.</td>
-                </tr>
-              ) : (
-                pagedHistory.map((entry, idx) => (
-                  <tr key={entry.id || idx}>
-                    <td className="border-y px-4 py-4 text-center">{(page - 1) * pageSize + idx + 1}</td>
-                    <td className="border-y px-4 py-4 text-center">
-                      {entry.date
-                        ? new Date(entry.date).toLocaleDateString("en-GB", {
-                            day: "2-digit",
-                            month: "short",
-                            year: "numeric",
-                          })
-                        : "-"}
-                    </td>
-                    <td className="border-y px-4 py-4 text-center">{entry.moodRating || "-"}</td>
-                    <td className="border-y px-4 py-4 text-center">
-                      <button
-                        className="bg-primary text-secondary px-4 py-2 rounded cursor-pointer"
-                        onClick={e => handleOpenModal(entry, e)}
-                      >
-                        <NotebookText size={18} />
-                      </button>
+              </thead>
+              <tbody>
+                {loading ? (
+                  <tr>
+                    <td colSpan={4} className="text-center py-4">
+                      <Loading />
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : pagedHistory.length === 0 ? (
+                  <tr>
+                    <td colSpan={4} className="text-center py-4">
+                      No history found.
+                    </td>
+                  </tr>
+                ) : (
+                  pagedHistory.map((entry, idx) => (
+                    <tr key={entry.id || idx}>
+                      <td className="border-y px-4 py-4 text-center">
+                        {(page - 1) * pageSize + idx + 1}
+                      </td>
+                      <td className="border-y px-4 py-4 text-center">
+                        {entry.date
+                          ? new Date(entry.date).toLocaleDateString("en-GB", {
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                            })
+                          : "-"}
+                      </td>
+                      <td className="border-y px-4 py-4 text-center">
+                        {entry.moodRating || "-"}
+                      </td>
+                      <td className="border-y px-4 py-4 text-center">
+                        <button
+                          className="bg-primary text-secondary px-4 py-2 rounded cursor-pointer"
+                          onClick={(e) => handleOpenModal(entry, e)}
+                        >
+                          <NotebookText size={18} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
 
           {/* Pagination */}
-          <div className="flex justify-center items-center gap-2">
+          <div className="flex justify-center items-center gap-2 mt-4">
             <button
-              className={`px-2 ${page === 1 ? "cursor-not-allowed text-neutral-500" : "cursor-pointer"}`}
+              className={`px-2 ${
+                page === 1
+                  ? "cursor-not-allowed text-neutral-500"
+                  : "cursor-pointer"
+              }`}
               disabled={page === 1}
               onClick={() => setPage((p) => Math.max(1, p - 1))}
             >
@@ -91,14 +150,22 @@ const HistoryPage = () => {
             {Array.from({ length: totalPages }, (_, i) => (
               <button
                 key={i}
-                className={`px-2 rounded ${page === i + 1 ? "bg-primary text-secondary" : "cursor-pointer"}`}
+                className={`px-2 rounded ${
+                  page === i + 1
+                    ? "bg-primary text-secondary"
+                    : "cursor-pointer"
+                }`}
                 onClick={() => setPage(i + 1)}
               >
                 {i + 1}
               </button>
             ))}
             <button
-              className={`px-2 ${page === totalPages ? "cursor-not-allowed text-neutral-500" : "cursor-pointer"}`}
+              className={`px-2 ${
+                page === totalPages
+                  ? "cursor-not-allowed text-neutral-500"
+                  : "cursor-pointer"
+              }`}
               disabled={page === totalPages}
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             >
@@ -107,6 +174,8 @@ const HistoryPage = () => {
           </div>
         </div>
       </main>
+
+      {/* Entry details */}
       <Modal open={!!modalEntry} onClose={() => setModalEntry(null)} origin={modalOrigin}>
         {modalEntry && (
           <div>
@@ -126,7 +195,7 @@ const HistoryPage = () => {
               {modalEntry.moodRating || "-"}
             </div>
             <div className="mb-2">
-              <span className="font-semibold">Answers: </span>
+              <span className="font-semibold">Stories: </span>
               <pre className="whitespace-pre-wrap break-words bg-primary-darker rounded p-2 mt-1">
                 {modalEntry.story || "-"}
               </pre>

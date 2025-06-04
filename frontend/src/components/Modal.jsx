@@ -31,7 +31,7 @@ const Modal = ({ open, onClose, children, origin }) => {
           onClick={onClose}
         >
           <motion.div
-            className="text-secondary bg-primary rounded-xl shadow-lg px-6 py-12 max-w-lg w-full relative border-6 border-secondary"
+            className="text-secondary bg-primary rounded-xl shadow-lg px-8 py-12 max-w-lg w-full relative border-6 border-secondary"
             style={{
               position: "fixed",
               zIndex: 60,
@@ -40,7 +40,7 @@ const Modal = ({ open, onClose, children, origin }) => {
               x: offset.x,
               y: offset.y,
               scale: 0.1,
-              opacity: 0,
+              opacity: 0.5,
             }}
             animate={{
               x: 0,
@@ -57,7 +57,7 @@ const Modal = ({ open, onClose, children, origin }) => {
               x: offset.x,
               y: offset.y,
               scale: 0.1,
-              opacity: 0,
+              opacity: 0.5,
               transition: { duration: 0.2 },
             }}
             onClick={e => e.stopPropagation()}
