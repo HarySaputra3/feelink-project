@@ -2,42 +2,24 @@ import { useState } from "react";
 import useHistory from "../../hooks/useHistory";
 import Loading from "../../components/Loading";
 import Modal from "../../components/Modal";
-import { 
-  NotebookText,
-  Search 
-} from "lucide-react";
+import { NotebookText, Search } from "lucide-react";
 
 const HistoryPage = () => {
   const [page, setPage] = useState(1);
-  const pageSize = 5;
+  const pageSize = 10;
   const [modalEntry, setModalEntry] = useState(null);
   const [modalOrigin, setModalOrigin] = useState(null);
   const [search, setSearch] = useState("");
 
-  const { history, loading } = useHistory();
+  const {
+    data,
+    loading,
+    filteredMoods,
+    totalPages,
+    getDominantEmotion,
+  } = useHistory(page, pageSize, search);
 
-  // Search by story and date
-  const filteredHistory = history.filter((entry) => {
-    const searchLower = search.toLowerCase();
-    return (
-      (entry.story && entry.story.toLowerCase().includes(searchLower)) ||
-      (entry.date &&
-        new Date(entry.date)
-          .toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          })
-          .toLowerCase()
-          .includes(searchLower))
-    );
-  });
-
-  const pagedHistory = filteredHistory.slice(
-    (page - 1) * pageSize,
-    page * pageSize
-  );
-  const totalPages = Math.ceil((filteredHistory.length || 1) / pageSize);
+  const moods = data?.moods || [];
 
   const handleOpenModal = (entry, e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -57,7 +39,6 @@ const HistoryPage = () => {
       </header>
       <main className="max-w-7xl text-primary">
         <div className="py-6 sm:p-6 md:p-12 w-full">
-
           {/* Search input */}
           <div className="mb-4 flex justify-end">
             <div className="relative w-full max-w-xs">
@@ -84,7 +65,7 @@ const HistoryPage = () => {
                 <tr>
                   <th className="border-b px-4 py-4 text-center">No</th>
                   <th className="border-b px-4 py-4 text-center">Date</th>
-                  <th className="border-b px-4 py-4 text-center">Mood Rating</th>
+                  <th className="border-b px-4 py-4 text-center">Dominant Emotion</th>
                   <th className="border-b px-4 py-4 text-center">Details</th>
                 </tr>
               </thead>
@@ -95,21 +76,21 @@ const HistoryPage = () => {
                       <Loading />
                     </td>
                   </tr>
-                ) : pagedHistory.length === 0 ? (
+                ) : filteredMoods.length === 0 ? (
                   <tr>
                     <td colSpan={4} className="text-center py-4">
                       No history found.
                     </td>
                   </tr>
                 ) : (
-                  pagedHistory.map((entry, idx) => (
+                  filteredMoods.map((entry, idx) => (
                     <tr key={entry.id || idx}>
                       <td className="border-y px-4 py-4 text-center">
                         {(page - 1) * pageSize + idx + 1}
                       </td>
                       <td className="border-y px-4 py-4 text-center">
-                        {entry.date
-                          ? new Date(entry.date).toLocaleDateString("en-GB", {
+                        {entry.createdAt
+                          ? new Date(entry.createdAt).toLocaleDateString("en-GB", {
                               day: "2-digit",
                               month: "short",
                               year: "numeric",
@@ -117,7 +98,7 @@ const HistoryPage = () => {
                           : "-"}
                       </td>
                       <td className="border-y px-4 py-4 text-center">
-                        {entry.moodRating || "-"}
+                        {getDominantEmotion(entry.emotions)}
                       </td>
                       <td className="border-y px-4 py-4 text-center">
                         <button
@@ -182,8 +163,8 @@ const HistoryPage = () => {
             <h2 className="text-3xl font-bold mb-3">Entry Details</h2>
             <div className="mb-2">
               <span className="font-semibold">Date: </span>
-              {modalEntry.date
-                ? new Date(modalEntry.date).toLocaleDateString("en-GB", {
+              {modalEntry.createdAt
+                ? new Date(modalEntry.createdAt).toLocaleDateString("en-GB", {
                     day: "2-digit",
                     month: "short",
                     year: "numeric",
@@ -191,8 +172,8 @@ const HistoryPage = () => {
                 : "-"}
             </div>
             <div className="mb-2">
-              <span className="font-semibold">Mood Rating: </span>
-              {modalEntry.moodRating || "-"}
+              <span className="font-semibold">Dominant Emotion: </span>
+              {getDominantEmotion(modalEntry.emotions)}
             </div>
             <div className="mb-2">
               <span className="font-semibold">Stories: </span>

@@ -1,24 +1,55 @@
 import { useQuery } from "@tanstack/react-query";
 import API from "../utils/api";
 
-const fetchHistory = async () => {
-  const res = await API.get(`/report`, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  });
-  console.log("[HISTORY FETCHED]", res.data);
-  return res.data.entries || [];
+const getDominantEmotion = (emotions) => {
+  if (!emotions) return "-";
+  const filtered = Object.entries(emotions).filter(([k]) => k !== "totalyourmood");
+  if (filtered.length === 0) return "-";
+  return filtered.reduce((max, curr) => (curr[1] > max[1] ? curr : max))[0];
 };
 
-const useHistory = () => {
-  const { data: history = [], isLoading } = useQuery({
-    queryKey: ["history"],
-    queryFn: fetchHistory,
-    staleTime: 1000 * 60 * 5, // cache for 5 minutes
+const useHistory = (page = 1, limit = 10, search = "") => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["history", page, limit],
+    queryFn: async () => {
+      const res = await API.get(`/history?page=${page}&limit=${limit}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      return res.data;
+    },
+    keepPreviousData: true,
   });
 
-  return { history, loading: isLoading };
+  const moods = data?.moods || [];
+  const totalEntries = data?.totalEntries || 0;
+  const totalPages = Math.max(1, Math.ceil(totalEntries / limit));
+
+  // Filter moods by search
+  const filteredMoods = moods.filter((entry) => {
+    const searchLower = search.toLowerCase();
+    return (
+      (entry.story && entry.story.toLowerCase().includes(searchLower)) ||
+      (entry.createdAt &&
+        new Date(entry.createdAt)
+          .toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          })
+          .toLowerCase()
+          .includes(searchLower))
+    );
+  });
+
+  return {
+    data,
+    loading: isLoading,
+    filteredMoods,
+    totalPages,
+    getDominantEmotion,
+  };
 };
 
 export default useHistory;
