@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { useToast } from "../contexts/ToastContext";
-import { useLoading } from "../contexts/LoadingContext";
 import { useProfileContext } from "../contexts/ProfileContext";
 import API from "../utils/api";
 
 const useProfile = () => {
   const { name, setName, email, setEmail, refreshProfile } = useProfileContext();
   const { showToast } = useToast();
-  const { setIsLoading } = useLoading();
 
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -16,7 +14,6 @@ const useProfile = () => {
     if (!newName.trim() || !newEmail.trim()) {
       return showToast("Name and Email are required", "error");
     }
-    setIsLoading(true);
     try {
       const payload = { name: newName, email: newEmail };
       const res = await API.put("/profile", payload);
@@ -26,8 +23,6 @@ const useProfile = () => {
       await refreshProfile();
     } catch (err) {
       showToast(err.response?.data?.message || "Update failed", "error");
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -38,7 +33,6 @@ const useProfile = () => {
     if (newPassword !== confirmPassword) {
       return showToast("Passwords do not match", "error");
     }
-    setIsLoading(true);
     try {
       const payload = { newPassword, confirmPassword };
       const res = await API.put("/change-password", payload);
@@ -47,8 +41,6 @@ const useProfile = () => {
       setConfirmPassword("");
     } catch (err) {
       showToast(err.response?.data?.message || "Password change failed", "error");
-    } finally {
-      setIsLoading(false);
     }
   };
 

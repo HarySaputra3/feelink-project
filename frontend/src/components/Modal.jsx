@@ -31,7 +31,7 @@ const Modal = ({ open, onClose, children, origin }) => {
           onClick={onClose}
         >
           <motion.div
-            className="text-secondary bg-primary rounded-md shadow-lg p-6 max-w-lg w-full relative"
+            className="text-secondary bg-primary rounded-xl shadow-lg px-6 py-12 max-w-lg w-full relative border-6 border-secondary"
             style={{
               position: "fixed",
               zIndex: 60,
@@ -49,7 +49,7 @@ const Modal = ({ open, onClose, children, origin }) => {
               opacity: 1,
               transition: {
                 type: "spring",
-                bounce: 0.25,
+                bounce: 0.1,
                 duration: 0.4,
               },
             }}

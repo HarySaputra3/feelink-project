@@ -23,15 +23,15 @@ const Sidebar = () => {
       </div>
       <div id="menu" className="px-4 py-6">
         <ul>
-          <Link to="/dashboard" className="flex flex-row items-center px-4 hover:bg-accent rounded cursor-pointer">
+          <Link to="/dashboard" className="flex flex-row items-center px-4 hover:bg-secondary-darker rounded cursor-pointer">
             <LayoutDashboard size={20}/>
             <span className="px-2 py-2">Dashboard</span>
           </Link>
-          <Link to="/entry" className="flex flex-row items-center px-4 hover:bg-accent rounded cursor-pointer">
+          <Link to="/entry" className="flex flex-row items-center px-4 hover:bg-secondary-darker rounded cursor-pointer">
             <NotebookPen size={20}/>
             <span className="px-2 py-2">Entry</span>
           </Link>
-          <Link to="/history" className="flex flex-row items-center px-4 hover:bg-accent rounded cursor-pointer">
+          <Link to="/history" className="flex flex-row items-center px-4 hover:bg-secondary-darker rounded cursor-pointer">
             <History size={20}/>
             <span className="px-2 py-2">History</span>
           </Link>
@@ -42,7 +42,7 @@ const Sidebar = () => {
           <User size={20}/>
           <div className="px-2 py-1">
             <p>{name || "username"}</p>
-            <p className="text-xs text-gray-500">{email || "yourname@email.com" }</p>
+            <p className="text-xs text-accent-darker">{email || "yourname@email.com" }</p>
           </div>
         </Link>
       </div>

@@ -82,7 +82,7 @@ const HistoryPage = () => {
           {/* Pagination */}
           <div className="flex justify-center items-center gap-2">
             <button
-              className="px-2"
+              className={`px-2 ${page === 1 ? "cursor-not-allowed text-neutral-500" : "cursor-pointer"}`}
               disabled={page === 1}
               onClick={() => setPage((p) => Math.max(1, p - 1))}
             >
@@ -91,14 +91,14 @@ const HistoryPage = () => {
             {Array.from({ length: totalPages }, (_, i) => (
               <button
                 key={i}
-                className={`px-2 rounded ${page === i + 1 ? "bg-primary text-secondary" : ""}`}
+                className={`px-2 rounded ${page === i + 1 ? "bg-primary text-secondary" : "cursor-pointer"}`}
                 onClick={() => setPage(i + 1)}
               >
                 {i + 1}
               </button>
             ))}
             <button
-              className="px-2"
+              className={`px-2 ${page === totalPages ? "cursor-not-allowed text-neutral-500" : "cursor-pointer"}`}
               disabled={page === totalPages}
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             >
