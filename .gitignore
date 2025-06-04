@@ -24,6 +24,7 @@ model/*.ipynb_checkpoints/
 model/*.pkl
 model/.env
 model/*.log
+model/.venv
 
 # --- Editor/OS Files ---
 .vscode/*

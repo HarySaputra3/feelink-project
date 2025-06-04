@@ -66,7 +66,7 @@ export default function SidebarLayout() {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -300, opacity: 1 }}
             transition={{ type: "ease", duration: 0.15 }}
-            layout
+            layout={false}
           >
             <Sidebar />
           </motion.div>
@@ -83,6 +83,7 @@ export default function SidebarLayout() {
             exit={{ width: 0, opacity: 0 }}
             transition={{ type: "ease", duration: 0.15 }}
             className="shrink-0"
+            layout={false}
           />
         )}
       </AnimatePresence>
