@@ -3,6 +3,19 @@ import { useToast } from "../contexts/ToastContext";
 import { useLoading } from "../contexts/LoadingContext";
 import API from "../utils/api";
 
+const submitEntry = async (story) => {
+  return await API.post(
+    "/mood",
+    { story },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};
+
 const useEntry = () => {
   const [answers, setAnswers] = useState(["", "", "", "", ""]);
   const { showToast } = useToast();
@@ -21,15 +34,7 @@ const useEntry = () => {
     setIsLoading(true);
     try {
       const story = answers.map((a) => `"${a}"`).join(" ");
-      const res = await API.post("/mood",
-        { story },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const res = await submitEntry(story);
       console.log("[ENTRY SUBMISSION SUCCESS]", res.data);
       showToast(res.data.message || "Entry submitted successfully!", "success");
       setAnswers(["", "", "", "", ""]);

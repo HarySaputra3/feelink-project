@@ -59,6 +59,7 @@ const HistoryPage = () => {
               )}
             </tbody>
           </table>
+
           {/* Pagination */}
           <div className="flex justify-center items-center gap-2">
             <button
