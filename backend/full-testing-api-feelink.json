@@ -91,6 +91,24 @@
       }
     },
     {
+      "name": "Get Mood History (Paginated)",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }],
+        "url": {
+          "raw": "http://localhost:3000/history?page=1&limit=5",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["history"],
+          "query": [
+            { "key": "page", "value": "1" },
+            { "key": "limit", "value": "10" }
+          ]
+        }
+      }
+    },
+    {
       "name": "Change Password (Logged In)",
       "request": {
         "method": "PUT",
