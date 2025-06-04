@@ -39,15 +39,16 @@ const HistoryPage = () => {
       </header>
       <main className="max-w-7xl text-primary">
         <div className="py-6 sm:p-6 md:p-12 w-full">
-          {/* Search input */}
+
+          {/* Search */}
           <div className="mb-4 flex justify-end">
             <div className="relative w-full max-w-xs">
-              <span className="absolute inset-y-0 left-0 flex items-center p-3 text-neutral-500 bg-primary text-secondary rounded-l">
+              <span className="absolute inset-y-0 right-0 flex items-center p-3 text-neutral-500 bg-primary text-secondary rounded-r-3xl">
                 <Search size={18} />
               </span>
               <input
                 type="text"
-                className="border-2 rounded pl-12 py-2 w-full bg-neutral-50 placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
+                className="border-2 rounded-3xl px-3 py-2 w-full bg-neutral-50 placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
                 placeholder="Search by story or date..."
                 value={search}
                 onChange={(e) => {
@@ -79,7 +80,7 @@ const HistoryPage = () => {
                 ) : filteredMoods.length === 0 ? (
                   <tr>
                     <td colSpan={4} className="text-center py-4">
-                      No history found.
+                      No history found
                     </td>
                   </tr>
                 ) : (
@@ -178,7 +179,21 @@ const HistoryPage = () => {
             <div className="mb-2">
               <span className="font-semibold">Stories: </span>
               <pre className="whitespace-pre-wrap break-words bg-primary-darker rounded p-2 mt-1">
-                {modalEntry.story || "-"}
+                {modalEntry.story
+                  ? (() => {
+                      let count = 0;
+                      const cleaned = modalEntry.story.replace(/"\s+"/g, '""');
+                      return cleaned.split("").map((char, idx) => {
+                        if (char === '"') count++;
+                        return (
+                          <span key={idx}>
+                            {char}
+                            {char === '"' && count % 2 === 0 ? <br /> : null}
+                          </span>
+                        );
+                      });
+                    })()
+                  : "-"}
               </pre>
             </div>
             {modalEntry.emotions && (

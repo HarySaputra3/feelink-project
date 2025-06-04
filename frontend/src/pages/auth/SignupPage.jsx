@@ -4,12 +4,15 @@ import Logo from "../../assets/feelink.svg";
 import { useToast } from "../../contexts/ToastContext";
 import useAuth from "../../hooks/useAuth";
 import Loading from "../../components/Loading";
+import { Eye, EyeOff } from "lucide-react";
 
 const SignupPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showConfirmPassword, setConfirmShowPassword] = useState(false);
   const { showToast } = useToast();
   const { register, loading } = useAuth();
 
@@ -61,20 +64,44 @@ const SignupPage = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <input
-            className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <input
-            className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
-            type="password"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
+          <div className="relative">
+            <input
+              className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+              <button
+                type="button"
+                tabIndex={-1}
+                className={`absolute right-3 top-1/2 -translate-y-1/2 text-primary cursor-pointer 
+                  ${password ? "" : "hidden"}`}
+                aria-label="Toggle password visibility"
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                {showPassword ? <EyeOff size={20}/> : <Eye size={20}/>}
+              </button>
+          </div>
+          <div className="relative">
+            <input
+              className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+              <button
+                type="button"
+                tabIndex={-1}
+                className={`absolute right-3 top-1/2 -translate-y-1/2 text-primary cursor-pointer 
+                  ${confirmPassword ? "" : "hidden"}`}
+                aria-label="Toggle password visibility"
+                onClick={() => setConfirmShowPassword((prev) => !prev)}
+              >
+                {showConfirmPassword ? <EyeOff size={20}/> : <Eye size={20}/>}
+              </button>
+          </div>
           <button
             type="submit"
             className={`rounded px-3 py-2 w-full text-secondary ${

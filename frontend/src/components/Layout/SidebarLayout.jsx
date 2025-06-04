@@ -40,7 +40,7 @@ export default function SidebarLayout() {
       <AnimatePresence>
         {isMobile && sidebarOpen && (
           <motion.div
-            className="fixed inset-0 bg-gradient-to-br from-black/70 to-black/40 backdrop-blur-sm"
+            className="fixed inset-0 bg-gradient-to-br from-black/70 to-black/40 backdrop-blur-sm z-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -59,8 +59,8 @@ export default function SidebarLayout() {
             key="sidebar"
             className={
               isMobile
-                ? `fixed top-0 left-0 h-full w-64`
-                : "fixed"
+                ? `fixed top-0 left-0 h-full w-64 z-40`
+                : "fixed z-40"
             }
             initial={isFirstRender.current ? false : { x: -300, opacity: 1 }}
             animate={{ x: 0, opacity: 1 }}
@@ -73,6 +73,7 @@ export default function SidebarLayout() {
         )}
       </AnimatePresence>
       
+      {/* Placeholder for sidebar width when closed (desktop only) */}
       <AnimatePresence>
         {sidebarOpen && !isMobile && (
           <motion.div
@@ -93,8 +94,9 @@ export default function SidebarLayout() {
         id="toggle-sidebar-mobile"
         key="toggle-sidebar-mobile"
       >
+        {/* Mobile toggle button */}
         <button
-          className="cursor-pointer fixed top-2 right-2 md:hidden text-primary"
+          className="cursor-pointer fixed top-2 right-2 md:hidden text-primary z-50"
           onClick={toggleSidebar}
         >
           {sidebarOpen ? <X /> : <AlignJustify />}
@@ -104,6 +106,7 @@ export default function SidebarLayout() {
         id="toggle-sidebar-dekstop"
         key="toggle-sidebar-dekstop"
       >
+        {/* Desktop toggle button */}
         <button
           className="cursor-pointer fixed top-2 ml-2 hidden md:block text-primary"
           onClick={toggleSidebar}

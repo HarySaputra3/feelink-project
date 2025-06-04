@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import useProfile from "../../hooks/useProfile";
 import { useToast } from "../../contexts/ToastContext";
 import Loading from "../../components/Loading";
+import { Eye, EyeOff } from "lucide-react";
 
 const ProfilePage = () => {
   const {
@@ -17,6 +18,8 @@ const ProfilePage = () => {
   // Local state for form fields
   const [localName, setLocalName] = useState(name);
   const [localEmail, setLocalEmail] = useState(email);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // Local loading states
   const [profileLoading, setProfileLoading] = useState(false);
@@ -60,9 +63,9 @@ const ProfilePage = () => {
         { /* Profile Form */}
         <form onSubmit={handleUpdateProfile} className="flex flex-col gap-4 py-6 sm:p-6 md:p-12 w-full border-b-1 lg:border-b-0 lg:border-r-1">
           <label>
-            <h2 className="text-lg font-medium">Name</h2>
+            <h2 className="text-lg font-medium mb-2">Name</h2>
             <input
-              className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
+              className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
               type="text"
               placeholder="Name"
               value={localName}
@@ -71,9 +74,9 @@ const ProfilePage = () => {
             />
           </label>
           <label>
-            <h2 className="text-lg font-medium">Email</h2>
+            <h2 className="text-lg font-medium mb-2">Email</h2>
             <input
-              className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
+              className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
               type="email"
               placeholder="Email"
               value={localEmail}
@@ -94,26 +97,50 @@ const ProfilePage = () => {
           { /* Change Password Form */}
           <form onSubmit={handleChangePassword} className="flex flex-col gap-4 w-full">
             <label>
-              <h2 className="text-lg font-medium">New Password</h2>
-              <input
-                className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
-                type="password"
-                placeholder="New Password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                disabled={passwordLoading}
-              />
+              <h2 className="text-lg font-medium mb-2">New Password</h2>
+              <div className="relative">
+                <input
+                  className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="New Password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  disabled={passwordLoading}
+                />
+                <button
+                  type="button"
+                  tabIndex={-1}
+                  className={`absolute right-3 top-1/2 -translate-y-1/2 text-primary cursor-pointer 
+                    ${newPassword ? "" : "hidden"}`}
+                  aria-label="Toggle password visibility"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? <EyeOff size={20}/> : <Eye size={20}/>}
+                </button>
+              </div>
             </label>
             <label>
-              <h2 className="text-lg font-medium">Confirm Password</h2>
-              <input
-                className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
-                type="password"
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                disabled={passwordLoading}
-              />
+              <h2 className="text-lg font-medium mb-2">Confirm Password</h2>
+              <div className="relative">
+                <input
+                  className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  disabled={passwordLoading}
+                />
+                <button
+                  type="button"
+                  tabIndex={-1}
+                  className={`absolute right-3 top-1/2 -translate-y-1/2 text-primary cursor-pointer 
+                    ${confirmPassword ? "" : "hidden"}`}
+                  aria-label="Toggle password visibility"
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
+                >
+                  {showConfirmPassword ? <EyeOff size={20}/> : <Eye size={20}/>}
+                </button>
+              </div>
             </label>
             <button
               type="submit"
@@ -127,7 +154,7 @@ const ProfilePage = () => {
           { /* Logout Button */}
           <button
             onClick={handleLogout}
-            className="px-3 py-2 text-red-600 hover:bg-red-100 rounded cursor-pointer mt-6"
+            className="px-4 py-2 text-red-100 bg-red-600 hover:text-red-600 hover:bg-red-100 rounded cursor-pointer mt-12 w-full"
           >
             Logout
           </button>
