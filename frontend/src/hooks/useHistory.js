@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
+import { useLoading } from "../contexts/LoadingContext";
 import API from "../utils/api";
 
 const useHistory = () => {
   const [history, setHistory] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [totalEntries, setTotalEntries] = useState(0);
+  const { isLoading, setIsLoading } = useLoading();
 
   useEffect(() => {
     const fetchHistory = async () => {
-      setLoading(true);
+      setIsLoading(true);
       try {
         const res = await API.get(`/report`, {
           headers: {
@@ -16,18 +16,17 @@ const useHistory = () => {
           },
         });
         setHistory(res.data.entries || []);
-        setTotalEntries(res.data.totalEntries || 0);
       } catch (err) {
         setHistory([]);
-        setTotalEntries(0);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
     fetchHistory();
+    // eslint-disable-next-line
   }, []);
 
-  return { history, loading, totalEntries };
+  return { history, loading: isLoading };
 };
 
 export default useHistory;
