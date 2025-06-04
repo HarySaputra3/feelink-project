@@ -50,7 +50,7 @@ const Modal = ({ open, onClose, children, origin }) => {
               transition: {
                 type: "spring",
                 bounce: 0.1,
-                duration: 0.4,
+                duration: 0.3,
               },
             }}
             exit={{

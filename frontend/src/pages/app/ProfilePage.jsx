@@ -89,7 +89,7 @@ const ProfilePage = () => {
             className={`px-3 py-2 mt-2 bg-primary text-secondary rounded ${profileLoading ? "cursor-not-allowed bg-primary-lighter" : "cursor-pointer"}`}
             disabled={profileLoading}
           >
-            {profileLoading ? <Loading /> : "Update Profile"}
+            {profileLoading ? <Loading /> : "Update profile"}
           </button>
         </form>
         <div className="py-6 sm:p-6 md:p-12">
@@ -147,7 +147,7 @@ const ProfilePage = () => {
               className={`px-3 py-2 mt-2 bg-primary text-secondary rounded ${passwordLoading ? "cursor-not-allowed bg-primary-lighter" : "cursor-pointer"}`}
               disabled={passwordLoading}
             >
-              {passwordLoading ? <Loading /> : "Change Password"}
+              {passwordLoading ? <Loading /> : "Change password"}
             </button>
           </form>
 
