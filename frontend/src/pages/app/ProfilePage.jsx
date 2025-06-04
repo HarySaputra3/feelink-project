@@ -44,13 +44,13 @@ const ProfilePage = () => {
 
   return (
     <>
-      <header className="text-primary p-6 md:p-12 border-b-2">
+      <header className="text-primary py-6 sm:p-6 md:p-12 border-b-2">
         <h1 className="text-4xl">Profile Settings</h1>
       </header>
-      <main className="grid grid-rows-1 lg:grid-cols-2 max-w-7xl text-primary">
-        <form onSubmit={handleUpdateProfile} className="flex flex-col gap-4 p-6 md:p-12 w-full border-b-1 lg:border-b-0 lg:border-r-1">
+      <main className="grid grid-rows-1 lg:grid-cols-2 max-w-7xl text-primary overflow-x-auto">
+        <form onSubmit={handleUpdateProfile} className="flex flex-col gap-4 py-6 sm:p-6 md:p-12 w-full border-b-1 lg:border-b-0 lg:border-r-1">
           <label>
-            Name
+            <h2 className="text-lg font-medium">Name</h2>
             <input
               className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full"
               type="text"
@@ -60,7 +60,7 @@ const ProfilePage = () => {
             />
           </label>
           <label>
-            Email
+            <h2 className="text-lg font-medium">Email</h2>
             <input
               className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full"
               type="email"
@@ -76,10 +76,10 @@ const ProfilePage = () => {
             Update Profile
           </button>
         </form>
-        <div className="p-6 md:p-12">
+        <div className="py-6 sm:p-6 md:p-12">
           <form onSubmit={handleChangePassword} className="flex flex-col gap-4 w-full">
             <label>
-              New Password
+              <h2 className="text-lg font-medium">New Password</h2>
               <input
                 className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full"
                 type="password"
@@ -89,7 +89,7 @@ const ProfilePage = () => {
               />
             </label>
             <label>
-              Confirm Password
+              <h2 className="text-lg font-medium">Confirm Password</h2>
               <input
                 className="border rounded px-3 py-2 mt-2 bg-neutral-50 w-full"
                 type="password"

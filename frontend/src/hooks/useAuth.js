@@ -1,15 +1,15 @@
+import { useState } from "react";
 import { useToast } from "../contexts/ToastContext";
 import { useNavigate } from "react-router-dom";
-import { useLoading } from "../contexts/LoadingContext";
 import API from "../utils/api";
 
 const useAuth = () => {
   const { showToast } = useToast();
-  const { setIsLoading } = useLoading();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const login = async (email, password) => {
-    setIsLoading(true);
+    setLoading(true);
     try {
       const res = await API.post("/login", { email, password });
       const token = res.data.token;
@@ -25,12 +25,12 @@ const useAuth = () => {
       console.error("[LOGIN ERROR]", err.response?.data);
       showToast(err.response?.data?.message || "Login failed", "error");
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
   const register = async (name, email, password) => {
-    setIsLoading(true);
+    setLoading(true);
     try {
       const res = await API.post("/register", { name, email, password });
       showToast(res.data.message || "Registered successfully!", "success");
@@ -39,11 +39,11 @@ const useAuth = () => {
       console.error("[REGISTER ERROR]", err.response?.data);
       showToast(err.response?.data?.message || "Register failed", "error");
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
-  return { login, register };
+  return { login, register, loading };
 };
 
 export default useAuth;

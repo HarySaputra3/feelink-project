@@ -7,6 +7,7 @@ const fetchHistory = async () => {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
+  console.log("[HISTORY FETCHED]", res.data);
   return res.data.entries || [];
 };
 

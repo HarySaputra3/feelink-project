@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/feelink.svg";
 import { useToast } from "../../contexts/ToastContext";
 import useAuth from "../../hooks/useAuth";
+import Loading from "../../components/Loading";
 
 const SignupPage = () => {
   const [name, setName] = useState("");
@@ -10,7 +11,7 @@ const SignupPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { showToast } = useToast();
-  const { register } = useAuth();
+  const { register, loading } = useAuth();
 
   const handleSignup = async () => {
     if (!name.trim()) return showToast("Please enter your name.", "error");
@@ -76,9 +77,12 @@ const SignupPage = () => {
           />
           <button
             type="submit"
-            className="rounded px-3 py-2 text-secondary bg-primary cursor-pointer w-full"
+            className={`rounded px-3 py-2 w-full text-secondary ${
+              loading ? "bg-primary-lighter cursor-not-allowed" : "bg-primary cursor-pointer"
+            }`}
+            disabled={loading}
           >
-            Register
+            {loading ? <Loading /> : "Register"}
           </button>
         </form>
       </div>

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import Loading from '../components/Loading';
+import GlobalLoading from '../components/Loading';
 
 const LoadingContext = createContext();
 
@@ -11,7 +11,7 @@ export const LoadingProvider = ({ children }) => {
   return (
     <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
       {children}
-      {isLoading && <Loading />}
+      {isLoading && <GlobalLoading />}
     </LoadingContext.Provider>
   );
 };

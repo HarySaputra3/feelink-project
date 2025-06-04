@@ -112,7 +112,7 @@ export default function SidebarLayout() {
         </button>
       </motion.div>
 
-      <div className="flex-1 px-6 py-12 bg-secondary-lighter">
+      <div className="flex-1 px-6 py-12 bg-secondary-lighter overflow-hidden">
         <Outlet />
       </div>
     </div>

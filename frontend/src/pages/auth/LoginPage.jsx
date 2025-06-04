@@ -3,13 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "../../contexts/ToastContext";
 import Logo from "../../assets/feelink.svg";
 import useAuth from "../../hooks/useAuth";
+import Loading from "../../components/Loading";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { showToast } = useToast();
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, loading } = useAuth();
 
   const handleLogin = async () => {
     if (!email.trim()) return showToast("Please enter your email.", "error");
@@ -68,9 +69,12 @@ const LoginPage = () => {
             />
             <button
               type="submit"
-              className="rounded px-3 py-2 text-secondary bg-primary cursor-pointer w-full"
+              className={`rounded px-3 py-2 w-full text-secondary ${
+                loading ? "bg-primary-lighter cursor-not-allowed" : "bg-primary cursor-pointer"
+              }`}
+              disabled={loading}
             >
-              Login
+              {loading ? <Loading /> : "Login"}
             </button>
           </form>
           <Link to="#" className="text-red-500 hover:underline">

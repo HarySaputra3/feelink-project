@@ -1,14 +1,13 @@
-import { LoaderCircle } from 'lucide-react';
+import Logo from '../assets/feelink.svg';
 
-const Loading = () => {
+const GlobalLoading = () => {
   return (
     <div className="flex items-center justify-center text-accent-lighter">
       <div className="animate-spin flex items-center justify-center">
-        <LoaderCircle />
-        {/* <img src={Logo} alt="Loading" /> */}
+        <img src={Logo} alt="Loading" />
       </div>
     </div>
   );
 };
 
-export default Loading;
+export default GlobalLoading;
