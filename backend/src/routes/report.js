@@ -40,4 +40,34 @@ module.exports = [
       return { month, total, totalEntries: moods.length };
     },
   },
+  {
+    method: "GET",
+    path: "/report",
+    options: {
+      auth: "default",
+      tags: ["api", "report"],
+      description: "Report mood seluruh data user",
+      notes: "Melihat seluruh history mood user",
+    },
+    handler: async (request, h) => {
+      const { userId } = request.auth.credentials;
+
+      const moods = await prisma.mood.findMany({
+        where: { userId },
+        orderBy: { createdAt: "desc" },
+      });
+
+      return {
+        entries: moods.map((mood) => ({
+          id: mood.id,
+          date: mood.createdAt,
+          answers: mood.answers,
+          moodRating: mood.moodRating,
+          emotions: mood.emotions,
+          story: mood.story,
+        })),
+        totalEntries: moods.length,
+      };
+    },
+  },
 ];
