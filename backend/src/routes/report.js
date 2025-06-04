@@ -10,8 +10,8 @@ module.exports = [
     options: {
       auth: "default",
       tags: ["api", "report"],
-      description: "Report mood bulanan",
-      notes: "Melihat rekap emosi bulanan berdasarkan entri yang dikirim",
+      description: "Report ringkasan mood bulanan",
+      notes: "Mengembalikan persentase emosi positif bulanan",
       validate: {
         params: Joi.object({
           month: Joi.number().min(1).max(12).required(),
@@ -27,46 +27,45 @@ module.exports = [
       const to = new Date(year, month, 0, 23, 59, 59);
 
       const moods = await prisma.mood.findMany({
-        where: { userId, createdAt: { gte: from, lte: to } },
+        where: {
+          userId,
+          createdAt: { gte: from, lte: to },
+        },
       });
 
-      const total = moods.reduce((acc, mood) => {
-        for (let [key, value] of Object.entries(mood.emotions)) {
-          acc[key] = (acc[key] || 0) + value;
+      // Inisialisasi penjumlahan emosi
+      const total = {};
+      let totalCount = 0;
+
+      moods.forEach((mood) => {
+        for (const [key, value] of Object.entries(mood.emotions)) {
+          const num = parseFloat(value);
+          if (!isNaN(num)) {
+            total[key] = (total[key] || 0) + num;
+            totalCount += num;
+          }
         }
-        return acc;
-      }, {});
-
-      return { month, total, totalEntries: moods.length };
-    },
-  },
-  {
-    method: "GET",
-    path: "/report",
-    options: {
-      auth: "default",
-      tags: ["api", "report"],
-      description: "Report mood seluruh data user",
-      notes: "Melihat seluruh history mood user",
-    },
-    handler: async (request, h) => {
-      const { userId } = request.auth.credentials;
-
-      const moods = await prisma.mood.findMany({
-        where: { userId },
-        orderBy: { createdAt: "desc" },
       });
+
+      // Emosi positif yang meningkatkan mood
+      const positiveEmotions = ["happy", "joy", "love", "surprise"];
+      let positiveTotal = 0;
+      positiveEmotions.forEach((key) => {
+        if (total[key]) {
+          positiveTotal += total[key];
+        }
+      });
+
+      // Hitung persentase mood positif
+      const moodPercent =
+        totalCount > 0 ? Math.round((positiveTotal / totalCount) * 100) : 0;
 
       return {
-        entries: moods.map((mood) => ({
-          id: mood.id,
-          date: mood.createdAt,
-          answers: mood.answers,
-          moodRating: mood.moodRating,
-          emotions: mood.emotions,
-          story: mood.story,
-        })),
+        month,
         totalEntries: moods.length,
+        emotionsSummary: {
+          yourmoodtotal: `${moodPercent}%`,
+        },
       };
     },
   },

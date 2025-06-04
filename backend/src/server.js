@@ -6,6 +6,7 @@ const moodRoutes = require("./routes/mood");
 const reportRoutes = require("./routes/report");
 const passwordRoutes = require("./routes/password");
 const profileRoutes = require("./routes/profile");
+const historyRoutes = require("./routes/history");
 
 // Swagger
 const Inert = require("@hapi/inert");
@@ -50,6 +51,7 @@ const init = async () => {
     ...reportRoutes,
     ...passwordRoutes,
     ...profileRoutes,
+    ...historyRoutes,
   ]);
 
   await server.start();

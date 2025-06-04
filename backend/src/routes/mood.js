@@ -27,16 +27,33 @@ module.exports = [
         const mlResponse = await axios.post("http://localhost:5000/analyze", {
           story,
         });
-        const emotions = mlResponse.data;
+        const rawEmotions = mlResponse.data;
 
+        // Simpan data ke DB
         const mood = await prisma.mood.create({
-          data: { story, emotions, userId },
+          data: { story, emotions: rawEmotions, userId },
         });
 
-        // exclude name from response
-        const { name, ...moodWithoutName } = mood;
+        // Format ulang: dari persentase 0-100 ke skala 0-10
+        const formattedEmotions = {};
+        for (const [emotion, value] of Object.entries(rawEmotions)) {
+          // pastikan value adalah number
+          const numValue = Number(value);
+          if (isNaN(numValue)) {
+            formattedEmotions[emotion] = "0.0/10";
+          } else {
+            formattedEmotions[emotion] = `${(numValue / 10).toFixed(1)}/10`;
+          }
+        }
 
-        return h.response(moodWithoutName).code(201);
+        return h
+          .response({
+            id: mood.id,
+            story: mood.story,
+            emotions: formattedEmotions,
+            createdAt: mood.createdAt,
+          })
+          .code(201);
       } catch (error) {
         console.error("ML error:", error.message);
         return h.response({ error: "ML service failed" }).code(500);
