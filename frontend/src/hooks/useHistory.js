@@ -9,39 +9,41 @@ import API from "../utils/api";
 // };
 
 const useHistory = (page = 1, limit = 10, search = "") => {
+  const isSearching = !!search;
   const { data, isLoading } = useQuery({
-    queryKey: ["history", page, limit, search],
+    queryKey: isSearching
+      ? ["history-search", search]
+      : ["history", page, limit],
     queryFn: async () => {
-      const res = await API.get(`/history?page=${page}&limit=${limit}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      return res.data;
+      if (isSearching) {
+        const res = await API.get(`/history?search=${encodeURIComponent(search)}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        return res.data;
+      } else {
+        const res = await API.get(`/history?page=${page}&limit=${limit}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        return res.data;
+      }
     },
     keepPreviousData: true,
   });
 
-  const moods = data?.moods || [];
-  const totalEntries = data?.totalEntries || 0;
-  const totalPages = Math.max(1, Math.ceil(totalEntries / limit));
+  let moods = data?.moods || [];
+  let totalEntries = data?.totalEntries || 0;
+  let totalPages = Math.max(1, Math.ceil(totalEntries / limit));
+  let filteredMoods = moods;
 
-  // Filter moods by search
-  const filteredMoods = moods.filter((entry) => {
-    const searchLower = search.toLowerCase();
-    return (
-      (entry.story && entry.story.toLowerCase().includes(searchLower)) ||
-      (entry.createdAt &&
-        new Date(entry.createdAt)
-          .toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          })
-          .toLowerCase()
-          .includes(searchLower))
-    );
-  });
+  if (isSearching) {
+    totalEntries = moods.length;
+    totalPages = Math.max(1, Math.ceil(totalEntries / limit));
+    filteredMoods = moods.slice((page - 1) * limit, page * limit);
+  }
 
   return {
     loading: isLoading,

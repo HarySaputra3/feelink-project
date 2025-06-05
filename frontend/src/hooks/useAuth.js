@@ -22,7 +22,6 @@ const useAuth = () => {
         showToast("No token received from server.", "error");
       }
     } catch (err) {
-      console.error("[LOGIN ERROR]", err.response?.data);
       showToast(err.response?.data?.message || "Login failed", "error");
     } finally {
       setLoading(false);
@@ -36,7 +35,6 @@ const useAuth = () => {
       showToast(res.data.message || "Registered successfully!", "success");
       setTimeout(() => navigate("/login"), 1000);
     } catch (err) {
-      console.error("[REGISTER ERROR]", err.response?.data);
       showToast(err.response?.data?.message || "Register failed", "error");
     } finally {
       setLoading(false);

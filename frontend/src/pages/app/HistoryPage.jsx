@@ -124,7 +124,7 @@ const HistoryPage = () => {
                   ? "cursor-not-allowed text-neutral-500"
                   : "cursor-pointer"
               }`}
-              disabled={page === 1}
+              disabled={page === 1 || loading}
               onClick={() => setPage((p) => Math.max(1, p - 1))}
             >
               {"<"}
@@ -137,6 +137,7 @@ const HistoryPage = () => {
                     ? "bg-primary text-secondary"
                     : "cursor-pointer"
                 }`}
+                disabled={loading}
                 onClick={() => setPage(i + 1)}
               >
                 {i + 1}
@@ -148,7 +149,7 @@ const HistoryPage = () => {
                   ? "cursor-not-allowed text-neutral-500"
                   : "cursor-pointer"
               }`}
-              disabled={page === totalPages}
+              disabled={page === totalPages || loading}
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             >
               {">"}

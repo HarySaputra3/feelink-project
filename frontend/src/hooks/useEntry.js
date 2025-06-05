@@ -36,13 +36,11 @@ const useEntry = () => {
     try {
       const story = answers.map((a) => `"${a}"`).join(" ");
       const res = await submitEntry(story);
-      console.log("[ENTRY SUBMISSION SUCCESS]", res.data);
       showToast(res.data.message || "Entry submitted successfully!", "success");
       setAnswers(["", "", "", "", ""]);
       // Update history cache
       queryClient.invalidateQueries({ queryKey: ["history"] });
     } catch (err) {
-      console.error("[ENTRY SUBMISSION ERROR]", err.response?.data);
       showToast(err.response?.data?.message || "Failed to submit entry.", "error");
     } finally {
       setLoading(false);
