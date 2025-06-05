@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useHistory from "../../hooks/useHistory";
+import useDebounce from "../../hooks/useDebounce";
 import Loading from "../../components/Loading";
 import Modal from "../../components/Modal";
 import { NotebookText, Search } from "lucide-react";
@@ -10,16 +11,15 @@ const HistoryPage = () => {
   const [modalEntry, setModalEntry] = useState(null);
   const [modalOrigin, setModalOrigin] = useState(null);
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search, 300);
 
   const {
-    data,
     loading,
     filteredMoods,
     totalPages,
-    getDominantEmotion,
-  } = useHistory(page, pageSize, search);
-
-  const moods = data?.moods || [];
+    emotionsSummary,
+    // getDominantEmotion,
+  } = useHistory(page, pageSize, debouncedSearch);
 
   const handleOpenModal = (entry, e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -66,7 +66,7 @@ const HistoryPage = () => {
                 <tr>
                   <th className="border-b px-4 py-4 text-center">No</th>
                   <th className="border-b px-4 py-4 text-center">Date</th>
-                  <th className="border-b px-4 py-4 text-center">Dominant Emotion</th>
+                  <th className="border-b px-4 py-4 text-center">Mood Rating</th>
                   <th className="border-b px-4 py-4 text-center">Details</th>
                 </tr>
               </thead>
@@ -74,7 +74,7 @@ const HistoryPage = () => {
                 {loading ? (
                   <tr>
                     <td colSpan={4} className="text-center py-4">
-                      <Loading />
+                      <Loading className="text-primary"/>
                     </td>
                   </tr>
                 ) : filteredMoods.length === 0 ? (
@@ -99,7 +99,7 @@ const HistoryPage = () => {
                           : "-"}
                       </td>
                       <td className="border-y px-4 py-4 text-center">
-                        {getDominantEmotion(entry.emotions)}
+                        {emotionsSummary?.yourmoodtotal ?? "-"}
                       </td>
                       <td className="border-y px-4 py-4 text-center">
                         <button
@@ -173,8 +173,8 @@ const HistoryPage = () => {
                 : "-"}
             </div>
             <div className="mb-2">
-              <span className="font-semibold">Dominant Emotion: </span>
-              {getDominantEmotion(modalEntry.emotions)}
+              <span className="font-semibold">Mood Rating: </span>
+              {emotionsSummary?.yourmoodtotal ?? "-"}
             </div>
             <div className="mb-2">
               <span className="font-semibold">Stories: </span>
@@ -200,7 +200,10 @@ const HistoryPage = () => {
               <div className="mb-2">
                 <span className="font-semibold">Emotions: </span>
                 <pre className="whitespace-pre-wrap break-words bg-primary-darker rounded p-2 mt-1">
-                  {JSON.stringify(modalEntry.emotions, null, 2)}
+                  {Object.entries(modalEntry.emotions)
+                    .filter(([key]) => key !== "totalyourmood")
+                    .map(([key, value]) => `${key}: ${value}%`)
+                    .join("\n") || "-"}
                 </pre>
               </div>
             )}

@@ -3,6 +3,8 @@ import useProfile from "../../hooks/useProfile";
 import { useToast } from "../../contexts/ToastContext";
 import Loading from "../../components/Loading";
 import { Eye, EyeOff } from "lucide-react";
+import useAuth from "../../hooks/useAuth";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ProfilePage = () => {
   const {
@@ -14,6 +16,8 @@ const ProfilePage = () => {
   } = useProfile();
 
   const { showToast } = useToast();
+  const { logout } = useAuth();
+  const queryClient = useQueryClient();
 
   // Local state for form fields
   const [localName, setLocalName] = useState(name);
@@ -32,8 +36,8 @@ const ProfilePage = () => {
   }, [name, email]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    showToast("Logged out successfully", "success");
+    queryClient.clear();
+    logout();
   };
 
   const handleUpdateProfile = async (e) => {
@@ -60,7 +64,7 @@ const ProfilePage = () => {
       </header>
       <main className="grid grid-rows-1 lg:grid-cols-2 max-w-7xl text-primary overflow-x-auto">
 
-        { /* Profile Form */}
+        {/* Profile Form */}
         <form onSubmit={handleUpdateProfile} className="flex flex-col gap-4 py-6 sm:p-6 md:p-12 w-full border-b-1 lg:border-b-0 lg:border-r-1">
           <label>
             <h2 className="text-lg font-medium mb-2">Name</h2>
@@ -94,7 +98,7 @@ const ProfilePage = () => {
         </form>
         <div className="py-6 sm:p-6 md:p-12">
 
-          { /* Change Password Form */}
+          {/* Change Password Form */}
           <form onSubmit={handleChangePassword} className="flex flex-col gap-4 w-full">
             <label>
               <h2 className="text-lg font-medium mb-2">New Password</h2>
@@ -151,7 +155,7 @@ const ProfilePage = () => {
             </button>
           </form>
 
-          { /* Logout Button */}
+          {/* Logout Button */}
           <button
             onClick={handleLogout}
             className="px-4 py-2 text-red-100 bg-red-600 hover:text-red-600 hover:bg-red-100 rounded cursor-pointer mt-12 w-full"

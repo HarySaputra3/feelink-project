@@ -43,7 +43,13 @@ const useAuth = () => {
     }
   };
 
-  return { login, register, loading };
+  const logout = () => {
+    localStorage.removeItem("token");
+    showToast("Logged out successfully", "success");
+    setTimeout(() => navigate("/login"), 500);
+  }
+
+  return { login, register, logout, loading };
 };
 
 export default useAuth;

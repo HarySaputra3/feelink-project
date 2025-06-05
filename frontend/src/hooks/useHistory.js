@@ -1,16 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import API from "../utils/api";
 
-const getDominantEmotion = (emotions) => {
-  if (!emotions) return "-";
-  const filtered = Object.entries(emotions).filter(([k]) => k !== "totalyourmood");
-  if (filtered.length === 0) return "-";
-  return filtered.reduce((max, curr) => (curr[1] > max[1] ? curr : max))[0];
-};
+// const getDominantEmotion = (emotions) => {
+//   if (!emotions) return "-";
+//   const filtered = Object.entries(emotions).filter(([k]) => k !== "totalyourmood");
+//   if (filtered.length === 0) return "-";
+//   return filtered.reduce((max, curr) => (curr[1] > max[1] ? curr : max))[0];
+// };
 
 const useHistory = (page = 1, limit = 10, search = "") => {
   const { data, isLoading } = useQuery({
-    queryKey: ["history", page, limit],
+    queryKey: ["history", page, limit, search],
     queryFn: async () => {
       const res = await API.get(`/history?page=${page}&limit=${limit}`, {
         headers: {
@@ -44,11 +44,11 @@ const useHistory = (page = 1, limit = 10, search = "") => {
   });
 
   return {
-    data,
     loading: isLoading,
     filteredMoods,
     totalPages,
-    getDominantEmotion,
+    emotionsSummary: data?.emotionsSummary,
+    // getDominantEmotion,
   };
 };
 
