@@ -17,7 +17,6 @@ const HistoryPage = () => {
     loading,
     filteredMoods,
     totalPages,
-    emotionsSummary,
     // getDominantEmotion,
   } = useHistory(page, pageSize, debouncedSearch);
 
@@ -99,7 +98,7 @@ const HistoryPage = () => {
                           : "-"}
                       </td>
                       <td className="border-y px-4 py-4 text-center">
-                        {emotionsSummary?.yourmoodtotal ?? "-"}
+                        {entry.emotions?.totalyourmood ?? "-"}
                       </td>
                       <td className="border-y px-4 py-4 text-center">
                         <button
@@ -175,7 +174,7 @@ const HistoryPage = () => {
             </div>
             <div className="mb-2">
               <span className="font-semibold">Mood Rating: </span>
-              {emotionsSummary?.yourmoodtotal ?? "-"}
+              {modalEntry.emotions?.totalyourmood ?? "-"}
             </div>
             <div className="mb-2">
               <span className="font-semibold">Stories: </span>
