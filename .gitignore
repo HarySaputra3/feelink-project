@@ -25,6 +25,8 @@ model/*.pkl
 model/.env
 model/*.log
 model/.venv
+model/venv/
+
 
 # --- Editor/OS Files ---
 .vscode/*
