@@ -17,6 +17,7 @@ const HistoryPage = () => {
     loading,
     filteredMoods,
     totalPages,
+    emotionsSummary,
     // getDominantEmotion,
   } = useHistory(page, pageSize, debouncedSearch);
 
@@ -39,15 +40,18 @@ const HistoryPage = () => {
       <main className="max-w-7xl text-primary">
         <div className="py-6 sm:p-6 md:p-12 w-full">
 
-          {/* Search */}
-          <div className="mb-4 flex justify-end">
-            <div className="relative w-full max-w-xs">
+          {/* Upper table */}
+          <div className="mb-4 flex justify-between items-center gap-4 flex-wrap sm:flex-nowrap">
+            <span className="text-center md:text-right md:whitespace-nowrap font-medium text-lg border-x-2 px-4">
+              Mood Rating Summary: {emotionsSummary?.yourmoodtotal ?? "-"}
+            </span>
+            <div className="relative flex-grow max-w-full sm:max-w-xs">
               <span className="absolute inset-y-0 right-0 flex items-center p-3 text-neutral-500 bg-primary text-secondary rounded-r-3xl">
                 <Search size={18} />
               </span>
               <input
                 type="text"
-                className="border-2 rounded-3xl px-3 py-2 w-full bg-neutral-50 placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
+                className="border-2 rounded-3xl px-3 py-2 w-full bg-neutral-50 placeholder-neutral-500 outline-none focus:ring focus:ring-primary pr-10"
                 placeholder="Search by story or date..."
                 value={search}
                 onChange={(e) => {

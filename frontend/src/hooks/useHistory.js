@@ -49,6 +49,7 @@ const useHistory = (page = 1, limit = 10, search = "") => {
     loading: isLoading,
     filteredMoods,
     totalPages,
+    emotionsSummary: data?.emotionsSummary,
     // getDominantEmotion,
   };
 };
