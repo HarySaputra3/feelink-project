@@ -8,11 +8,13 @@ datasource db {
 }
 
 model User {
-  id             Int     @id @default(autoincrement())
-  email          String  @unique
-  password       String
-  name           String
-  moods          Mood[]
+  id               Int       @id @default(autoincrement())
+  email            String    @unique
+  password         String
+  name             String
+  moods            Mood[]
+  resetToken       String?   // kode OTP untuk reset password
+  resetTokenExpiry DateTime? // waktu kedaluwarsa OTP
 }
 
 model Mood {
@@ -23,4 +25,3 @@ model Mood {
   userId    Int
   createdAt DateTime @default(now())
 }
-

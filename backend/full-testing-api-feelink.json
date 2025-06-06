@@ -12,7 +12,7 @@
         "header": [{ "key": "Content-Type", "value": "application/json" }],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\",\n  \"name\": \"Test User\",\n  \"profilePicture\": \"https://example.com/avatar.png\"\n}"
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\",\n  \"name\": \"Test User\"\n}"
         },
         "url": {
           "raw": "http://localhost:3000/register",
@@ -77,16 +77,16 @@
       }
     },
     {
-      "name": "Get Monthly Mood Report",
+      "name": "Get Monthly Mood Report (Bulan 6)",
       "request": {
         "method": "GET",
         "header": [{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }],
         "url": {
-          "raw": "http://localhost:3000/report/5",
+          "raw": "http://localhost:3000/report/6",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["report", "5"]
+          "path": ["report", "6"]
         }
       }
     },
@@ -197,6 +197,20 @@
           "host": ["localhost"],
           "port": "3000",
           "path": ["profile"]
+        }
+      }
+    },
+    {
+      "name": "Get Full Months Mood Report",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }],
+        "url": {
+          "raw": "http://localhost:3000/report/full-months",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["report", "full-months"]
         }
       }
     }

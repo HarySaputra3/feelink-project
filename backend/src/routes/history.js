@@ -1,6 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
 const Joi = require("joi");
-
 const prisma = new PrismaClient();
 
 module.exports = [
@@ -85,20 +84,14 @@ module.exports = [
           const rounded = Math.round(val);
           formattedEmotions[key] = rounded;
 
-          if (["happy", "joy", "love", "surprise"].includes(key)) {
+          if (["Gembira", "Cinta", "Kaget"].includes(key)) {
             pos += val;
           }
 
           if (
-            [
-              "happy",
-              "joy",
-              "love",
-              "surprise",
-              "fear",
-              "anger",
-              "sadness",
-            ].includes(key)
+            ["Marah", "Takut", "Gembira", "Cinta", "Sedih", "Kaget"].includes(
+              key
+            )
           ) {
             total += val;
           }
