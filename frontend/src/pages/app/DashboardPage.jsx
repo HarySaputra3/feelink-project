@@ -90,9 +90,16 @@ const DashboardPage = () => {
           <h2 className="text-lg mb-6">Halo {name}, welcome to your emotion journey</h2>
           
           {isLoading ? (
-            <div className="flex justify-center items-center h-64">
-              <Loading className="text-primary" />
-            </div>
+            <>
+              <h2 className="text-2xl font-bold mb-4">Current Month Emotion Breakdown</h2>
+              <div className="flex justify-center items-center h-64">
+                <Loading className="text-primary" />
+              </div>
+              <h2 className="text-2xl font-bold mb-4">Monthly Mood Trends</h2>
+              <div className="flex justify-center items-center h-64">
+                <Loading className="text-primary" />
+              </div>
+            </>
           ) : (
             <>
               {/* Pie Chart for Current Month */}
@@ -101,36 +108,38 @@ const DashboardPage = () => {
                   {monthNames[currentMonth - 1]} Emotion Breakdown
                 </h2>
                 {pieChartData.length > 0 ? (
-                  <div className="flex justify-center">
-                    <ResponsiveContainer width="100%" height={400} maxHeight={400}>
-                      <PieChart>
-                        <Pie
-                          data={pieChartData}
-                          cx="50%"
-                          cy="50%"
-                          labelLine={false}
-                          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(1)}%`}
-                          outerRadius={120}
-                          fill="#8884d8"
-                          dataKey="value"
-                        >
-                          {pieChartData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                          ))}
-                        </Pie>
-                        <Tooltip
-                          contentStyle={tooltipStyle}
-                          itemStyle={{ color: "var(--color-secondary)" }}
-                          formatter={(value, name) => [`${value}%`, name]}
-                        />
-                        <Legend 
-                          wrapperStyle={{ 
-                            color: "var(--color-primary-darker)",
-                            fontSize: "14px"
-                          }}
-                        />
-                      </PieChart>
-                    </ResponsiveContainer>
+                  <div className="overflow-x-auto">
+                    <div className="flex justify-center min-w-[400px]">
+                      <ResponsiveContainer width="100%" height={400}>
+                        <PieChart>
+                          <Pie
+                            data={pieChartData}
+                            cx="50%"
+                            cy="50%"
+                            labelLine={false}
+                            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(1)}%`}
+                            outerRadius={120}
+                            fill="#8884d8"
+                            dataKey="value"
+                          >
+                            {pieChartData.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                          </Pie>
+                          <Tooltip
+                            contentStyle={tooltipStyle}
+                            itemStyle={{ color: "var(--color-secondary)" }}
+                            formatter={(value, name) => [`${value}%`, name]}
+                          />
+                          <Legend 
+                            wrapperStyle={{ 
+                              color: "var(--color-primary-darker)",
+                              fontSize: "14px"
+                            }}
+                          />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
                   </div>
                 ) : (
                   <div className="text-center py-8 text-gray-500">
