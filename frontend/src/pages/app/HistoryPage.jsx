@@ -17,7 +17,7 @@ const HistoryPage = () => {
     loading,
     filteredMoods,
     totalPages,
-    emotionsSummary,
+    latestSummary,
     // getDominantEmotion,
   } = useHistory(page, pageSize, debouncedSearch);
 
@@ -43,7 +43,7 @@ const HistoryPage = () => {
           {/* Upper table */}
           <div className="mb-4 flex justify-between items-center gap-4 flex-wrap sm:flex-nowrap">
             <span className="text-center md:text-right md:whitespace-nowrap font-medium text-lg border-x-2 px-4">
-              Mood Rating Summary: {emotionsSummary?.yourmoodtotal ?? "-"}
+              Your Latest Overall Mood Rating: {latestSummary?.yourmoodtotal ?? "-"}
             </span>
             <div className="relative flex-grow max-w-full sm:max-w-xs">
               <span className="absolute inset-y-0 right-0 flex items-center p-3 bg-primary text-secondary rounded-r-3xl">

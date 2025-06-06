@@ -1,13 +1,12 @@
 import Menggila from "../../components/_menggila.jsx";
 import Loading from "../../components/Loading";
-import useMonthlyReport from "../../hooks/useMonthlyReport";
+import { useMonthlyReport, useFullMonthsReport } from "../../hooks/useReport";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, Legend,
 } from "recharts";
 import useProfile from "../../hooks/useProfile.js";
 
-const months = Array.from({ length: 12 }, (_, i) => i + 1);
 const monthNames = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December",
@@ -17,65 +16,59 @@ const monthShortNames = [
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 ];
 
+const COLORS = [
+  'var(--color-primary)',
+  'var(--color-accent)',
+  'var(--color-primary-darker)',
+  'var(--color-accent-darker)',
+  '#8884d8',
+  '#82ca9d',
+  '#ffc658',
+  '#ff7300',
+  '#00ff00',
+  '#ff00ff',
+];
+
+const tooltipStyle = {
+  backgroundColor: "var(--color-primary-darker)",
+  borderRadius: "6px",
+  color: "var(--color-secondary)",
+  padding: "8px",
+  fontSize: "0.9rem",
+};
+
 const DashboardPage = () => {
   const { name } = useProfile();
-  const reportQueries = [];
-  for (let month = 1; month <= 12; month++) {
-    reportQueries.push(useMonthlyReport(month));
-  }
-
-  const isLoading = reportQueries.some(query => query.isLoading);
-
   const currentMonth = new Date().getMonth() + 1;
 
-  const chartData = months.map((month, idx) => {
-    const data = reportQueries[idx].data;
-    return {
-      month: monthNames[month - 1],         // full month name for tooltip
-      monthShort: monthShortNames[month - 1], // short month name for x-axis ticks
-      mood: data?.emotionsSummary?.yourmoodtotal || 0,
-      totalEntries: data?.totalEntries ?? 0,
-    };
-  });
+  // Pie chart: current month only
+  const { data: currentMonthData, isLoading: isPieLoading } = useMonthlyReport(currentMonth);
 
-  // emotions
-  const dummyEmotions = {
-    "Cinta": 30,
-    "Kaget": 0,
-    "Marah": 0,
-    "Sedih": 0,
-    "Takut": 1,
-    "Gembira": 68,
-  };
+  // Bar/Line chart: all months
+  const { data: fullMonthsData, isLoading: isBarLoading } = useFullMonthsReport();
 
-  const pieChartData = Object.entries(dummyEmotions)
-    .map(([emotion, value]) => ({
-      name: emotion,
-      value: parseFloat(value) || 0,
-    }))
-    .filter(item => item.value > 0);
+  // Pie chart data
+  const pieChartData = currentMonthData && currentMonthData.emotionsSummary
+    ? Object.entries(currentMonthData.emotionsSummary)
+        .filter(([key]) => key !== "totalyourmood")
+        .map(([emotion, value]) => ({
+          name: emotion,
+          value: parseFloat(value) || 0,
+        }))
+        .filter(item => item.value > 0)
+    : [];
 
-  // Colors for pie chart
-  const COLORS = [
-    'var(--color-primary)',
-    'var(--color-accent)',
-    'var(--color-primary-darker)',
-    'var(--color-accent-darker)',
-    '#8884d8',
-    '#82ca9d',
-    '#ffc658',
-    '#ff7300',
-    '#00ff00',
-    '#ff00ff',
-  ];
+  // Bar/Line chart data
+  const lineChartData = Array.isArray(fullMonthsData)
+    ? fullMonthsData.map((monthReport) => ({
+        month: monthNames[monthReport.month - 1],
+        monthShort: monthShortNames[monthReport.month - 1],
+        mood: parseInt(monthReport.emotionsSummary?.totalyourmood) || 0,
+        totalEntries: monthReport.totalEntries ?? 0,
+      }))
+    : [];
 
-  const tooltipStyle = {
-    backgroundColor: "var(--color-primary-darker)",
-    borderRadius: "6px",
-    color: "var(--color-secondary)",
-    padding: "8px",
-    fontSize: "0.9rem",
-  };
+  const isLoading = isPieLoading || isBarLoading;
 
   return (
     <>
@@ -129,7 +122,7 @@ const DashboardPage = () => {
                           <Tooltip
                             contentStyle={tooltipStyle}
                             itemStyle={{ color: "var(--color-secondary)" }}
-                            formatter={(value, name) => [`${value}%`, name]}
+                            formatter={(value, name) => [`${value}`, name]}
                           />
                           <Legend 
                             wrapperStyle={{ 
@@ -154,7 +147,7 @@ const DashboardPage = () => {
                 <div className="overflow-x-auto">
                   <div className="min-w-[500px]">
                     <ResponsiveContainer width="100%" height={300}>
-                      <LineChart data={chartData} margin={{ top: 20, right: 40, left: 20, bottom: 20 }}>
+                      <LineChart data={lineChartData} margin={{ top: 20, right: 40, left: 20, bottom: 20 }}>
                         <CartesianGrid stroke="var(--color-primary-lighter)" strokeDasharray="3 3" />
                         <XAxis
                           dataKey="monthShort"
@@ -195,6 +188,12 @@ const DashboardPage = () => {
                           labelFormatter={(label) => {
                             const idx = monthShortNames.indexOf(label);
                             return idx !== -1 ? monthNames[idx] : label;
+                          }}
+                          formatter={(value, name) => {
+                            if (name === "Mood Rating") {
+                              return [`${value}%`, name];
+                            }
+                            return [value, name];
                           }}
                         />
                         <Line

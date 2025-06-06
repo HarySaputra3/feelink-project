@@ -78,21 +78,6 @@ module.exports = [
     },
   },
 
-  // Handler OPTIONS untuk preflight CORS
-  {
-    method: "OPTIONS",
-    path: "/report/{month}",
-    options: {
-      auth: false,
-      cors: {
-        origin: ["*"],
-        additionalHeaders: ["Authorization", "Content-Type"],
-      },
-    },
-    handler: (request, h) => {
-      return h.response().code(204);
-    },
-  },
   {
     method: "GET",
     path: "/report/full-months",

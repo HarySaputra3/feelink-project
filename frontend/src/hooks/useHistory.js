@@ -10,28 +10,36 @@ import API from "../utils/api";
 
 const useHistory = (page = 1, limit = 10, search = "") => {
   const isSearching = !!search;
+
+  const token = localStorage.getItem("token");
+
   const { data, isLoading } = useQuery({
-    queryKey: isSearching
-      ? ["history-search", search]
-      : ["history", page, limit],
+    queryKey: isSearching ? ["history-search", search] : ["history", page, limit],
     queryFn: async () => {
       if (isSearching) {
         const res = await API.get(`/history?search=${encodeURIComponent(search)}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
         return res.data;
       } else {
         const res = await API.get(`/history?page=${page}&limit=${limit}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
         return res.data;
       }
     },
     keepPreviousData: true,
+  });
+
+  const { data: pageOneData } = useQuery({
+    queryKey: ["history", "latest-summary"],
+    queryFn: async () => {
+      const res = await API.get(`/history?page=1&limit=${limit}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return res.data;
+    },
+    staleTime: 60 * 1000, // 1 min cache
   });
 
   let moods = data?.moods || [];
@@ -49,8 +57,7 @@ const useHistory = (page = 1, limit = 10, search = "") => {
     loading: isLoading,
     filteredMoods,
     totalPages,
-    emotionsSummary: data?.emotionsSummary,
-    // getDominantEmotion,
+    latestSummary: pageOneData?.emotionsSummary,
   };
 };
 
