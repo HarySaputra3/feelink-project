@@ -10,7 +10,6 @@ const useMonthlyReport = (month) => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log("Monthly report data:", res.data);
       return res.data;
     },
     enabled: !!month,

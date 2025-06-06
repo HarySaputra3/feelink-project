@@ -46,7 +46,7 @@ const HistoryPage = () => {
               Mood Rating Summary: {emotionsSummary?.yourmoodtotal ?? "-"}
             </span>
             <div className="relative flex-grow max-w-full sm:max-w-xs">
-              <span className="absolute inset-y-0 right-0 flex items-center p-3 text-neutral-500 bg-primary text-secondary rounded-r-3xl">
+              <span className="absolute inset-y-0 right-0 flex items-center p-3 bg-primary text-secondary rounded-r-3xl">
                 <Search size={18} />
               </span>
               <input
@@ -82,7 +82,7 @@ const HistoryPage = () => {
                   </tr>
                 ) : filteredMoods.length === 0 ? (
                   <tr>
-                    <td colSpan={4} className="text-center py-4">
+                    <td colSpan={4} className="text-center py-4 text-neutral-500">
                       No history found
                     </td>
                   </tr>
