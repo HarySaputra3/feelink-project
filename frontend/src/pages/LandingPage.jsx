@@ -83,10 +83,11 @@ const LandingPage = () => {
       </AnimatePresence>
 
       {/* Header */}
-      <header className="top-0 left-0 right-0 bg-secondary flex items-center justify-between px-6 py-4 max-w-6xl mx-auto w-full z-30">
-        <div className="flex items-center space-x-2">
-          <img src={Logo} alt="Feelink Logo" className="w-10 h-10" />
-        </div>
+      <header className="top-0 left-0 right-0 z-30 fixed w-full bg-secondary shadow-md">  
+        <div className='bg-secondary flex items-center justify-between px-6 py-4 max-w-6xl mx-auto w-full '>
+          <div className="flex items-center space-x-2">
+            <img src={Logo} alt="Feelink Logo" className="w-10 h-10" />
+          </div>
 
         <nav className="hidden md:flex items-center space-x-6 text-sm font-semibold">
           <Menggila />
@@ -96,10 +97,11 @@ const LandingPage = () => {
           <Link to="/login" className="bg-primary text-secondary px-4 py-2 rounded">Login</Link>
         </nav>
 
-        {/* Toggle Mobile Menu Button */}
-        <button className="md:hidden cursor-pointer" onClick={() => setMenuOpen(v => !v)} aria-label="Toggle menu">
-          {menuOpen ? <X size={24} /> : <AlignJustify size={24} />}
-        </button>
+          {/* Toggle Mobile Menu Button */}
+          <button className="md:hidden cursor-pointer" onClick={() => setMenuOpen(v => !v)} aria-label="Toggle menu">
+            {menuOpen ? <X size={24} /> : <AlignJustify size={24} />}
+          </button>
+        </div>
       </header>
 
       {/* Mobile Menu */}
@@ -122,7 +124,7 @@ const LandingPage = () => {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative flex items-center justify-center min-h-[70vh] pt-12 md:pt-24 pb-24 md:pb-48 px-6">
+      <section className="relative flex items-center justify-center min-h-[70vh] pt-24 md:pt-24 pb-24 md:pb-48 px-6">
         <div className="relative space-y-8 max-w-[900px] mx-auto text-center md:text-left px-6">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-snug flex flex-wrap gap-x-3 text-pretty text-center md:text-left">
             {hero.split(' ').map((word, i) => (
