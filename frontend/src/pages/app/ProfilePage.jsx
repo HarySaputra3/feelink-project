@@ -5,6 +5,7 @@ import Loading from "../../components/Loading";
 import { Eye, EyeOff } from "lucide-react";
 import useAuth from "../../hooks/useAuth";
 import { useQueryClient } from "@tanstack/react-query";
+import { LogOut } from "lucide-react";
 
 const ProfilePage = () => {
   const {
@@ -59,15 +60,15 @@ const ProfilePage = () => {
 
   return (
     <>
-      <header className="text-primary py-6 sm:p-6 md:p-12 border-b-2">
-        <h1 className="text-4xl">Profile Settings</h1>
+      <header className="text-primary py-6 sm:p-6 md:p-12 border-b-2 flex flex-col md:flex-row justify-between gap-4">
+        <h1 className="text-4xl font-semibold">Profile Settings</h1>
       </header>
-      <main className="grid grid-rows-1 lg:grid-cols-2 max-w-7xl text-primary overflow-x-auto">
+      <main className="grid grid-rows-1 lg:grid-cols-2 max-w-7xl text-primary overflow-x-auto mx-auto">
 
         {/* Profile Form */}
         <form onSubmit={handleUpdateProfile} className="flex flex-col gap-4 py-6 sm:p-6 md:p-12 w-full border-b-1 lg:border-b-0 lg:border-r-1">
           <label>
-            <h2 className="text-lg font-medium mb-2">Name</h2>
+            <h2 className="text-lg font-semibold mb-2">Name</h2>
             <input
               className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
               type="text"
@@ -78,7 +79,7 @@ const ProfilePage = () => {
             />
           </label>
           <label>
-            <h2 className="text-lg font-medium mb-2">Email</h2>
+            <h2 className="text-lg font-semibold mb-2">Email</h2>
             <input
               className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
               type="email"
@@ -101,7 +102,7 @@ const ProfilePage = () => {
           {/* Change Password Form */}
           <form onSubmit={handleChangePassword} className="flex flex-col gap-4 w-full">
             <label>
-              <h2 className="text-lg font-medium mb-2">New Password</h2>
+              <h2 className="text-lg font-semibold mb-2">New Password</h2>
               <div className="relative">
                 <input
                   className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
@@ -124,7 +125,7 @@ const ProfilePage = () => {
               </div>
             </label>
             <label>
-              <h2 className="text-lg font-medium mb-2">Confirm Password</h2>
+              <h2 className="text-lg font-semibold mb-2">Confirm Password</h2>
               <div className="relative">
                 <input
                   className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
@@ -154,15 +155,14 @@ const ProfilePage = () => {
               {passwordLoading ? <Loading /> : "Change password"}
             </button>
           </form>
-
-          {/* Logout Button */}
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 text-red-100 bg-red-600 hover:text-red-600 hover:bg-red-100 rounded cursor-pointer mt-12 w-full"
-          >
-            Logout
-          </button>
         </div>
+
+        <button
+          onClick={handleLogout}
+          className="p-3 text-red-100 bg-red-600 hover:text-red-600 hover:bg-red-100 active:bg-red-100 rounded-tl cursor-pointer w-fit absolute bottom-0 right-0"
+        >
+          <LogOut />
+        </button>
       </main>
     </>
   );

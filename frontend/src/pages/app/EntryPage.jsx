@@ -14,14 +14,14 @@ const EntryPage = () => {
 
   return (
     <>
-      <header className="text-primary py-6 sm:p-6 md:p-12 border-b-2">
-        <h1 className="text-4xl">This entry okay, yu entry yu prob prob here</h1>
+      <header className="text-primary py-6 sm:p-6 md:p-12 border-b-2 flex justify-between">
+        <h1 className="text-4xl font-semibold">This entry okay, yu entry yu prob prob here</h1>
       </header>
-      <main className="max-w-7xl text-primary overflow-x-auto">
+      <main className="max-w-7xl text-primary flex flex-col items-center mx-auto">
         <form className="flex flex-col gap-4 py-6 sm:p-6 md:p-12 w-full" onSubmit={handleSubmit}>
           {questions.map((q, idx) => (
             <label key={idx}>
-              <h2 className="text-lg font-medium">{`Question ${idx + 1}`}</h2>
+              <h2 className="text-lg font-semibold">{`Question ${idx + 1}`}</h2>
               <p className="mb-2">{q}</p>
               <input
                 className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
@@ -30,6 +30,7 @@ const EntryPage = () => {
                 value={answers[idx]}
                 onChange={(e) => handleChange(idx, e.target.value)}
                 disabled={loading}
+                autoFocus={idx === 0}
               />
             </label>
           ))}

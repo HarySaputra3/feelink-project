@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, Suspense } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../assets/feelink.svg'
 import { AlignJustify, X } from 'lucide-react'

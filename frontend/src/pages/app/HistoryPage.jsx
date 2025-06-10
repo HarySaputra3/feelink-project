@@ -17,7 +17,6 @@ const HistoryPage = () => {
     loading,
     filteredMoods,
     totalPages,
-    latestSummary,
     // getDominantEmotion,
   } = useHistory(page, pageSize, debouncedSearch);
 
@@ -32,19 +31,16 @@ const HistoryPage = () => {
 
   return (
     <>
-      <header className="text-primary py-6 sm:p-6 md:p-12 border-b-2">
-        <h1 className="text-4xl">
+      <header className="text-primary py-6 sm:p-6 md:p-12 border-b-2 flex justify-between">
+        <h1 className="text-4xl font-semibold">
           This history okay, yu see yu prob prob hsty here
         </h1>
       </header>
-      <main className="max-w-7xl text-primary">
+      <main className="max-w-7xl text-primary flex flex-col items-center mx-auto">
         <div className="py-6 sm:p-6 md:p-12 w-full">
 
           {/* Upper table */}
-          <div className="mb-4 flex justify-between items-center gap-4 flex-wrap sm:flex-nowrap">
-            <span className="text-center md:text-right md:whitespace-nowrap font-medium text-lg border-x-2 px-4">
-              Your Latest Overall Mood Rating: {latestSummary?.yourmoodtotal ?? "-"}
-            </span>
+          <div className="mb-4 flex justify-end">
             <div className="relative flex-grow max-w-full sm:max-w-xs">
               <span className="absolute inset-y-0 right-0 flex items-center p-3 bg-primary text-secondary rounded-r-3xl">
                 <Search size={18} />
