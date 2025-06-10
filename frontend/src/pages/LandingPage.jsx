@@ -163,22 +163,58 @@ const LandingPage = () => {
       </section>
 
       {/* How It Works Section */}
-      <section id="how" className="text-center px-6 py-24 my-24 mx-auto space-y-24">
+      <section id="how" className="text-center px-6 py-24 mx-auto space-y-24">
         <div className="max-w-2xl mx-auto space-y-4">
           <ScrollFadeIn custom={2}>
             <h2 className="text-2xl md:text-3xl font-bold">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              Bagaimana Cara Feelink Bekerja?
             </h2>
           </ScrollFadeIn>
           <ScrollFadeIn custom={3}>
             <p className="text-sm md:text-base">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce molestie quis velit nec scelerisque. Morbi non lacinia nulla.
+              Proses sederhana dalam 3 langkah: Tulis ceritamu, biarkan AI menganalisis, lalu temukan wawasan emosionalmu.
             </p>
           </ScrollFadeIn>
         </div>
         <ScrollFadeIn custom={4}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
+            {/* Step 1 */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-24 h-24 flex items-center justify-center rounded-full bg-primary text-secondary text-2xl font-bold shadow-md">
+                1
+              </div>
+              <h3 className="text-xl font-semibold">Tulis Cerita</h3>
+              <p className="text-sm max-w-xs text-center">
+                Ekspresikan isi hatimu dalam bentuk tulisan. Cerita ini akan menjadi dasar analisis emosimu.
+              </p>
+            </div>
+
+            {/* Step 2 */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-24 h-24 flex items-center justify-center rounded-full bg-primary text-secondary text-2xl font-bold shadow-md">
+                2
+              </div>
+              <h3 className="text-xl font-semibold">Analisis Emosi</h3>
+              <p className="text-sm max-w-xs text-center">
+                Sistem AI kami akan menganalisis tulisanmu dan mendeteksi emosi yang tersembunyi di dalamnya.
+              </p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-24 h-24 flex items-center justify-center rounded-full bg-primary text-secondary text-2xl font-bold shadow-md">
+                3
+              </div>
+              <h3 className="text-xl font-semibold">Lihat Wawasanmu</h3>
+              <p className="text-sm max-w-xs text-center">
+                Hasil analisis akan ditampilkan dalam bentuk visual yang membantu kamu memahami dirimu lebih dalam.
+              </p>
+            </div>
+          </div>
+        </ScrollFadeIn>
+        <ScrollFadeIn custom={5}>
           <div
-            className="max-w-[900px] shadow-2xl rounded-lg overflow-hidden"
+            className="max-w-[900px] shadow-2xl rounded-lg overflow-hidden mx-auto"
             ref={videoRef}
           >
             {showVideo && Showcase ? (
