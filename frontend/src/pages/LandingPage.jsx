@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
-import Logo from '../assets/feelink.svg'
-import { AlignJustify, X } from 'lucide-react'
-import Menggila from '../components/_menggila'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { useState, useEffect, useRef } from "react"
+import { Link } from "react-router-dom"
+import Logo from "../assets/feelink.svg"
+import { AlignJustify, X } from "lucide-react"
+import Menggila from "../components/_menggila"
+import { motion, AnimatePresence, useInView } from "framer-motion"
+import GlobalModal from "../components/ModalLight"
 
 const ScrollFadeIn = ({ children, custom = 0 }) => {
   const ref = useRef(null)
@@ -37,6 +38,17 @@ const LandingPage = () => {
   const videoInView = useInView(videoRef, { once: true })
   const [showVideo, setShowVideo] = useState(false)
   const [Showcase, setShowcase] = useState(null)
+  const [modalOrigin, setModalOrigin] = useState(null);
+  const [modalContentType, setModalContentType] = useState(null);
+
+  const handleOpenModal = (e, type) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setModalOrigin({
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    });
+    setModalContentType(type);
+  };
 
   useEffect(() => {
     if (videoInView && !Showcase) {
@@ -80,7 +92,7 @@ const LandingPage = () => {
           <Menggila />
           <Link to="/" className="hover:underline">HOME</Link>
           <a href="#how" className="hover:underline">HOW IT WORKS</a>
-          <a href="#about" className="hover:underline">ABOUT US</a>
+          <a onClick={(e) => handleOpenModal(e, 'about')} className="hover:underline cursor-pointer">ABOUT US</a>
           <Link to="/login" className="bg-primary text-secondary px-4 py-2 rounded">Login</Link>
         </nav>
 
@@ -185,21 +197,61 @@ const LandingPage = () => {
         </ScrollFadeIn>
       </section>
 
+      <GlobalModal open={!!modalOrigin} origin={modalOrigin} onClose={() => {
+        setModalOrigin(null);
+        setModalContentType(null);
+      }}>
+        {modalContentType === 'about' && (
+          <div className="text-center space-y-4">
+            <h1 className="text-4xl font-bold">About Us</h1>
+            <p>Ware ware wa ningen de aru</p>
+          </div>
+        )}
+        {modalContentType === 'privacy' && (
+          <div className="text-left space-y-6 max-h-[70vh] overflow-y-auto text-sm md:text-base px-4">
+            <h1 className="text-3xl font-bold text-center">Privacy Policy</h1>
+            <p>At <strong>Feelink</strong>, we value your privacy. This policy outlines how we collect, use, and protect your data when using our mood tracking app and services.</p>
+
+            <h2 className="text-xl font-semibold">1. Information We Collect</h2>
+            <ul className="list-disc pl-6 space-y-2">
+              <li><strong>Story Content:</strong> The text you submit for emotional analysis.</li>
+              <li><strong>Emotional Results:</strong> Emotions returned by our ML model based on your story.</li>
+              <li><strong>User Metadata:</strong> User ID (for associating data with your account), timestamps, and related data.</li>
+            </ul>
+
+            <h2 className="text-xl font-semibold">2. How We Use Your Data</h2>
+            <p>We use your data to analyze mood patterns, store entries for reflection, and display visual insights in your dashboard. We do <strong>not</strong> sell or share your personal data with third parties for advertising.</p>
+
+            <h2 className="text-xl font-semibold">3. Data Security</h2>
+            <p>Your data is securely stored in our database. Access is restricted and authenticated to protect against misuse.</p>
+
+            <h2 className="text-xl font-semibold">4. Machine Learning Privacy</h2>
+            <p>Stories are sent to an internal ML model endpoint for analysis. This endpoint is private and not exposed publicly.</p>
+
+            <h2 className="text-xl font-semibold">5. Your Rights</h2>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Request access to your data</li>
+              <li>Request deletion of mood entries</li>
+              <li>Withdraw consent to processing</li>
+            </ul>
+          </div>
+        )}
+      </GlobalModal>
+
       {/* Footer */}
       <footer className="bg-primary text-secondary px-6 md:px-24 py-12 h-[500px] place-content-center">
         <div className="max-w-6xl lg:mx-auto flex flex-col-reverse md:flex-row justify-between gap-15">
           <div>
             <img src={Logo} alt="Feelink Logo" className="w-12 h-12 mb-24" />
             <div className="space-y-2 text-sm">
-              <p>All rights reserved</p>
-              <p>Follow us on socials</p>
+              <p>&copy; 2025 Feelink | All rights reserved</p>
             </div>
           </div>
           <div className="flex flex-col space-y-2 text-sm">
             <Link to="" className="hover:underline cursor-pointer">HOME</Link>
             <a href="#how" className="hover:underline cursor-pointer">HOW IT WORKS</a>
-            <a href="#about" className="hover:underline cursor-pointer">ABOUT US</a>
-            <Link to="" className="hover:underline cursor-pointer">TERMS OF SERVICE</Link>
+            <a onClick={(e) => handleOpenModal(e, 'about')} className="hover:underline cursor-pointer">ABOUT US</a>
+            <a onClick={(e) => handleOpenModal(e, 'privacy')} className="hover:underline cursor-pointer">PRIVARY POLICY</a>
           </div>
         </div>
       </footer>

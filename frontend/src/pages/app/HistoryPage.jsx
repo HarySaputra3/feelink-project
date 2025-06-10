@@ -2,7 +2,7 @@ import { useState } from "react";
 import useHistory from "../../hooks/useHistory";
 import useDebounce from "../../hooks/useDebounce";
 import Loading from "../../components/Loading";
-import Modal from "../../components/Modal";
+import Modal from "../../components/ModalDark";
 import { NotebookText, Search } from "lucide-react";
 
 const HistoryPage = () => {
