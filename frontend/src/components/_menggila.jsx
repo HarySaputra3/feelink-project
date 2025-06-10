@@ -34,7 +34,7 @@ export default function f() {
   return (
     <button
       onClick={j}
-      className="px-4 py-2"
+      className="px-4 py-2 opacity-0"
       style={{
         backgroundColor: 'var(--color-primary)',
         color: 'var(--color-secondary-darker)',

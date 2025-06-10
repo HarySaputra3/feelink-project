@@ -45,9 +45,67 @@ const useAuth = () => {
     localStorage.removeItem("token");
     showToast("Logged out successfully", "success");
     setTimeout(() => navigate("/login"), 500);
-  }
+  };
 
-  return { login, register, logout, loading };
+  const forgotPassword = async (email) => {
+    setLoading(true);
+    try {
+      const res = await API.post("/forgot-password", { email });
+      showToast(res.data.message || "Kode OTP telah dikirim ke email", "success");
+      return { success: true };
+    } catch (err) {
+      showToast(err.response?.data?.message || "Failed to send reset code", "error");
+      return { success: false };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const resetPassword = async (email, code, newPassword) => {
+    setLoading(true);
+    try {
+      const res = await API.post("/reset-password", { 
+        email, 
+        code, 
+        newPassword 
+      });
+      showToast(res.data.message || "Password berhasil direset", "success");
+      setTimeout(() => navigate("/login"), 1000);
+      return { success: true };
+    } catch (err) {
+      showToast(err.response?.data?.message || "Failed to reset password", "error");
+      return { success: false };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const changePassword = async (newPassword, confirmPassword) => {
+    setLoading(true);
+    try {
+      const res = await API.put("/change-password", { 
+        newPassword, 
+        confirmPassword 
+      });
+      showToast(res.data.message || "Password berhasil diubah", "success");
+      return { success: true };
+    } catch (err) {
+      showToast(err.response?.data?.message || "Failed to change password", "error");
+      return { success: false };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { 
+    login, 
+    register, 
+    logout, 
+    forgotPassword, 
+    resetPassword, 
+    changePassword, 
+    loading 
+  };
 };
 
 export default useAuth;

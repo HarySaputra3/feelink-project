@@ -11,6 +11,7 @@ import DashboardPage from '../pages/app/DashboardPage'
 import EntryPage from '../pages/app/EntryPage'
 import HistoryPage from '../pages/app/HistoryPage'
 import ProfilePage from '../pages/app/ProfilePage'
+import ResetPasswordPage from '../pages/auth/ResetPasswordPage';
 
 export default function AppRoutes() {
   return (
@@ -26,6 +27,7 @@ export default function AppRoutes() {
           <SignupPage />
         </ProtectedRoute>
       } />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
 
       <Route element={
         <ProtectedRoute>

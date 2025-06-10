@@ -90,7 +90,7 @@ const LoginPage = () => {
               {loading ? <Loading /> : "Login"}
             </button>
           </form>
-          <Link to="#" className="text-red-500 hover:underline">
+          <Link to="/reset-password" className="text-red-500 hover:underline">
             Forgot password?
           </Link>
         </div>

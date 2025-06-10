@@ -65,7 +65,7 @@ const HistoryPage = () => {
                 <tr>
                   <th className="border-b px-4 py-4 text-center">No</th>
                   <th className="border-b px-4 py-4 text-center">Date</th>
-                  <th className="border-b px-4 py-4 text-center">Mood Rating</th>
+                  <th className="border-b px-4 py-4 text-center">Mood Score</th>
                   <th className="border-b px-4 py-4 text-center">Details</th>
                 </tr>
               </thead>
@@ -173,11 +173,11 @@ const HistoryPage = () => {
                 : "-"}
             </div>
             <div className="mb-2">
-              <span className="font-semibold">Mood Rating: </span>
+              <span className="font-semibold">Mood Score: </span>
               {modalEntry.emotions?.totalyourmood ?? "-"}
             </div>
             <div className="mb-2">
-              <span className="font-semibold">Stories: </span>
+              <span className="font-semibold">Your Stories: </span>
               <pre className="whitespace-pre-wrap break-words bg-primary-darker rounded p-2 mt-1">
                 {modalEntry.story
                   ? (() => {
@@ -198,7 +198,7 @@ const HistoryPage = () => {
             </div>
             {modalEntry.emotions && (
               <div className="mb-2">
-                <span className="font-semibold">Emotions: </span>
+                <span className="font-semibold">Your Emotions: </span>
                 <pre className="whitespace-pre-wrap break-words bg-primary-darker rounded p-2 mt-1">
                   {Object.entries(modalEntry.emotions)
                     .filter(([key]) => key !== "totalyourmood")
