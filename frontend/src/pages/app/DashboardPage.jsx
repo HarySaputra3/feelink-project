@@ -85,7 +85,7 @@ const DashboardPage = () => {
     <>
       <header className="text-primary py-6 sm:p-6 md:p-12 border-b-2 flex flex-col lg:flex-row lg:justify-between gap-4">
         <div>
-          <h1 className="text-4xl font-semibold">Welcome, {name}!</h1>
+          <h1 className="text-4xl font-semibold">Welcome, {name || "user"}!</h1>
           <p className="text-accent-darker text-lg">Track your emotional journey and discover insights to improve your well-being.</p>
         </div>
         <div>

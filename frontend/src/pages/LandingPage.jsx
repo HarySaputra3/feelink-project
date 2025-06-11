@@ -40,6 +40,7 @@ const LandingPage = () => {
   const [Showcase, setShowcase] = useState(null)
   const [modalOrigin, setModalOrigin] = useState(null);
   const [modalContentType, setModalContentType] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const handleOpenModal = (e, type) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -49,6 +50,15 @@ const LandingPage = () => {
     });
     setModalContentType(type);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (videoInView && !Showcase) {
@@ -83,7 +93,8 @@ const LandingPage = () => {
       </AnimatePresence>
 
       {/* Header */}
-      <header className="top-0 left-0 right-0 z-30 fixed w-full bg-secondary shadow-md">  
+      <header
+      className={`top-0 left-0 right-0 z-30 fixed w-full bg-secondary transition-shadow ${isScrolled ? 'shadow-md' : ''}`}>  
         <div className='bg-secondary flex items-center justify-between px-6 py-4 max-w-6xl mx-auto w-full '>
           <div className="flex items-center space-x-2">
             <img src={Logo} alt="Feelink Logo" className="w-10 h-10" />
