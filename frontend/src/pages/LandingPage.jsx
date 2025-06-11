@@ -225,7 +225,7 @@ const LandingPage = () => {
             </div>
           </div>
         </ScrollFadeIn>
-        <ScrollFadeIn custom={5}>
+        {/* <ScrollFadeIn custom={5}>
           <div
             className="max-w-[900px] shadow-2xl rounded-lg overflow-hidden mx-auto"
             ref={videoRef}
@@ -243,7 +243,7 @@ const LandingPage = () => {
               <div className="w-full h-[360px] flex items-center justify-center rounded-lg bg-secondary-darker" />
             )}
           </div>
-        </ScrollFadeIn>
+        </ScrollFadeIn> */}
       </section>
 
       <GlobalModal open={!!modalOrigin} origin={modalOrigin} onClose={() => {
