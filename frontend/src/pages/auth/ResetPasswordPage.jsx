@@ -54,12 +54,12 @@ const ResetPasswordPage = () => {
           <img src={Logo} alt="Feelink Logo" className="w-24 h-24 my-4" />
         </Link>
         <div className="text-2xl md:text-4xl font-bold">
-          {step === 1 ? "Reset your password" : "Enter OTP & New Password"}
+          {step === 1 ? "Reset Password Kamu" : "Masukan OTP & Password Baru"}
         </div>
         <div className={`text-center text-pretty ${step === 2 ? 'hidden' : ''}`}>
           <p>
-            Remember your password?{" "}
-            <Link to="/login" className="text-accent-darker hover:underline">Login here</Link>
+            Ingin Kembali ke halaman login?{" "}
+            <Link to="/login" className="text-accent-darker hover:underline">Login lewat sini</Link>
           </p>
         </div>
         <form
@@ -75,7 +75,7 @@ const ResetPasswordPage = () => {
               className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
               autoFocus
               type="email"
-              placeholder="Enter your email"
+              placeholder="Masukkan email kamu..."
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -83,12 +83,12 @@ const ResetPasswordPage = () => {
             // Step 2: OTP + Password reset
             <>
               <div className="text-sm text-neutral-600 mb-2">
-                OTP code sent to: <span className="font-medium">{email}</span>
+                OTP sudah dikirim ke: <span className="font-medium">{email}</span>
               </div>
               <input
                 className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
                 type="text"
-                placeholder="Enter 6-digit OTP code"
+                placeholder="Masukan 6-digit kode OTP"
                 value={otpCode}
                 onChange={(e) => setOtpCode(e.target.value)}
                 maxLength={6}
@@ -98,7 +98,7 @@ const ResetPasswordPage = () => {
                 <input
                   className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
                   type={showPassword ? "text" : "password"}
-                  placeholder="New Password"
+                  placeholder="Password Baru"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -117,7 +117,7 @@ const ResetPasswordPage = () => {
                 <input
                   className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
                   type={showConfirmPassword ? "text" : "password"}
-                  placeholder="Confirm New Password"
+                  placeholder="Konfirmasi Password Baru"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
@@ -145,7 +145,7 @@ const ResetPasswordPage = () => {
             {loading ? (
               <Loading />
             ) : step === 1 ? (
-              "Send OTP Code"
+              "Kirim Kode OTP"
             ) : (
               "Reset Password"
             )}
@@ -158,7 +158,7 @@ const ResetPasswordPage = () => {
             className="text-accent-darker hover:underline text-sm cursor-pointer"
             onClick={() => setStep(1)}
           >
-            ← Back to email entry
+            ← Salah Memasukan Email?
           </button>
         )}
       </div>

@@ -61,18 +61,18 @@ const ProfilePage = () => {
   return (
     <>
       <header className="text-primary py-6 sm:p-6 md:p-12 border-b-2 flex flex-col md:flex-row justify-between gap-4">
-        <h1 className="text-4xl font-semibold">Profile Settings</h1>
+        <h1 className="text-4xl font-semibold">Pengaturan Profil</h1>
       </header>
       <main className="grid grid-rows-1 lg:grid-cols-2 max-w-7xl text-primary overflow-x-auto mx-auto">
 
         {/* Profile Form */}
         <form onSubmit={handleUpdateProfile} className="flex flex-col gap-4 py-6 sm:p-6 md:p-12 w-full border-b-1 lg:border-b-0 lg:border-r-1">
           <label>
-            <h2 className="text-lg font-semibold mb-2">Name</h2>
+            <h2 className="text-lg font-semibold mb-2">Nama</h2>
             <input
               className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
               type="text"
-              placeholder="Name"
+              placeholder="Masukan nama mu disini..."
               value={localName}
               onChange={(e) => setLocalName(e.target.value)}
               disabled={profileLoading}
@@ -83,7 +83,7 @@ const ProfilePage = () => {
             <input
               className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
               type="email"
-              placeholder="Email"
+              placeholder="Masukan email mu disini..."
               value={localEmail}
               onChange={(e) => setLocalEmail(e.target.value)}
               disabled={profileLoading}
@@ -102,12 +102,12 @@ const ProfilePage = () => {
           {/* Change Password Form */}
           <form onSubmit={handleChangePassword} className="flex flex-col gap-4 w-full">
             <label>
-              <h2 className="text-lg font-semibold mb-2">New Password</h2>
+              <h2 className="text-lg font-semibold mb-2">Password Baru</h2>
               <div className="relative">
                 <input
                   className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
                   type={showPassword ? "text" : "password"}
-                  placeholder="New Password"
+                  placeholder="Masukan password baru mu disini..."
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   disabled={passwordLoading}
@@ -125,12 +125,12 @@ const ProfilePage = () => {
               </div>
             </label>
             <label>
-              <h2 className="text-lg font-semibold mb-2">Confirm Password</h2>
+              <h2 className="text-lg font-semibold mb-2">Konfirmasi Password</h2>
               <div className="relative">
                 <input
                   className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
                   type={showConfirmPassword ? "text" : "password"}
-                  placeholder="Confirm Password"
+                  placeholder="Konfirmasi password baru mu..."
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   disabled={passwordLoading}
@@ -152,7 +152,7 @@ const ProfilePage = () => {
               className={`px-3 py-2 mt-2 bg-primary text-secondary rounded ${passwordLoading ? "cursor-not-allowed bg-primary-lighter" : "cursor-pointer"}`}
               disabled={passwordLoading}
             >
-              {passwordLoading ? <Loading /> : "Change password"}
+              {passwordLoading ? <Loading /> : "Ubah Password"}
             </button>
           </form>
         </div>

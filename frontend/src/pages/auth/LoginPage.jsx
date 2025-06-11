@@ -32,13 +32,13 @@ const LoginPage = () => {
             <img src={Logo} alt="Feelink Logo" className="w-24 h-24 my-4" />
           </Link>
           <div className="text-2xl md:text-4xl font-bold text-primary text-center">
-            Login to your account
+            Masuk Ke Akun Kamu
           </div>
           <div className="xl:hidden text-center">
             <span>
-              Don't have an account?{" "}
+              Tidak punya akun?{" "}
               <Link to="/signup" className="text-accent-darker hover:underline">
-                Sign Up here
+                Daftar di sini
               </Link>
             </span>
           </div>
@@ -55,7 +55,7 @@ const LoginPage = () => {
               type="email"
               name="email"
               autoComplete="email"
-              placeholder="Email"
+              placeholder="Masukkan email kamu di sini..."
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -65,7 +65,7 @@ const LoginPage = () => {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 autoComplete="current-password"
-                placeholder="Password"
+                placeholder="Masukkan password kamu di sini..."
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -87,27 +87,27 @@ const LoginPage = () => {
               }`}
               disabled={loading}
             >
-              {loading ? <Loading /> : "Login"}
+              {loading ? <Loading /> : "Masuk"}
             </button>
           </form>
           <Link to="/reset-password" className="text-red-500 hover:underline">
-            Forgot password?
+            Lupa password?
           </Link>
         </div>
 
         {/* Right Panel */}
         <div className="hidden xl:flex flex-col items-center justify-center gap-4 text-secondary bg-primary rounded-xl w-[600px] h-[500px] px-6 py-6 shadow-xl absolute -right-10 top-1/2 -translate-y-1/2 z-20">
           <h1 className="text-2xl md:text-4xl font-bold text-center">
-            Don't have an account?
+            Belum punya akun?
           </h1>
-          <div className="text-center">
-            <p>Start your journey now</p>
+          <div className="text-center mx-24">
+            <p>Daftar sekarang untuk memulai perjalanan pencatatan suasana hati mu</p>
             <button
               type="submit"
               onClick={() => navigate("/signup")}
               className="rounded px-3 py-2 text-primary bg-secondary cursor-pointer w-full mt-4"
             >
-              Sign Up here
+              Daftar Disini
             </button>
           </div>
         </div>

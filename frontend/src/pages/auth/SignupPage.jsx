@@ -35,11 +35,11 @@ const SignupPage = () => {
         <Link to="/">
           <img src={Logo} alt="Feelink Logo" className="w-24 h-24 my-4" />
         </Link>
-        <div className="text-2xl md:text-4xl font-bold">Create your account</div>
+        <div className="text-2xl md:text-4xl font-bold">Buat Akun Kamu</div>
         <div className="text-center text-pretty">
           <p>
-            Already have an account?{" "}
-            <Link to="/login" className="text-accent-darker hover:underline">Login here</Link>
+            Sudah punya akun?{" "}
+            <Link to="/login" className="text-accent-darker hover:underline">Kembali ke halaman Login</Link>
           </p>
         </div>
         <form
@@ -53,7 +53,7 @@ const SignupPage = () => {
             className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
             autoFocus
             type="text"
-            placeholder="Your Name"
+            placeholder="Nama"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -87,7 +87,7 @@ const SignupPage = () => {
             <input
               className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
               type={showConfirmPassword ? "text" : "password"}
-              placeholder="Confirm Password"
+              placeholder="Konfirmasi Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
@@ -109,7 +109,7 @@ const SignupPage = () => {
             }`}
             disabled={loading}
           >
-            {loading ? <Loading /> : "Register"}
+            {loading ? <Loading /> : "Daftar"}
           </button>
         </form>
       </div>
