@@ -10,14 +10,14 @@ import {
 } from "recharts";
 import { Plus } from "lucide-react";
 import useProfile from "../../hooks/useProfile.js";
-import { Heart, Zap, Frown, Meh, Ghost, Smile } from "lucide-react";
+import { Heart, Zap, Angry, Frown, Ghost, Smile } from "lucide-react";
 import useHistory from "../../hooks/useHistory";
 
 const emotionIcons = {
   Cinta: <Heart className="text-primary" />,
-  Kaget: <Zap className="text-primary" />,
-  Marah: <Frown className="text-primary" />,
-  Sedih: <Meh className="text-primary" />,
+  Terkejut: <Zap className="text-primary" />,
+  Marah: <Angry className="text-primary" />,
+  Sedih: <Frown className="text-primary" />,
   Takut: <Ghost className="text-primary" />,
   Gembira: <Smile className="text-primary" />,
 };
@@ -170,7 +170,7 @@ const DashboardPage = () => {
                   )}
                 </div>
 
-                {/* Mood Rating */}
+                {/* Mood Score */}
                 <div className="flex flex-col rounded border border-accent-darker px-6 py-4 col-span-2 lg:col-span-1">
                   <div className="mb-4">
                     <h2 className="text-2xl font-semibold">Skor Suasana Hatimu Saat Ini</h2>
@@ -210,7 +210,7 @@ const DashboardPage = () => {
                           domain={[0, 100]}
                           tickFormatter={(v) => `${v}%`}
                           label={{
-                            value: "Mood Rating (%)",
+                            value: "Mood Score (%)",
                             angle: -90,
                             position: "insideLeft",
                             fill: "var(--color-primary-darker)",
@@ -241,7 +241,7 @@ const DashboardPage = () => {
                             return idx !== -1 ? monthNames[idx] : label;
                           }}
                           formatter={(value, name) => {
-                            if (name === "Mood Rating") {
+                            if (name === "Mood Score") {
                               return [`${value}%`, name];
                             }
                             return [value, name];
@@ -253,7 +253,7 @@ const DashboardPage = () => {
                           dataKey="mood"
                           stroke="var(--color-primary)"
                           strokeWidth={2}
-                          name="Mood Rating"
+                          name="Mood Score"
                           dot={{ r: 4, stroke: "var(--color-primary-darker)", strokeWidth: 1 }}
                           activeDot={{ r: 6 }}
                         />

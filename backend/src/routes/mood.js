@@ -34,16 +34,11 @@ module.exports = [
           data: { story, emotions: rawEmotions, userId },
         });
 
-        // Format ulang: dari persentase 0-100 ke skala 0-10
+        // Format ulang ke bentuk persen bulat
         const formattedEmotions = {};
         for (const [emotion, value] of Object.entries(rawEmotions)) {
-          // pastikan value adalah number
           const numValue = Number(value);
-          if (isNaN(numValue)) {
-            formattedEmotions[emotion] = "0.0/10";
-          } else {
-            formattedEmotions[emotion] = `${(numValue / 10).toFixed(1)}/10`;
-          }
+          formattedEmotions[emotion] = !isNaN(numValue) ? `${Math.round(numValue)}%` : "0%";
         }
 
         return h

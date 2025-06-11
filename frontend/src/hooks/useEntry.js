@@ -19,6 +19,7 @@ const submitEntry = async (story) => {
 const useEntry = () => {
   const [answers, setAnswers] = useState(["", "", "", "", ""]);
   const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
   const { showToast } = useToast();
   const queryClient = useQueryClient();
 
@@ -26,28 +27,30 @@ const useEntry = () => {
     setAnswers((prev) => prev.map((a, i) => (i === idx ? value : a)));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     if (answers.some((a) => !a.trim())) {
-      showToast("Please answer all questions.", "error");
-      return;
+      showToast("Harap isi semua pertanyaan.", "error");
+      return false;
     }
     setLoading(true);
     try {
       const story = answers.map((a) => `"${a}"`).join(" ");
       const res = await submitEntry(story);
-      showToast(res.data.message || "Entry submitted successfully!", "success");
+      showToast(res.data.message || "Entri berhasil dikirim!", "success");
+      setResult(res.data);
+      console.log(result)
       setAnswers(["", "", "", "", ""]);
-      // Update history cache
       queryClient.invalidateQueries({ queryKey: ["history"] });
+      return true;
     } catch (err) {
-      showToast(err.response?.data?.message || "Failed to submit entry.", "error");
+      showToast(err.response?.data?.message || "Gagal mengirim entri.", "error");
+      return false;
     } finally {
       setLoading(false);
     }
   };
 
-  return { answers, handleChange, handleSubmit, loading };
+  return { answers, handleChange, handleSubmit, loading, result };
 };
 
 export default useEntry;

@@ -135,7 +135,7 @@ const LandingPage = () => {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative flex items-center justify-center min-h-[70vh] pt-24 md:pt-24 pb-24 md:pb-48 px-6">
+      <section className="relative flex items-center justify-center min-h-[70vh] pt-24 md:pt-48 pb-24 md:pb-48 px-6">
         <div className="relative space-y-8 max-w-[900px] mx-auto text-center md:text-left px-6">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-snug flex flex-wrap gap-x-3 text-pretty text-center md:text-left">
             {hero.split(' ').map((word, i) => (
