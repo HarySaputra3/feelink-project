@@ -29,11 +29,11 @@ const Sidebar = () => {
           </Link>
           <Link to="/entry" className="flex flex-row items-center px-4 hover:bg-secondary-darker active:bg-secondary-darker rounded cursor-pointer">
             <NotebookPen size={20}/>
-            <span className="px-2 py-2">Entry</span>
+            <span className="px-2 py-2">Jurnal Kamu</span>
           </Link>
           <Link to="/history" className="flex flex-row items-center px-4 hover:bg-secondary-darker active:bg-secondary-darker rounded cursor-pointer">
             <History size={20}/>
-            <span className="px-2 py-2">History</span>
+            <span className="px-2 py-2">Riwayat</span>
           </Link>
         </ul>
       </div>

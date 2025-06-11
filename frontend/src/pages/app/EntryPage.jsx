@@ -26,7 +26,7 @@ const EntryPage = () => {
               <input
                 className="border rounded px-3 py-2 bg-neutral-50 w-full placeholder-neutral-500 outline-none focus:ring focus:ring-primary"
                 type="text"
-                placeholder="Type here"
+                placeholder="Luapkan perasaanmu di sini..."
                 value={answers[idx]}
                 onChange={(e) => handleChange(idx, e.target.value)}
                 disabled={loading}

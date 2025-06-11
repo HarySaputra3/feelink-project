@@ -102,9 +102,9 @@ const LandingPage = () => {
 
         <nav className="hidden md:flex items-center space-x-6 text-sm font-semibold">
           <Menggila />
-          <Link to="/" className="hover:underline">BERANDA</Link>
-          <a href="#how" className="hover:underline">BAGAIMANA FEELINK BEKERJA</a>
-          <a onClick={(e) => handleOpenModal(e, 'about')} className="hover:underline cursor-pointer">TENTANG KAMI</a>
+          <Link to="/" className="hover:underline">Beranda</Link>
+          <a href="#how" className="hover:underline">Cara Kerja Feelink</a>
+          <a onClick={(e) => handleOpenModal(e, 'about')} className="hover:underline cursor-pointer">Tentang Kami</a>
           <Link to="/login" className="bg-primary text-secondary px-4 py-2 rounded">Masuk</Link>
         </nav>
 
@@ -126,9 +126,9 @@ const LandingPage = () => {
             exit={{ y: -300 }}
             transition={{ duration: 0.15 }}
           >
-            <Link to="/" className="block py-2 text-center text-xl" onClick={() => setMenuOpen(false)}>BERANDA</Link>
-            <a href="#how" className="block py-2 text-center text-xl" onClick={() => setMenuOpen(false)}>BAGAIMANA FEELINK BEKERJA</a>
-            <a href="#about" className="block py-2 text-center text-xl" onClick={() => setMenuOpen(false)}>TENTANG KAMI</a>
+            <Link to="/" className="block py-2 text-center text-xl" onClick={() => setMenuOpen(false)}>Beranda</Link>
+            <a href="#how" className="block py-2 text-center text-xl" onClick={() => setMenuOpen(false)}>Cara Kerja Feelink</a>
+            <a href="#about" className="block py-2 text-center text-xl" onClick={() => setMenuOpen(false)}>Tentang Kami</a>
             <Link to="/login" className="block bg-primary text-secondary px-4 py-2 rounded w-fit mx-auto mt-8" onClick={() => setMenuOpen(false)}>Masuk</Link>
           </motion.div>
         )}
@@ -146,7 +146,7 @@ const LandingPage = () => {
           </h1>
           <ScrollFadeIn custom={hero.split(' ').length}>
             <Link to="/signup" className="inline-block bg-primary text-secondary px-6 py-2 rounded text-sm sm:text-base">
-              Sign Up
+              Daftar
             </Link>
           </ScrollFadeIn>
         </div>
@@ -297,10 +297,10 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="flex flex-col space-y-2 text-sm">
-            <Link to="" className="hover:underline cursor-pointer">BERANDA</Link>
-            <a href="#how" className="hover:underline cursor-pointer">BAGAIMANA FEELINK BEKERJA</a>
-            <a onClick={(e) => handleOpenModal(e, 'about')} className="hover:underline cursor-pointer">TENTANG KAMI</a>
-            <a onClick={(e) => handleOpenModal(e, 'privacy')} className="hover:underline cursor-pointer">KEBIJAKAN PRIVASI</a>
+            <Link to="" className="hover:underline cursor-pointer">Beranda</Link>
+            <a href="#how" className="hover:underline cursor-pointer">Cara Kerja Feelink</a>
+            <a onClick={(e) => handleOpenModal(e, 'about')} className="hover:underline cursor-pointer">Tentang Kami</a>
+            <a onClick={(e) => handleOpenModal(e, 'privacy')} className="hover:underline cursor-pointer">Kebijakan Privasi</a>
           </div>
         </div>
       </footer>

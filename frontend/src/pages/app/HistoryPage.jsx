@@ -48,7 +48,7 @@ const HistoryPage = () => {
               <input
                 type="text"
                 className="border-2 rounded-3xl px-3 py-2 w-full bg-neutral-50 placeholder-neutral-500 outline-none focus:ring focus:ring-primary pr-10"
-                placeholder="Search by story or date..."
+                placeholder="Lihat Ceritamu..."
                 value={search}
                 onChange={(e) => {
                   setSearch(e.target.value);
@@ -64,9 +64,9 @@ const HistoryPage = () => {
               <thead>
                 <tr>
                   <th className="border-b px-4 py-4 text-center">No</th>
-                  <th className="border-b px-4 py-4 text-center">Date</th>
+                  <th className="border-b px-4 py-4 text-center">Tanggal</th>
                   <th className="border-b px-4 py-4 text-center">Mood Score</th>
-                  <th className="border-b px-4 py-4 text-center">Details</th>
+                  <th className="border-b px-4 py-4 text-center">Detail</th>
                 </tr>
               </thead>
               <tbody>
@@ -79,7 +79,7 @@ const HistoryPage = () => {
                 ) : filteredMoods.length === 0 ? (
                   <tr>
                     <td colSpan={4} className="text-center py-4 text-neutral-500">
-                      No history found
+                      Tidak ada cerita yang ditemukan
                     </td>
                   </tr>
                 ) : (
