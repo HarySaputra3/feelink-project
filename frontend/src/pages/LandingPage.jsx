@@ -155,18 +155,13 @@ const LandingPage = () => {
       {/* Description Section */}
       <section id="description" className="bg-primary text-secondary px-6 py-32">
         <div className="flex flex-col md:flex-row items-center justify-center max-w-6xl mx-auto space-y-8 md:space-y-0 md:space-x-12">
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-1/2 space-y-4 text-center">
             <ScrollFadeIn custom={2}>
-              <div className="bg-secondary-darker rounded-lg h-48 sm:h-64 w-full"></div>
-            </ScrollFadeIn>
-          </div>
-          <div className="w-full md:w-1/2 space-y-4 text-center md:text-left">
-            <ScrollFadeIn custom={3}>
               <h2 className="text-2xl font-bold">
                 Feelink: Teman Jurnal Digital
               </h2>
             </ScrollFadeIn>
-            <ScrollFadeIn custom={4}>
+            <ScrollFadeIn custom={3}>
               <p>
                 Melalui journaling yang jujur dan reflektif, Feelink membantumu mengenali emosi yang sering terabaikan. Dengan dukungan machine learning, tiap tulisanmu membuka peluang untuk tumbuh, memahami diri, dan mencintai prosesnya.
               </p>
