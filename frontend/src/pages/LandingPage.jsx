@@ -102,10 +102,10 @@ const LandingPage = () => {
 
         <nav className="hidden md:flex items-center space-x-6 text-sm font-semibold">
           <Menggila />
-          <Link to="/" className="hover:underline">HOME</Link>
-          <a href="#how" className="hover:underline">HOW IT WORKS</a>
-          <a onClick={(e) => handleOpenModal(e, 'about')} className="hover:underline cursor-pointer">ABOUT US</a>
-          <Link to="/login" className="bg-primary text-secondary px-4 py-2 rounded">Login</Link>
+          <Link to="/" className="hover:underline">BERANDA</Link>
+          <a href="#how" className="hover:underline">BAGAIMANA FEELINK BEKERJA</a>
+          <a onClick={(e) => handleOpenModal(e, 'about')} className="hover:underline cursor-pointer">TENTANG KAMI</a>
+          <Link to="/login" className="bg-primary text-secondary px-4 py-2 rounded">Masuk</Link>
         </nav>
 
           {/* Toggle Mobile Menu Button */}
@@ -126,10 +126,10 @@ const LandingPage = () => {
             exit={{ y: -300 }}
             transition={{ duration: 0.15 }}
           >
-            <Link to="/" className="block py-2 text-center text-xl" onClick={() => setMenuOpen(false)}>HOME</Link>
-            <a href="#how" className="block py-2 text-center text-xl" onClick={() => setMenuOpen(false)}>HOW IT WORKS</a>
-            <a href="#about" className="block py-2 text-center text-xl" onClick={() => setMenuOpen(false)}>ABOUT US</a>
-            <Link to="/login" className="block bg-primary text-secondary px-4 py-2 rounded w-fit mx-auto mt-8" onClick={() => setMenuOpen(false)}>Login</Link>
+            <Link to="/" className="block py-2 text-center text-xl" onClick={() => setMenuOpen(false)}>BERANDA</Link>
+            <a href="#how" className="block py-2 text-center text-xl" onClick={() => setMenuOpen(false)}>BAGAIMANA FEELINK BEKERJA</a>
+            <a href="#about" className="block py-2 text-center text-xl" onClick={() => setMenuOpen(false)}>TENTANG KAMI</a>
+            <Link to="/login" className="block bg-primary text-secondary px-4 py-2 rounded w-fit mx-auto mt-8" onClick={() => setMenuOpen(false)}>Masuk</Link>
           </motion.div>
         )}
       </AnimatePresence>
@@ -258,30 +258,30 @@ const LandingPage = () => {
         )}
         {modalContentType === 'privacy' && (
           <div className="text-left space-y-6 max-h-[70vh] overflow-y-auto text-sm md:text-base px-4">
-            <h1 className="text-3xl font-bold text-center">Privacy Policy</h1>
-            <p>At <strong>Feelink</strong>, we value your privacy. This policy outlines how we collect, use, and protect your data when using our mood tracking app and services.</p>
+            <h1 className="text-3xl font-bold text-center">Kebijakan Privasi</h1>
+            <p>Di <strong>Feelink</strong>, kami menghormati dan menjunjung tinggi privasi Anda. Kebijakan ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi data Anda selama Anda menggunakan aplikasi dan layanan pelacakan suasana hati kami.</p>
 
-            <h2 className="text-xl font-semibold">1. Information We Collect</h2>
+            <h2 className="text-xl font-semibold">1. Informasi yang Kami Kumpulkan</h2>
             <ul className="list-disc pl-6 space-y-2">
-              <li><strong>Story Content:</strong> The text you submit for emotional analysis.</li>
-              <li><strong>Emotional Results:</strong> Emotions returned by our ML model based on your story.</li>
-              <li><strong>User Metadata:</strong> User ID (for associating data with your account), timestamps, and related data.</li>
+              <li><strong>Konten Cerita:</strong> Teks yang Anda kirimkan untuk dianalisis secara emosional.</li>
+              <li><strong>Hasil Analisis Emosi:</strong> Output emosi yang dihasilkan oleh model pembelajaran mesin (machine learning) berdasarkan cerita Anda.</li>
+              <li><strong>Metadata Pengguna:</strong> ID pengguna (untuk mengaitkan data dengan akun Anda), cap waktu, serta data teknis terkait lainnya.</li>
             </ul>
 
-            <h2 className="text-xl font-semibold">2. How We Use Your Data</h2>
-            <p>We use your data to analyze mood patterns, store entries for reflection, and display visual insights in your dashboard. We do <strong>not</strong> sell or share your personal data with third parties for advertising.</p>
+            <h2 className="text-xl font-semibold">2. Bagaimana Kami Menggunakan Data Anda</h2>
+            <p>Data Anda digunakan untuk menganalisis pola suasana hati, menyimpan catatan untuk kebutuhan refleksi, serta menyajikan wawasan visual di dalam dasbor Anda. Kami <strong>tidak</strong> menjual atau membagikan data pribadi Anda kepada pihak ketiga untuk tujuan komersial atau periklanan.</p>
 
-            <h2 className="text-xl font-semibold">3. Data Security</h2>
-            <p>Your data is securely stored in our database. Access is restricted and authenticated to protect against misuse.</p>
+            <h2 className="text-xl font-semibold">3. Keamanan Data</h2>
+            <p>Data Anda disimpan secara aman dalam sistem basis data kami. Akses terhadap data dibatasi dan dilindungi dengan autentikasi guna mencegah akses tidak sah atau penyalahgunaan.</p>
 
-            <h2 className="text-xl font-semibold">4. Machine Learning Privacy</h2>
-            <p>Stories are sent to an internal ML model endpoint for analysis. This endpoint is private and not exposed publicly.</p>
+            <h2 className="text-xl font-semibold">4. Privasi dalam Proses Pembelajaran Mesin</h2>
+            <p>Cerita Anda diproses oleh endpoint internal model pembelajaran mesin yang bersifat privat dan tidak dapat diakses oleh publik.</p>
 
-            <h2 className="text-xl font-semibold">5. Your Rights</h2>
+            <h2 className="text-xl font-semibold">5. Hak Pengguna</h2>
             <ul className="list-disc pl-6 space-y-2">
-              <li>Request access to your data</li>
-              <li>Request deletion of mood entries</li>
-              <li>Withdraw consent to processing</li>
+              <li>Meminta akses terhadap data pribadi Anda</li>
+              <li>Meminta penghapusan entri suasana hati yang telah dikirimkan</li>
+              <li>Mencabut persetujuan atas pemrosesan data kapan saja</li>
             </ul>
           </div>
         )}
@@ -297,10 +297,10 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="flex flex-col space-y-2 text-sm">
-            <Link to="" className="hover:underline cursor-pointer">HOME</Link>
-            <a href="#how" className="hover:underline cursor-pointer">HOW IT WORKS</a>
-            <a onClick={(e) => handleOpenModal(e, 'about')} className="hover:underline cursor-pointer">ABOUT US</a>
-            <a onClick={(e) => handleOpenModal(e, 'privacy')} className="hover:underline cursor-pointer">PRIVARY POLICY</a>
+            <Link to="" className="hover:underline cursor-pointer">BERANDA</Link>
+            <a href="#how" className="hover:underline cursor-pointer">BAGAIMANA FEELINK BEKERJA</a>
+            <a onClick={(e) => handleOpenModal(e, 'about')} className="hover:underline cursor-pointer">TENTANG KAMI</a>
+            <a onClick={(e) => handleOpenModal(e, 'privacy')} className="hover:underline cursor-pointer">KEBIJAKAN PRIVASI</a>
           </div>
         </div>
       </footer>
