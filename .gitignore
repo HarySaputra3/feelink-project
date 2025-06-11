@@ -6,7 +6,7 @@ backend/*.log
 
 # --- Frontend ---
 frontend/node_modules/
-frontned/.env
+frontend/.env
 frontend/dist/
 frontend/dist-ssr/
 frontend/*.local
