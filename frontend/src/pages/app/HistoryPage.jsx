@@ -33,7 +33,7 @@ const HistoryPage = () => {
     <>
       <header className="text-primary py-6 sm:p-6 md:p-12 border-b-2 flex justify-between">
         <h1 className="text-4xl font-semibold">
-          This history okay, yu see yu prob prob hsty here
+          Semua cerita punya tempatnya. Kamu bisa lihat kembali perjalananmu di sini
         </h1>
       </header>
       <main className="max-w-7xl text-primary flex flex-col items-center mx-auto">
@@ -161,9 +161,9 @@ const HistoryPage = () => {
       <Modal open={!!modalEntry} onClose={() => setModalEntry(null)} origin={modalOrigin}>
         {modalEntry && (
           <div>
-            <h2 className="text-3xl font-bold mb-3">Entry Details</h2>
+            <h2 className="text-3xl font-bold mb-3">Rincian Ceritamu</h2>
             <div className="mb-2">
-              <span className="font-semibold">Date: </span>
+              <span className="font-semibold">Tanggal: </span>
               {modalEntry.createdAt
                 ? new Date(modalEntry.createdAt).toLocaleDateString("en-GB", {
                     day: "2-digit",
@@ -173,11 +173,11 @@ const HistoryPage = () => {
                 : "-"}
             </div>
             <div className="mb-2">
-              <span className="font-semibold">Mood Score: </span>
+              <span className="font-semibold">Skor Suasana Hatimu: </span>
               {modalEntry.emotions?.totalyourmood ?? "-"}
             </div>
             <div className="mb-2">
-              <span className="font-semibold">Your Stories: </span>
+              <span className="font-semibold">Ceritamu: </span>
               <pre className="whitespace-pre-wrap break-words bg-primary-darker rounded p-2 mt-1">
                 {modalEntry.story
                   ? (() => {
@@ -198,7 +198,7 @@ const HistoryPage = () => {
             </div>
             {modalEntry.emotions && (
               <div className="mb-2">
-                <span className="font-semibold">Your Emotions: </span>
+                <span className="font-semibold">Suasana Hatimu: </span>
                 <pre className="whitespace-pre-wrap break-words bg-primary-darker rounded p-2 mt-1">
                   {Object.entries(modalEntry.emotions)
                     .filter(([key]) => key !== "totalyourmood")

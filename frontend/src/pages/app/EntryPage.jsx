@@ -2,11 +2,11 @@ import useEntry from "../../hooks/useEntry";
 import Loading from "../../components/Loading";
 
 const questions = [
-  "How are you feeling today?",
-  "What made you smile recently?",
-  "Is there anything worrying you?",
-  "What are you grateful for today?",
-  "What is one thing you want to improve?",
+  "Bagaimana perasaanmu hari ini?",
+  "Apakah ada hal yang mengganggumu akhir-akhir ini?",
+  "Kalau perasaanmu bisa bicara, kira-kira apa yang ingin mereka sampaikan?",
+  "Apa hal kecil yang membuatmu merasa lebih baik hari ini?",
+  "Apa yang sedang kamu butuhkan, tapi sulit diungkapkan dengan kata-kata?"
 ];
 
 const EntryPage = () => {
@@ -15,7 +15,7 @@ const EntryPage = () => {
   return (
     <>
       <header className="text-primary py-6 sm:p-6 md:p-12 border-b-2 flex justify-between">
-        <h1 className="text-4xl font-semibold">This entry okay, yu entry yu prob prob here</h1>
+        <h1 className="text-4xl font-semibold">Tulis apa yang kamu rasakan, pikirkan, atau butuhkan hari ini</h1>
       </header>
       <main className="max-w-7xl text-primary flex flex-col items-center mx-auto">
         <form className="flex flex-col gap-4 py-6 sm:p-6 md:p-12 w-full" onSubmit={handleSubmit}>
@@ -41,7 +41,7 @@ const EntryPage = () => {
             } text-secondary`}
             disabled={loading}
           >
-            {loading ? <Loading /> : "Entry your stories today"}
+            {loading ? <Loading /> : "Ceritain harimu, yuk!"}
           </button>
         </form>
       </main>

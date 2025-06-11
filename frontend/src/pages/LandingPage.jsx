@@ -31,7 +31,7 @@ const ScrollFadeIn = ({ children, custom = 0 }) => {
 
 const LandingPage = () => {
   const [menuOpen, setMenuOpen] = useState(false)
-  const hero = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce molestie quis velit nec scelerisque. Morbi non lacinia nulla."
+  const hero = "Perasaan yang tak diungkap bisa menjadi beban. Feelink membantumu mengenal, menerima, dan melepaskannya lewat tulisan."
 
   // Lazy-load video when in view
   const videoRef = useRef(null)
@@ -152,12 +152,12 @@ const LandingPage = () => {
           <div className="w-full md:w-1/2 space-y-4 text-center md:text-left">
             <ScrollFadeIn custom={3}>
               <h2 className="text-2xl font-bold">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                Feelink: Teman Jurnal Digital
               </h2>
             </ScrollFadeIn>
             <ScrollFadeIn custom={4}>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce molestie quis velit nec scelerisque. Morbi non lacinia nulla.
+                Melalui journaling yang jujur dan reflektif, Feelink membantumu mengenali emosi yang sering terabaikan. Dengan dukungan machine learning, tiap tulisanmu membuka peluang untuk tumbuh, memahami diri, dan mencintai prosesnya.
               </p>
             </ScrollFadeIn>
           </div>
@@ -169,12 +169,12 @@ const LandingPage = () => {
         <div className="max-w-2xl mx-auto space-y-4">
           <ScrollFadeIn custom={2}>
             <h2 className="text-2xl md:text-3xl font-bold">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              Tulis, Rasakan, Pulih
             </h2>
           </ScrollFadeIn>
           <ScrollFadeIn custom={3}>
             <p className="text-sm md:text-base">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce molestie quis velit nec scelerisque. Morbi non lacinia nulla.
+              Cukup tuliskan apa yang kamu rasakan setiap hari. Feelink akan membantu mengenali pola perasaan dan memberimu wawasan kecil yang berarti agar kamu bisa lebih sadar, lebih tenang, dan perlahan tumbuh.
             </p>
           </ScrollFadeIn>
         </div>
@@ -205,8 +205,8 @@ const LandingPage = () => {
       }}>
         {modalContentType === 'about' && (
           <div className="text-center space-y-4">
-            <h1 className="text-4xl font-bold">About Us</h1>
-            <p>Ware ware wa ningen de aru</p>
+            <h1 className="text-4xl font-bold">Tentang Kami</h1>
+            <p>Kami adalah tim <strong>CC25-CF204</strong>, peserta Coding Camp 2025 dengan latar belakang multidisiplin yang berkolaborasi dalam mengembangkan <em>Feelink</em> — sebuah platform digital journaling untuk membantu pengguna memahami dan merawat suasana hati mereka secara lebih sadar dan berkelanjutan.</p>
           </div>
         )}
         {modalContentType === 'privacy' && (

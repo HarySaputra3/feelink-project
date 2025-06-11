@@ -23,12 +23,12 @@ const emotionIcons = {
 };
 
 const monthNames = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
+  "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+  "Juli", "Agustus", "September", "Oktober", "November", "Desember",
 ];
 const monthShortNames = [
   "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+  "Jul", "Aug", "Sep", "Okt", "Nov", "Des",
 ];
 
 const COLORS = [
@@ -85,15 +85,15 @@ const DashboardPage = () => {
     <>
       <header className="text-primary py-6 sm:p-6 md:p-12 border-b-2 flex flex-col lg:flex-row lg:justify-between gap-4">
         <div>
-          <h1 className="text-4xl font-semibold">Welcome, {name}!</h1>
-          <p className="text-accent-darker text-lg">Track your emotional journey and discover insights to improve your well-being.</p>
+          <h1 className="text-4xl font-semibold">Selamat datang, {name}!</h1>
+          <p className="text-accent-darker text-lg">Lacak perjalanan suasana hatimu dan temukan wawasan untuk mendukung kesejahteraanmu.</p>
         </div>
         <div>
           <Link
             to="/entry"
             className="bg-primary text-secondary px-4 py-4 rounded inline-flex items-center gap-2 whitespace-nowrap h-max w-max"
           >
-            <Plus /> New Entry
+            <Plus /> Entri Baru
           </Link>
         </div>
       </header>
@@ -102,11 +102,11 @@ const DashboardPage = () => {
         <div className="py-6 sm:p-6 md:p-12 w-full" style={{ backgroundColor: "var(--color-secondary-lighter)" }}>
           {isLoading ? (
             <>
-              <h2 className="text-2xl font-semibold mb-4">This Month Emotion Summary</h2>
+              <h2 className="text-2xl font-semibold mb-4">Ringkasan Suasana Hatimu Bulan Ini</h2>
               <div className="flex justify-center items-center h-64">
                 <Loading className="text-primary" />
               </div>
-              <h2 className="text-2xl font-semibold mb-4">Mood Trends Throughout the Year</h2>
+              <h2 className="text-2xl font-semibold mb-4">Tren Suasana Hatimu Sepanjang Tahun</h2>
               <div className="flex justify-center items-center h-64">
                 <Loading className="text-primary" />
               </div>
@@ -117,8 +117,8 @@ const DashboardPage = () => {
                 <div className="col-span-2 rounded border border-accent-darker px-6 py-4">
                   <div className="flex justify-between flex-wrap gap-4 mb-4">
                     <div>
-                      <h2 className="text-2xl font-semibold">This Month Emotion Summary</h2>
-                      <p className="text-sm text-accent-darker">Top emotions tracked this month</p>
+                      <h2 className="text-2xl font-semibold">Ringkasan Suasana Hatimu Bulan Ini</h2>
+                      <p className="text-sm text-accent-darker">Suasana hati yang paling sering kamu rasakan bulan ini</p>
                     </div>
                     <div className="bg-accent border border-accent-darker h-max px-4 py-1 rounded-4xl">{monthNames[currentMonth - 1]}</div>
                   </div>
@@ -165,7 +165,7 @@ const DashboardPage = () => {
                     </div>
                   ) : (
                     <div className="text-center py-8 text-neutral-500">
-                      No emotion data available for {monthNames[currentMonth - 1]}
+                      Belum ada data suasana hatimu untuk bulan {monthNames[currentMonth - 1]}
                     </div>
                   )}
                 </div>
@@ -173,8 +173,8 @@ const DashboardPage = () => {
                 {/* Mood Rating */}
                 <div className="flex flex-col rounded border border-accent-darker px-6 py-4 col-span-2 lg:col-span-1">
                   <div className="mb-4">
-                    <h2 className="text-2xl font-semibold">Current Mood Score</h2>
-                    <p className="text-sm text-accent-darker">Calculated from your latest mood entries</p>
+                    <h2 className="text-2xl font-semibold">Skor Suasana Hatimu Saat Ini</h2>
+                    <p className="text-sm text-accent-darker">Dihitung dari entri suasana hati terakhirmu</p>
                   </div>
                   <div className="overflow-x-auto mb-8">
                     <ProgressCircle percentage={parseFloat(latestSummary?.yourmoodtotal) || 0} />
@@ -183,7 +183,7 @@ const DashboardPage = () => {
                     to="/history"
                     className="block w-full text-center rounded border border-secondary-darker hover:bg-secondary-darker active:bg-secondary-darker py-1 mb-4"
                   >
-                    View History
+                    Lihat Riwayat
                   </Link>
                   <Menggila />
                 </div>
@@ -192,8 +192,8 @@ const DashboardPage = () => {
               {/* Line Chart */}
               <div className="mb-8 rounded border border-accent-darker px-6 py-4">
                 <div>
-                  <h2 className="text-2xl font-semibold">Mood Trends Throughout the Year</h2>
-                  <p className="text-sm text-accent-darker">Compare your emotional progress across months</p>
+                  <h2 className="text-2xl font-semibold">Tren Suasana Hatimu Sepanjang Tahun</h2>
+                  <p className="text-sm text-accent-darker">Bandingkan perkembangan suasana hatimu dari bulan ke bulan</p>
                 </div>
                 <div className="overflow-x-auto">
                   <div className="min-w-[500px]">
