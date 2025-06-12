@@ -6,7 +6,7 @@ import ProgressCircle from "../../components/ProgressCircle.jsx";
 import { useMonthlyReport, useFullMonthsReport } from "../../hooks/useReport";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  PieChart, Pie, Cell,
+  PieChart, Pie, Cell, Legend
 } from "recharts";
 import { Plus } from "lucide-react";
 import useProfile from "../../hooks/useProfile.js";
@@ -36,6 +36,8 @@ const COLORS = [
   'var(--color-accent)',
   'var(--color-primary-darker)',
   'var(--color-accent-darker)',
+  'var(--color-primary-lighter)',
+  'var(--color-accent-lighter)',
 ];
 
 const tooltipStyle = {
@@ -159,6 +161,7 @@ const DashboardPage = () => {
                               itemStyle={{ color: "var(--color-secondary)" }}
                               formatter={(value, name) => [`${value}`, name]}
                             />
+                            <Legend layout="horizontal" verticalAlign="bottom" align="center" />
                           </PieChart>
                         </ResponsiveContainer>
                       </div>
