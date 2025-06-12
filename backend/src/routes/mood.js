@@ -23,10 +23,13 @@ module.exports = [
       const { story } = request.payload;
       const { userId } = request.auth.credentials;
 
-      try {
-        const mlResponse = await axios.post("http://localhost:5000/analyze", {
-          story,
-        });
+       try {
+        const mlResponse = await axios.post(
+          "https://harysaputra3-model-feelink.hf.space/analyze",
+          {
+            story,
+          }
+        );
         const rawEmotions = mlResponse.data;
 
         // Simpan data ke DB
