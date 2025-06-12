@@ -33,11 +33,10 @@ const LandingPage = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const hero = "Perasaan yang tak diungkap bisa menjadi beban. Feelink membantumu mengenal, menerima, dan melepaskannya lewat tulisan."
 
-  // Lazy-load video when in view
-  const videoRef = useRef(null)
-  const videoInView = useInView(videoRef, { once: true })
-  const [showVideo, setShowVideo] = useState(false)
-  const [Showcase, setShowcase] = useState(null)
+  // const videoRef = useRef(null)
+  // const videoInView = useInView(videoRef, { once: true })
+  // const [showVideo, setShowVideo] = useState(false)
+  // const [Showcase, setShowcase] = useState(null)
   const [modalOrigin, setModalOrigin] = useState(null);
   const [modalContentType, setModalContentType] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -60,14 +59,14 @@ const LandingPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (videoInView && !Showcase) {
-      import('../assets/dummy_showcase.mp4').then(mod => {
-        setShowcase(mod.default)
-        setShowVideo(true)
-      })
-    }
-  }, [videoInView, Showcase])
+  // useEffect(() => {
+  //   if (videoInView && !Showcase) {
+  //     import('../assets/dummy_showcase.mp4').then(mod => {
+  //       setShowcase(mod.default)
+  //       setShowVideo(true)
+  //     })
+  //   }
+  // }, [videoInView, Showcase])
 
   useEffect(() => {
     document.body.classList.toggle('overflow-hidden', menuOpen)
@@ -146,7 +145,7 @@ const LandingPage = () => {
           </h1>
           <ScrollFadeIn custom={hero.split(' ').length}>
             <Link to="/signup" className="inline-block bg-primary text-secondary px-6 py-2 rounded text-sm sm:text-base">
-              Daftar
+              Daftar Sekarang
             </Link>
           </ScrollFadeIn>
         </div>
@@ -171,7 +170,7 @@ const LandingPage = () => {
       </section>
 
       {/* How It Works Section */}
-      <section id="how" className="text-center px-6 py-24 mx-auto space-y-24">
+      <section id="how" className="text-center px-6 pt-36 pb-48 mx-auto space-y-24">
         <div className="max-w-2xl mx-auto space-y-4">
           <ScrollFadeIn custom={2}>
             <h2 className="text-2xl md:text-3xl font-bold">
