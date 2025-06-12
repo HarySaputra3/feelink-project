@@ -27,9 +27,9 @@ const Sidebar = () => {
             <LayoutDashboard size={20}/>
             <span className="px-2 py-2">Dashboard</span>
           </Link>
-          <Link to="/entry" className="flex flex-row items-center px-4 hover:bg-secondary-darker active:bg-secondary-darker rounded cursor-pointer">
+          <Link to="/story" className="flex flex-row items-center px-4 hover:bg-secondary-darker active:bg-secondary-darker rounded cursor-pointer">
             <NotebookPen size={20}/>
-            <span className="px-2 py-2">Jurnal Kamu</span>
+            <span className="px-2 py-2">Tulis Cerita</span>
           </Link>
           <Link to="/history" className="flex flex-row items-center px-4 hover:bg-secondary-darker active:bg-secondary-darker rounded cursor-pointer">
             <History size={20}/>

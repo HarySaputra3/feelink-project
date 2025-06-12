@@ -13,7 +13,7 @@ const questions = [
 
 const emotionIcons = {
   Cinta: <Heart className="text-primary" />,
-  Kaget: <Zap className="text-primary" />,
+  Terkejut: <Zap className="text-primary" />,
   Marah: <Angry className="text-primary" />,
   Sedih: <Frown className="text-primary" />,
   Takut: <Ghost className="text-primary" />,
@@ -66,7 +66,7 @@ const EntryPage = () => {
               } text-secondary`}
               disabled={loading}
             >
-              {loading ? <Loading /> : "Ceritain harimu, yuk!"}
+              {loading ? <Loading /> : "Kirim ceritamu"}
             </button>
           </form>
         ) : (

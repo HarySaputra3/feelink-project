@@ -39,6 +39,12 @@ const ProfilePage = () => {
     <>
       <header className="text-primary py-6 sm:p-6 md:p-12 border-b-2 flex flex-col md:flex-row justify-between gap-4">
         <h1 className="text-4xl font-semibold">Pengaturan Profil</h1>
+        <button
+          onClick={handleLogout}
+          className="p-3 text-red-100 bg-red-600 hover:text-red-600 hover:bg-red-100 active:bg-red-100 rounded cursor-pointer w-fit"
+        >
+          Keluar
+        </button>
       </header>
 
       <main className="grid grid-rows-1 lg:grid-cols-2 max-w-7xl text-primary overflow-x-auto mx-auto">
@@ -134,13 +140,6 @@ const ProfilePage = () => {
             </button>
           </form>
         </div>
-
-        <button
-          onClick={handleLogout}
-          className="p-3 text-red-100 bg-red-600 hover:text-red-600 hover:bg-red-100 active:bg-red-100 rounded-tl cursor-pointer w-fit absolute bottom-0 right-0"
-        >
-          <LogOut />
-        </button>
       </main>
     </>
   );

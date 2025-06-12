@@ -90,10 +90,10 @@ const DashboardPage = () => {
         </div>
         <div>
           <Link
-            to="/entry"
+            to="/story"
             className="bg-primary text-secondary px-4 py-4 rounded inline-flex items-center gap-2 whitespace-nowrap h-max w-max"
           >
-            <Plus /> Entri Baru
+            <Plus /> Cerita Baru
           </Link>
         </div>
       </header>
@@ -174,7 +174,7 @@ const DashboardPage = () => {
                 <div className="flex flex-col rounded border border-accent-darker px-6 py-4 col-span-2 lg:col-span-1">
                   <div className="mb-4">
                     <h2 className="text-2xl font-semibold">Skor Suasana Hatimu Saat Ini</h2>
-                    <p className="text-sm text-accent-darker">Dihitung dari entri suasana hati terakhirmu</p>
+                    <p className="text-sm text-accent-darker">Dihitung dari beberapa cerita terakhirmu</p>
                   </div>
                   <div className="overflow-x-auto mb-8">
                     <ProgressCircle percentage={parseFloat(latestSummary?.yourmoodtotal) || 0} />
@@ -223,7 +223,7 @@ const DashboardPage = () => {
                           yAxisId="right"
                           orientation="right"
                           label={{
-                            value: "Total Entries",
+                            value: "Total Stories",
                             angle: -90,
                             position: "insideRight",
                             fill: "var(--color-primary-darker)",
@@ -263,7 +263,7 @@ const DashboardPage = () => {
                           dataKey="totalEntries"
                           stroke="var(--color-accent)"
                           strokeWidth={2}
-                          name="Total Entries"
+                          name="Total Stories"
                           dot={{ r: 4, stroke: "var(--color-accent-darker)", strokeWidth: 1 }}
                           activeDot={{ r: 6 }}
                         />

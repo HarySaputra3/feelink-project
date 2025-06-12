@@ -8,7 +8,7 @@ import LoginPage from '../pages/auth/LoginPage'
 import SignupPage from '../pages/auth/SignupPage'
 
 import DashboardPage from '../pages/app/DashboardPage'
-import EntryPage from '../pages/app/EntryPage'
+import EntryPage from '../pages/app/StoryPage'
 import HistoryPage from '../pages/app/HistoryPage'
 import ProfilePage from '../pages/app/ProfilePage'
 import ResetPasswordPage from '../pages/auth/ResetPasswordPage';
@@ -37,7 +37,7 @@ export default function AppRoutes() {
         </ProtectedRoute>
       }>
         <Route path="dashboard" element={<DashboardPage />} />
-        <Route path="entry" element={<EntryPage />} />
+        <Route path="story" element={<EntryPage />} />
         <Route path="history" element={<HistoryPage />} />
         <Route path="profile" element={<ProfilePage />} />
       </Route>
