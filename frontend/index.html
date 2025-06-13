@@ -40,16 +40,27 @@
       </div>
     </div>
     <script>
-      // Remove the loading indicator once React takes over
-      window.addEventListener('DOMContentLoaded', function() {
+      window.addEventListener('DOMContentLoaded', function () {
         var root = document.getElementById('root');
         var loading = document.getElementById('global-loading');
+
         if (root && loading) {
-          new MutationObserver(() => {
+          const observer = new MutationObserver(() => {
             if (root.children.length > 0) {
               loading.remove();
+              observer.disconnect();
             }
-          }).observe(root, { childList: true });
+          });
+
+          observer.observe(root, { childList: true });
+
+          // Repeating fallback in case observer misses it
+          const interval = setInterval(() => {
+            if (root.children.length > 0 && document.body.contains(loading)) {
+              loading.remove();
+              clearInterval(interval)
+            }
+          }, 200);
         }
       });
     </script>
